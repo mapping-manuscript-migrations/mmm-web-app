@@ -8,13 +8,17 @@ export default {
   },
   appDescription: `
     Mapping Manuscript Migrations (MMM) is a semantic portal for finding and studying pre-modern manuscripts and
-    their movements, based on linked collections of 
-    <a href='https://sdbm.library.upenn.edu' target='_blank' rel='noopener noreferrer'>Schoenberg Institute,</a>
-    <a href='https://medieval.bodleian.ox.ac.uk' target='_blank' rel='noopener noreferrer'>Bodleian Library</a>, and
+    their movements, based on linked collections of the 
+    <a href='https://sdbm.library.upenn.edu' target='_blank' rel='noopener noreferrer'>Schoenberg Institute for Manuscript Studies,</a>
+    the <a href='https://medieval.bodleian.ox.ac.uk' target='_blank' rel='noopener noreferrer'>Bodleian Library</a>, and the
     <a href='http://bibale.irht.cnrs.fr' target='_blank' rel='noopener noreferrer'>Institut de recherche et d'histoire des textes</a>.
   `,
   selectPerspective: 'Select a perspective to search and browse the MMM data:',
-  mainPageImageLicence: 'Images used under license from Shutterstock.com',
+  mainPageImageLicence: `
+    Images used under licenses from Shutterstock.com, Wikimedia, and 
+    <a href='http://openn.library.upenn.edu/ReadMe.html' target='_blank' rel='noopener noreferrer'>OPenn</a>.
+    
+  `,
   topBar: {
     feedback: 'feedback',
     info: {
