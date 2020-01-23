@@ -28,7 +28,7 @@ class Export extends React.Component {
     const { classes, sparqlQuery } = this.props
     let yasguiUrl = ''
     if (this.props.sparqlQuery !== null) {
-      yasguiUrl = 'http://yasgui.org/#query=' +
+      yasguiUrl = 'https://yasgui.triply.cc/#query=' +
       encodeURIComponent(sparqlQuery) +
       '&contentTypeConstruct=text%2Fturtle&contentTypeSelect=application%2Fsparql-results' +
       '%2Bjson&endpoint=http%3A%2F%2Fldf.fi%2Fmmm-cidoc%2Fsparql&requestMethod=POST&tabTitle=' +
@@ -44,7 +44,7 @@ class Export extends React.Component {
           rel='noopener noreferrer'
         >
           <Button variant='contained' color='primary' className={classes.button}>
-            Open SPARQL query in yasgui.org
+            open the result table query in yasgui sparql editor
           </Button>
         </a>
         {this.props.pageType === 'instancePage' &&
