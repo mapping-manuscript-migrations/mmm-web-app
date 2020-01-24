@@ -90,7 +90,7 @@ const Footer = props => {
             </a>
           </Grid> */}
           <Grid item xs className={classes.logoContainer}>
-            <a href='https://www.aalto.fi/en/school-of-science' target='_blank' rel='noopener noreferrer'>
+            <a href='https://www.aalto.fi/en/department-of-computer-science' target='_blank' rel='noopener noreferrer'>
               <img className={classes.aaltoLogo} src={aaltoLogo} alt='logo' />
             </a>
           </Grid>
