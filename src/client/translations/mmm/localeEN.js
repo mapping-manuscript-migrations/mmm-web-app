@@ -10,7 +10,7 @@ export default {
     Mapping Manuscript Migrations (MMM) is a semantic portal for finding and studying pre-modern manuscripts and
     their movements, based on linked collections of the 
     <a href='https://sdbm.library.upenn.edu' target='_blank' rel='noopener noreferrer'>Schoenberg Institute for Manuscript Studies,</a>
-    the <a href='https://medieval.bodleian.ox.ac.uk' target='_blank' rel='noopener noreferrer'>Bodleian Library</a>, and the
+    the <a href='https://medieval.bodleian.ox.ac.uk' target='_blank' rel='noopener noreferrer'>Bodleian Libraries</a>, and the
     <a href='http://bibale.irht.cnrs.fr' target='_blank' rel='noopener noreferrer'>Institut de recherche et d'histoire des textes</a>.
   `,
   selectPerspective: 'Select a perspective to search and browse the MMM data:',

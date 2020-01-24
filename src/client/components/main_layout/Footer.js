@@ -3,8 +3,9 @@ import Paper from '@material-ui/core/Paper'
 import PropTypes from 'prop-types'
 import Grid from '@material-ui/core/Grid'
 import { withStyles } from '@material-ui/core/styles'
-import oxfordLogo from '../../img/logos/partners/ox_brand6_pos_rect.gif'
+// import oxfordLogo from '../../img/logos/partners/ox_brand6_pos_rect.gif'
 import oxfordLogo2 from '../../img/logos/partners/Long-Logo-RGB.jpg'
+import bodleainLogo from '../../img/logos/partners/bodleain.png'
 import pennLogo from '../../img/logos/partners/PL SIMS Logo_small.png'
 import cnrsLogo from '../../img/logos/partners/logo_cnrs_irht2.jpg'
 import aaltoLogo from '../../img/logos/partners/Aalto_SCI_EN_13_BLACK_2_cropped.png'
@@ -29,7 +30,7 @@ const styles = theme => ({
   },
   layout: {
     width: 'auto',
-    height: 115,
+    height: 120,
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1),
     marginLeft: theme.spacing(2),
@@ -50,6 +51,10 @@ const styles = theme => ({
   },
   aaltoLogo: {
     height: 37
+  },
+  bodleainLogo: {
+    height: 48,
+    marginTop: -5
   }
 })
 
@@ -60,13 +65,13 @@ const Footer = props => {
       <Grid container className={classes.layout}>
         <Grid container spacing={3} item xs={12}>
           <Grid item xs className={classes.logoContainer}>
-            <a href='http://www.ox.ac.uk' target='_blank' rel='noopener noreferrer'>
-              <img className={classes.logo} src={oxfordLogo} alt='logo' />
+            <a href='http://www.oerc.ox.ac.uk' target='_blank' rel='noopener noreferrer'>
+              <img className={classes.logo} src={oxfordLogo2} alt='logo' />
             </a>
           </Grid>
           <Grid item xs className={classes.logoContainer}>
-            <a href='http://www.oerc.ox.ac.uk' target='_blank' rel='noopener noreferrer'>
-              <img className={classes.logo} src={oxfordLogo2} alt='logo' />
+            <a href='https://www.bodleian.ox.ac.uk/' target='_blank' rel='noopener noreferrer'>
+              <img className={classes.bodleainLogo} src={bodleainLogo} alt='logo' />
             </a>
           </Grid>
           <Grid item xs className={classes.logoContainer}>
