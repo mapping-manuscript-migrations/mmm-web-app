@@ -909,8 +909,8 @@ export default {
     </p>
     <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
       If you want to search all the underlying data using the SPARQL query language, the endpoint is
-      available here: <a href="http://ldf.fi/mmm-cidoc/sparql" target='_blank' rel='noopener noreferrer'>
-      http://ldf.fi/mmm-cidoc/sparql</a>.
+      available here: <a href="http://ldf.fi/mmm/sparql" target='_blank' rel='noopener noreferrer'>
+      http://ldf.fi/mmm/sparql</a>.
     </p>
     <h2 class="MuiTypography-root MuiTypography-h4 MuiTypography-gutterBottom">
       Data Reuse
