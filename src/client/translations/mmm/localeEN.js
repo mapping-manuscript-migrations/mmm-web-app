@@ -841,26 +841,24 @@ export default {
   },
   aboutThePortal: `
     <h1 class="MuiTypography-root MuiTypography-h2 MuiTypography-gutterBottom">
-      About the Portal
+      Mapping Manuscript Migrations
     </h1>
     <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
-      Mapping Manuscript Migrations (MMM) Portal has been developed with funding from the Trans-Atlantic
-      Platform under its Digging into Data Challenge (2017-2019). The partners in this project are
-      the University of Oxford, the University of Pennsylvania, Aalto University,
-      and the Institut de recherche et d’histoire des textes.
-      Funding has been provided by the UK Economic and Social Research Council,
-      the Institute of Museum and Library Services, the Academy of Finland, and the
-      Agence nationale de la recherche.
-    </p>
-    <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
-      MMM Portal is intended to enable large-scale exploration of data relating to the history and provenance
-      of (primarily) Western European medieval and early modern manuscripts.
+      Mapping Manuscript Migrations (MMM) is a semantic portal intended to enable large-scale exploration of 
+      data relating to the history and provenance of (primarily) Western European medieval and early 
+      modern manuscripts. 
     </p>
     <h2 class="MuiTypography-root MuiTypography-h4 MuiTypography-gutterBottom">
-      Data
+      Linked Open Data
     </h2>
     <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
-      MMM Portal combines data from three specialist databases:
+      MMM combines data from three specialist databases, based on Linked Open Data
+      <a 
+        href="https://www.w3.org/standards/semanticweb" 
+        target='_blank' rel='noopener noreferrer'
+      >
+        principles and technology
+        </a>: 
     </p>
     <ul class="MuiTypography-root MuiTypography-body1 MuiTypography-gutterBottom">
       <li>
@@ -886,34 +884,19 @@ export default {
       </li>
     </ul>
     <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
-      The data have been combined using a unified Data Model based on the CIDOC-CRM
-      and FRBRoo ontologies. A diagram of the Data Model can be seen
+      The data have been combined using a set of shared ontologies and a novel unified Data Model 
+      that extends the CIDOC-CRM and FRBRoo ontologies. A diagram of the Data Model can be seen
       <a href="https://drive.google.com/open?id=1uyTA8Prwtts5g13eor48tKHk_g63NaaG" target='_blank' rel='noopener noreferrer'>
-      here</a>. The data have not been corrected or amended in any way. If you notice an error in the data,
-      please report it to the custodians of the original database.
+      here</a>.
+    </p>
+    <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
+      The original data have not been corrected or amended in any way, only aggregated from the legacy databases 
+      and transformed and linked into a global knowledge graph hosted in a linked open data service. The semantic 
+      portal MMM was created on top of the data service using its SPARQL API. If you notice an error in the data, 
+      please report it to the custodians of the original databases.
     </p>
     <h2 class="MuiTypography-root MuiTypography-h4 MuiTypography-gutterBottom">
-      Features
-    </h2>
-    <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
-      The MMM Portal enables you to browse and search through most of the data assembled by the MMM project
-      from the three source databases. If you want to inspect the full raw data for any individual
-      manuscript or other entity, please click on the “Open in Linked Data browser” button on
-      the “Export” tab of the landing-page for that entity.
-    </p>
-    <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
-      The MMM Portal also provides map-based visualizations for a selection of the data relating to
-      Manuscripts, Actors, and Places. The data resulting from a search or a filtered browse can be
-      exported in the form of a CSV file. Click on the “Export” tab and then on the button
-      “Open SPARQL query in yasgui.org”.
-    </p>
-    <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
-      If you want to search all the underlying data using the SPARQL query language, the endpoint is
-      available here: <a href="http://ldf.fi/mmm/sparql" target='_blank' rel='noopener noreferrer'>
-      http://ldf.fi/mmm/sparql</a>.
-    </p>
-    <h2 class="MuiTypography-root MuiTypography-h4 MuiTypography-gutterBottom">
-      Data Reuse
+      Data Re-use and Reference
     </h2>
     <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
       The MMM data are made available for reuse under a
@@ -927,15 +910,84 @@ export default {
     <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
       You may not use the data for commercial purposes.
     </p>
+    <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
+      For making scientific references, you can refer to the publications listed 
+      <a href="https://seco.cs.aalto.fi/projects/mmm" target='_blank' rel='noopener noreferrer'>
+      here</a>.
+    </p>
+    <h2 class="MuiTypography-root MuiTypography-h4 MuiTypography-gutterBottom">
+      Data Service Online
+    </h2>
+    <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
+      The linked data is served by a Linked Open Data service, based on the recommendations and 
+      best practices of W3C. The data and service are hosted by the 
+      <a href="http://ldf.fi" target='_blank' rel='noopener noreferrer'>
+      Linked Data Finland</a> service at:
+    </p>
+    <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
+      <a href="http://www.ldf.fi/dataset/mmm" target='_blank' rel='noopener noreferrer'>
+      http://www.ldf.fi/dataset/mmm</a>
+    </p>
+    <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
+      If you want to search and re-use all the underlying data using the SPARQL query language, 
+      the SPARQL endpoint is available here: 
+    </p>
+    <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
+      <a href="http://ldf.fi/mmm/sparql" target='_blank' rel='noopener noreferrer'>
+      http://ldf.fi/mmm/sparql</a>
+    </p>
+    <h2 class="MuiTypography-root MuiTypography-h4 MuiTypography-gutterBottom">
+      Using the MMM Portal 
+    </h2>
+    <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
+      The MMM Portal enables you to search and browse through most of the data assembled 
+      by the project from the three source databases. The data can be studied using multiple perspectives. 
+      The perspectives are equipped with faceted search and browsing engines integrated with ready-to-use tools 
+      for Digital Humanities research, based on the 
+      <a href="https://www.europenowjournal.org/2019/09/09/linked-data-in-use-sampo-portals-on-the-semantic-web/" target='_blank' rel='noopener noreferrer'>
+      “Sampo” model</a>.
+    </p>
+    <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
+      For more detailed user instructions see the <a href="https://mappingmanuscriptmigrations.org/instructions" target='_blank' rel='noopener noreferrer'>
+      general instructions</a> and the introductory texts on top of each perspective’s landing page.
+    </p>
     <h2 class="MuiTypography-root MuiTypography-h4 MuiTypography-gutterBottom">
       More Information
     </h2>
     <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
       The MMM project has its own
-      <a href="https://github.com/mapping-manuscript-migrations" target='_blank' rel='noopener noreferrer'>GitHub site</a>.
+      <a href="https://github.com/mapping-manuscript-migrations" target='_blank' rel='noopener noreferrer'>GitHub site</a>. 
+      Here you will find documentation, scripts and programs, and samples of the raw data.
     </p>
     <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
-      Here you will find documentation, scripts and programs, and samples of the raw data.
+      The portal was implemented by the
+      <a href="https://seco.cs.aalto.fi" target='_blank' rel='noopener noreferrer'>
+      Semantic Computing Research Group</a> (SeCo) at Aalto University and 
+      University of Helsinki (HELDIG) in collaboration with the teams at the University 
+      of Oxford (Oxford e-Research Centre and Bodleian Libraries), the Schoenberg Institute for Manuscript Studies 
+      (University of Pennsylvania), and the Institut de recherche et d’histoire des textes (CNRS-IRHT) in Paris. 
+    </p>
+    <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
+      The project homepage is:
+    </p>
+    <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
+      <a href="http://blog.mappingmanuscriptmigrations.org" target='_blank' rel='noopener noreferrer'>
+      http://blog.mappingmanuscriptmigrations.org</a>
+    </p>
+    <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
+      More information about the technical design and publications of the project can be found at:
+    </p>
+    <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
+      <a href="https://seco.cs.aalto.fi/projects/mmm" target='_blank' rel='noopener noreferrer'>
+      https://seco.cs.aalto.fi/projects/mmm</a>.
+    </p>
+    <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
+      MMM has been developed with funding from the Trans-Atlantic Platform under its Digging 
+      into Data Challenge (2017-2019). The partners in this project are the University of Oxford, 
+      the University of Pennsylvania, Aalto University in collaboration with University of Helsinki (HELDIG), 
+      and the Institut de recherche et d’histoire des textes. Funding has been provided by the UK 
+      Economic and Social Research Council, the Institute of Museum and Library Services, the 
+      Academy of Finland, and the Agence nationale de la recherche.
     </p>
   `,
   instructions: `
