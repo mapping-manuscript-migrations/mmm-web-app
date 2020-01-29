@@ -944,8 +944,8 @@ export default {
       by the project from the three source databases. The data can be studied using multiple perspectives. 
       The perspectives are equipped with faceted search and browsing engines integrated with ready-to-use tools 
       for Digital Humanities research, based on the 
-      <a href="https://www.europenowjournal.org/2019/09/09/linked-data-in-use-sampo-portals-on-the-semantic-web/" target='_blank' rel='noopener noreferrer'>
-      “Sampo” model</a>.
+      <a href="https://seco.cs.aalto.fi/publications/2020/hyvonen-sampos-dhn-2020.pdf" target='_blank' rel='noopener noreferrer'>
+      "Sampo" model</a>.
     </p>
     <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
       For more detailed user instructions see the <a href="https://mappingmanuscriptmigrations.org/instructions" target='_blank' rel='noopener noreferrer'>
@@ -992,33 +992,63 @@ export default {
   `,
   instructions: `
     <h1 class="MuiTypography-root MuiTypography-h2 MuiTypography-gutterBottom">
-      Instructions
+      Using the MMM Portal
     </h1>
-    <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
-      The search functionality of the MMM portal is based on the
-      <a href="https://doi.org/10.2200/S00190ED1V01Y200904ICR005" target='_blank' rel='noopener noreferrer'>
-      faceted search</a> paradigm. By default each perspective displays
-      all results from the corresponding class (Manuscripts, Works, Events, Actors, or Places).
-      This default result set can be narrowed down by using the filters on the left.
-    </p>
-
     <h2 class="MuiTypography-root MuiTypography-h4 MuiTypography-gutterBottom">
-      Using a single filter
+      General Idea
     </h2>
-
+    <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
+      The MMM Portal enables you to search and browse through most of the data assembled by 
+      the MMM project from the three source databases. In addition, the portal is equipped 
+      with ready-to-use tools for Digital Humanities research using the 
+      <a href="https://seco.cs.aalto.fi/publications/2020/hyvonen-sampos-dhn-2020.pdf" target='_blank' rel='noopener noreferrer'>
+      "Sampo" model</a> where the portal is used as follows:
+    </p>
+    <ol class="MuiTypography-root MuiTypography-body1 MuiTypography-gutterBottom">
+    <li class="MuiTypography-gutterBottom">
+        On the front page of the portal different perspectives to the data are given as a selection, here Manuscripts, 
+        Works, Events, Actors, and Places. The idea is to provide access to the underlying data (knowledge graph) 
+        through multiple use cases while the underlying data remains the same.
+      </li>
+      <li class="MuiTypography-gutterBottom">
+        After selecting a perspective, faceted search  can be used for filtering out a subset of objects of the view, 
+        the “target group” of interest. For example, manuscripts by a given author in a time period can be selected. 
+        By default each perspective displays all results from the corresponding class (Manuscripts, Works, Events, Actors, 
+        or Places). This default result set can be narrowed down by using the filters.
+      </li>
+      <li class="MuiTypography-gutterBottom">
+        Finally, data analysis and visualization tools can be applied to study the target group. For example, it is possible 
+        to see on maps how the manuscripts have moved from the place of production to their last known location ("Migrations" 
+        tab on the Manuscripts perspective). Map-based visualizations are available also in the Actors and Places perspectives.
+      </li>
+    </ol>
+    <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
+      Using the "Export" tab in a perspective and then the button "Open SPARQL query in YASGUI" the SPARQL query corresponding to 
+      the facet selections made is shown in the 
+      <a href="https://yasgui.triply.cc" target='_blank' rel='noopener noreferrer'>
+      YASGUI</a> SPARQL querying interface with the results. Additional YASGUI tools for studying the results and downloading 
+      the data are available there. For example, the results of the query can be downloaded in CSV format for additional 
+      spreadsheet computing. 
+   </p>
+    <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
+      If you want to inspect the full raw data for any individual manuscript or other entity, click on the link of the entity.
+    </p>
+    <h2 class="MuiTypography-root MuiTypography-h4 MuiTypography-gutterBottom">
+      Using a Single Filter in Faceted Search
+    </h2>
     <h3 class="MuiTypography-root MuiTypography-h6 MuiTypography-gutterBottom">
       Selecting values within a filter
     </h3>
     <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
-      All possible values for a filter are displayed either as a list or as a hierarchical
-      tree structure (if available). The number of results is shown in brackets for each value.
-      Once a value is selected, the results are automatically updated. To prevent further
-      selections that do not return any results, also the possible values for all
-      other filters are updated at the same time.
+      All possible values for a filter are displayed either as a list or as a hierarchical 
+      tree (if available). The number of results is shown in brackets for each value. 
+      Once a value is selected, the results are automatically updated. To prevent further 
+      selections that do not return any results, also the possible values for all other 
+      filters are updated at the same time.
     </p>
     <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
       Multiple values can be selected within a single filter. Selecting multiple values
-      generates results that contain any of the selected values. For example, selecting
+      generates results that contain <strong>any</strong> of the selected values. For example, selecting
       both <i>Saint Augustine</i> and <i>Saint Jerome</i> as an Author returns results that
       include either <i>Saint Augustine</i> <strong>OR</strong> <i>Saint Jerome</i> as an Author.
     </p>
@@ -1029,43 +1059,44 @@ export default {
       filter’s value list. The Active filters section only appears if there are filter
       values currently selected.
     </p>
-
     <h3 class="MuiTypography-root MuiTypography-h6 MuiTypography-gutterBottom">
-      Searching within a filter
+      Searching categories within a filter
     </h3>
     <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
-      Search within a filter by using the search field at the top of each filter.
-      All possible values of a filter remain visible at all times. The values of
-      the filter that match the search term are indicated by a purple underline.
+      Category selections within a filter can be searched by using the search field at the 
+      top of each filter. All possible values of a filter remain visible at all times. 
+      The values of the filter that match the search term are indicated by a purple underline. 
     </p>
     <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
       Steps for searching within filters:
     </p>
     <ol class="MuiTypography-root MuiTypography-body1 MuiTypography-gutterBottom">
-      <li>
+      <li class="MuiTypography-gutterBottom">
         Type search term into search field. If there are matches, a number
         will appear to the right of the search field, indicating the number
         of filter values that match the search term.
       </li>
-      <li>
-        Click the arrows to the right of the search field to cycle
-        through the results. As you click the arrow, a different filter value
-        will appear at the top of the list. Matched filters are underlined in
-        purple.
+      <li class="MuiTypography-gutterBottom">
+        Click the arrows " <  > " to the right of the search field to cycle through 
+        the results. As you click the arrow, a different filter value will appear 
+        at the top of the list. Matched filters are underlined in purple.
       </li>
-      <li>
-        Click the checkmark next to a filter value to activate it. The results
-        (and also other filters) are automatically updated.
+      <li class="MuiTypography-gutterBottom">
+        Click the checkmark next to a filter value to activate it. 
+        The results (and also other filters) are automatically updated. 
       </li>
     </ol>
-
+    <p></p>      
     <h2 class="MuiTypography-root MuiTypography-h4 MuiTypography-gutterBottom">
-      Using multiple filters simultaneously
+      Using Multiple Filters Simultaneously
     </h2>
     <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
       The effectiveness of faceted search is realized when multiple filters are
       applied at the same time. As in many e-commerce sites, a logical AND is
-      always used between the filters. For example selecting <i>Saint Augustine </i>
+      always used between the filters. 
+    </p>
+    <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
+      For example selecting <i>Saint Augustine </i>
       and <i>Saint Jerome</i> as an Author and <i>Sir Thomas Phillipps</i> and
       <i> Thomas Thorpe</i> as an Owner, the results are narrowed down as follows:
     </p>
@@ -1077,6 +1108,12 @@ export default {
     </p>
     <p class="MuiTypography-root MuiTypography-body1">
       (Owner: <i>Sir Thomas Phillipps</i> <strong>OR</strong> Owner: <i>Thomas Thorpe</i>)
+    </p>
+    <p></p>
+    <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
+      In faceted search you can make selections in filters in any order, and the hit 
+      counts in the other filters are automatically updated. In this way you never end 
+      up in "no hits" dead ends.
     </p>
   `,
   feedback: `
