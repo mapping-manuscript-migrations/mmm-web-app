@@ -291,6 +291,16 @@ const SemanticPortal = props => {
                 <Footer />
               </Grid>}
           />
+          {/* https://stackoverflow.com/a/41024944 */}
+          <Route
+            path='/' render={({ location }) => {
+              if (typeof window.ga === 'function') {
+                window.ga('set', 'page', location.pathname + location.search)
+                window.ga('send', 'pageview')
+              }
+              return null
+            }}
+          />
           {/* route for full text search results */}
           <Route
             path='/all'
