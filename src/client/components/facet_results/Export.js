@@ -31,7 +31,7 @@ class Export extends React.Component {
       yasguiUrl = 'https://yasgui.triply.cc/#query=' +
       encodeURIComponent(sparqlQuery) +
       '&contentTypeConstruct=text%2Fturtle&contentTypeSelect=application%2Fsparql-results' +
-      '%2Bjson&endpoint=http%3A%2F%2Fldf.fi%2Fmmm-cidoc%2Fsparql&requestMethod=POST&tabTitle=' +
+      '%2Bjson&endpoint=http%3A%2F%2Fldf.fi%2Fmmm%2Fsparql&requestMethod=POST&tabTitle=' +
       'Query+11&headers=%7B%7D&outputFormat=table'
     }
 
