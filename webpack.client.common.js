@@ -12,9 +12,9 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(['dist']),
     new HtmlWebpackPlugin({
-      favicon: 'src/client/favicon.ico',
       // Load a custom template
-      template: 'src/client/index.html'
+      template: 'src/client/index.html',
+      favicon: 'src/client/favicon.ico'
     }),
     new webpack.NamedModulesPlugin(),
     new webpack.HotModuleReplacementPlugin()

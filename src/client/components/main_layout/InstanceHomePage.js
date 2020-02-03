@@ -39,7 +39,15 @@ class InstanceHomePage extends React.Component {
     }
   }
 
-  componentDidMount = () => {
+  componentDidMount = () => this.fetchData()
+
+  componentDidUpdate = prevProps => {
+    if (prevProps.routeProps.location !== this.props.routeProps.location) {
+      this.fetchData()
+    }
+  }
+
+  fetchData = () => {
     let uri = ''
     const base = 'http://ldf.fi/mmm'
     const locationArr = this.props.routeProps.location.pathname.split('/')
@@ -51,26 +59,14 @@ class InstanceHomePage extends React.Component {
     })
     this.setState({ localID: localID })
     switch (this.props.resultClass) {
-      case 'manuscripts':
+      case 'perspective1':
         uri = `${base}/manifestation_singleton/${localID}`
         break
-      case 'expressions':
-        uri = `${base}/expression/${localID}`
-        break
-      case 'collections':
-        uri = `${base}/collection/${localID}`
-        break
-      case 'works':
+      case 'perspective2':
         uri = `${base}/work/${localID}`
         break
-      case 'events':
+      case 'perspective3':
         uri = `${base}/event/${localID}`
-        break
-      case 'actors':
-        uri = `${base}/actor/${localID}`
-        break
-      case 'places':
-        uri = `${base}/place/${localID}`
         break
     }
     this.props.fetchByURI({
@@ -130,6 +126,7 @@ class InstanceHomePage extends React.Component {
         <PerspectiveTabs
           routeProps={this.props.routeProps}
           tabs={this.props.tabs}
+          screenSize={this.props.screenSize}
         />
         <Paper square className={classes.content}>
           {isLoading &&
@@ -196,7 +193,8 @@ InstanceHomePage.propTypes = {
   properties: PropTypes.array.isRequired,
   tabs: PropTypes.array.isRequired,
   isLoading: PropTypes.bool.isRequired,
-  routeProps: PropTypes.object.isRequired
+  routeProps: PropTypes.object.isRequired,
+  screenSize: PropTypes.string.isRequired
 }
 
 export default withStyles(styles)(InstanceHomePage)

@@ -1,4 +1,4 @@
-import { facetConfigs } from './FacetConfigsMMM'
+import { facetConfigs } from './sampo/FacetConfigsSampo'
 
 export const hasPreviousSelections = (constraints, facetID) => {
   let hasPreviousSelections = false
@@ -243,7 +243,7 @@ const generateUriFilter = ({
   if (addChildren) {
     s = `
          VALUES ?${facetID}Filter { <${values.join('> <')}> }
-         ?${facetID}FilterWithChildren gvp:broaderPreferred* ?${facetID}Filter .
+         ?${facetID}FilterWithChildren ${facetConfigs[facetClass][facetID].parentProperty}* ?${facetID}Filter .
      `
   } else {
     s = `

@@ -13,10 +13,10 @@ import Button from '@material-ui/core/Button'
 import { Link, NavLink } from 'react-router-dom'
 import TopBarSearchField from './TopBarSearchField'
 import TopBarInfoButton from './TopBarInfoButton'
-// import TopBarLanguageButton from './TopBarLanguageButton';
+import TopBarLanguageButton from './TopBarLanguageButton'
 import Divider from '@material-ui/core/Divider'
 import { has } from 'lodash'
-import mmmLogo from '../../img/mmm-logo-52x50.png'
+// import mmmLogo from '../../img/mmm-logo-52x50.png'
 import secoLogo from '../../img/seco-logo-48x50.png'
 
 const styles = theme => ({
@@ -197,7 +197,7 @@ class TopBar extends React.Component {
     </Menu>
 
   render () {
-    const { classes, perspectives /* currentLocale, availableLocales */ } = this.props
+    const { classes, perspectives, currentLocale, availableLocales } = this.props
     return (
       <div className={classes.root}>
         {/* Add an empty Typography element to ensure that that the MuiTypography class is loaded for
@@ -206,7 +206,7 @@ class TopBar extends React.Component {
         <AppBar position='absolute'>
           <Toolbar className={classes.toolbar}>
             <Button component={this.AdapterLink} to='/'>
-              <img src={mmmLogo} />
+              <Typography variant='h6'>{intl.get('appTitle.short')}</Typography>
             </Button>
             <TopBarSearchField
               fetchResultsClientSide={this.props.fetchResultsClientSide}
@@ -237,11 +237,11 @@ class TopBar extends React.Component {
                 {intl.get('topBar.instructions')}
               </Button>
 
-              {/* <TopBarLanguageButton
+              <TopBarLanguageButton
                 currentLocale={currentLocale}
                 availableLocales={availableLocales}
                 loadLocales={this.props.loadLocales}
-              /> */}
+              />
             </div>
             <a
               className={classes.secoLogo}

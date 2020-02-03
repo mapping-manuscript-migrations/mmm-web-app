@@ -1,6 +1,6 @@
 import { runSelectQuery } from './SparqlApi'
 import { runNetworkQuery } from './NetworkApi'
-import { prefixes } from './SparqlQueriesPrefixes'
+import { prefixes } from './mmm/SparqlQueriesPrefixes'
 import {
   countQuery,
   facetResultSetQuery,
@@ -16,14 +16,14 @@ import {
   migrationsQuery,
   networkLinksQuery,
   networkNodesQuery
-} from './SparqlQueriesManuscripts'
-import { workProperties } from './SparqlQueriesWorks'
-import { eventProperties, eventPlacesQuery } from './SparqlQueriesEvents'
-import { generateEventsByPeriodQuery } from './FacetResultsEvents'
+} from './mmm/SparqlQueriesManuscripts'
+import { workProperties } from './mmm/SparqlQueriesWorks'
+import { eventProperties, eventPlacesQuery } from './mmm/SparqlQueriesEvents'
+import { generateEventsByPeriodQuery } from './mmm/FacetResultsEvents'
 import {
   actorProperties,
   placesActorsQuery
-} from './SparqlQueriesActors'
+} from './mmm/SparqlQueriesActors'
 import {
   placePropertiesInstancePage,
   placePropertiesFacetResults,
@@ -32,8 +32,8 @@ import {
   lastKnownLocationsAt,
   actorsAt,
   allPlacesQuery
-} from './SparqlQueriesPlaces'
-import { facetConfigs, endpoint } from './FacetConfigsMMM'
+} from './mmm/SparqlQueriesPlaces'
+import { facetConfigs, endpoint } from './mmm/FacetConfigsMMM'
 import { mapCount, mapPlaces } from './Mappers'
 import { makeObjectList } from './SparqlObjectMapper'
 import { generateConstraintsBlock } from './Filters'

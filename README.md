@@ -1,4 +1,4 @@
-# Mapping Manuscript Migrations Web App
+# Sampo Web App
 
 master branch visible at https://mappingmanuscriptmigrations.org
 
@@ -27,15 +27,15 @@ Run client and server concurrently:
 ## Deploy with Docker
 
 ### Build
- `docker build -t mmm-web-app-c .`
+ `docker build -t sampo-web-app-image .`
 
 ### Run
- `docker run -d -p 3006:3001 --name mmm-web-app mmm-web-app-c`
+ `docker run -d -p 3006:3001 --name sampo-web-app sampo-web-app-image`
 
 ### Upgrade
 ```
-docker build -t mmm-web-app-c .
-docker stop mmm-web-app
-docker rm mmm-web-app
-docker run -d -p 3006:3001 --name mmm-web-app mmm-web-app-c
+docker build -t sampo-web-app-image .
+docker stop sampo-web-app
+docker rm sampo-web-app
+docker run -d -p 3006:3001 --name sampo-web-app sampo-web-app-image
 ```

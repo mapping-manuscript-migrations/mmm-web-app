@@ -5,8 +5,8 @@ import {
   facetValuesQueryTimespan,
   facetValuesRange
 } from './SparqlQueriesGeneral'
-import { prefixes } from './SparqlQueriesPrefixes'
-import { facetConfigs, endpoint } from './FacetConfigsMMM'
+import { prefixes } from './mmm/SparqlQueriesPrefixes'
+import { facetConfigs, endpoint } from './mmm/FacetConfigsMMM'
 import {
   hasPreviousSelections,
   hasPreviousSelectionsFromOtherFacets,
