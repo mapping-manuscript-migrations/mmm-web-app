@@ -5,8 +5,9 @@ import L from 'leaflet'
 import { has, orderBy } from 'lodash'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import { purple } from '@material-ui/core/colors'
+import { MAPBOX_ACCESS_TOKEN } from '../../configs/mmm/GeneralConfig'
 import 'leaflet/dist/leaflet.css'
-import { MAPBOX_ACCESS_TOKEN } from '../../configs/config'
+import './LeafletMap.css'
 
 // Leaflet plugins
 import 'leaflet-fullscreen/dist/fullscreen.png'

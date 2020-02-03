@@ -1,7 +1,8 @@
 import { runSelectQuery } from './SparqlApi'
 import { prefixes } from './SparqlQueriesPrefixes'
-import { endpoint, jenaQuery } from './SparqlQueriesGeneral'
+import { jenaQuery } from './SparqlQueriesGeneral'
 import { makeObjectList } from './SparqlObjectMapper'
+import { endpoint } from './FacetConfigsMMM'
 
 export const queryJenaIndex = async ({
   queryTerm,

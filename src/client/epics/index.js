@@ -36,7 +36,7 @@ import {
   updateFacetValuesConstrainSelf,
   updateLocale
 } from '../actions'
-import { rootUrl, publishedPort } from '../configs/config'
+import { rootUrl, publishedPort } from '../configs/mmm/GeneralConfig'
 
 // set port if running on localhost with NODE_ENV = 'production'
 const port = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
