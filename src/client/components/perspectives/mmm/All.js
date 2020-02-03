@@ -17,6 +17,7 @@ const All = props => {
           icon: <CalendarViewDayIcon />,
           value: 0
         }]}
+        screenSize={props.screenSize}
       />
       <Route
         exact path={perspectiveUrl}
@@ -42,7 +43,8 @@ All.propTypes = {
   clientSideFacetedSearch: PropTypes.object.isRequired,
   updatePage: PropTypes.func,
   sortResults: PropTypes.func,
-  routeProps: PropTypes.object.isRequired
+  routeProps: PropTypes.object.isRequired,
+  screenSize: PropTypes.string.isRequired
 }
 
 export default All

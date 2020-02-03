@@ -59,14 +59,26 @@ class InstanceHomePage extends React.Component {
     })
     this.setState({ localID: localID })
     switch (this.props.resultClass) {
-      case 'perspective1':
+      case 'manuscripts':
         uri = `${base}/manifestation_singleton/${localID}`
         break
-      case 'perspective2':
+      case 'expressions':
+        uri = `${base}/expression/${localID}`
+        break
+      case 'collections':
+        uri = `${base}/collection/${localID}`
+        break
+      case 'works':
         uri = `${base}/work/${localID}`
         break
-      case 'perspective3':
+      case 'events':
         uri = `${base}/event/${localID}`
+        break
+      case 'actors':
+        uri = `${base}/actor/${localID}`
+        break
+      case 'places':
+        uri = `${base}/place/${localID}`
         break
     }
     this.props.fetchByURI({

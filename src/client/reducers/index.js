@@ -2,24 +2,36 @@ import { combineReducers } from 'redux'
 import { reducer as toastrReducer } from 'react-redux-toastr'
 import error from './error'
 import options from './options'
-import perspective1 from './sampo/perspective1'
-import perspective2 from './sampo/perspective2'
-import perspective3 from './sampo/perspective3'
-import perspective1Facets from './sampo/perspective1Facets'
-import perspective2Facets from './sampo/perspective2Facets'
-import perspective3Facets from './sampo/perspective3Facets'
-import places from './sampo/places'
+import manuscripts from './mmm/manuscripts'
+import works from './mmm/works'
+import events from './mmm/events'
+import actors from './mmm/actors'
+import places from './mmm/places'
+import collections from './mmm/collections'
+import expressions from './mmm/expressions'
+import manuscriptsFacets from './mmm/manuscriptsFacets'
+import manuscriptsFacetsConstrainSelf from './mmm/manuscriptsFacetsConstrainSelf'
+import worksFacets from './mmm/worksFacets'
+import eventsFacets from './mmm/eventsFacets'
+import actorsFacets from './mmm/actorsFacets'
+import placesFacets from './mmm/placesFacets'
 import animation from './mmm/animation'
 import clientSideFacetedSearch from './mmm/clientSideFacetedSearch'
 
 const reducer = combineReducers({
-  perspective1,
-  perspective2,
-  perspective3,
-  perspective1Facets,
-  perspective2Facets,
-  perspective3Facets,
+  manuscripts,
+  manuscriptsFacets,
+  manuscriptsFacetsConstrainSelf,
+  works,
+  worksFacets,
+  events,
+  eventsFacets,
+  actors,
+  actorsFacets,
   places,
+  placesFacets,
+  collections,
+  expressions,
   animation,
   options,
   error,

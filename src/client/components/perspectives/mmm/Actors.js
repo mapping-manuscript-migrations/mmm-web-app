@@ -12,6 +12,7 @@ const Actors = props => {
       <PerspectiveTabs
         routeProps={props.routeProps}
         tabs={props.perspective.tabs}
+        screenSize={props.screenSize}
       />
       <Route
         exact path='/actors/faceted-search'
@@ -74,7 +75,8 @@ Actors.propTypes = {
   sortResults: PropTypes.func.isRequired,
   routeProps: PropTypes.object.isRequired,
   updateFacetOption: PropTypes.func.isRequired,
-  perspective: PropTypes.object.isRequired
+  perspective: PropTypes.object.isRequired,
+  screenSize: PropTypes.string.isRequired
 }
 
 export default Actors

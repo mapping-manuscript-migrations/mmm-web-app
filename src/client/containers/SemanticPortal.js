@@ -13,14 +13,16 @@ import Main from '../components/main_layout/Main'
 import Footer from '../components/main_layout/Footer'
 import Message from '../components/main_layout/Message'
 import FacetBar from '../components/facet_bar/FacetBar'
-import Perspective1 from '../components/perspectives/sampo/Perspective1'
-import Perspective2 from '../components/perspectives/sampo/Perspective2'
-import Perspective3 from '../components/perspectives/sampo/Perspective3'
+import Manuscripts from '../components/perspectives/mmm/Manuscripts'
+import Works from '../components/perspectives/mmm/Works'
+import Events from '../components/perspectives/mmm/Events'
+import Places from '../components/perspectives/mmm/Places'
+import Actors from '../components/perspectives/mmm/Actors'
 import All from '../components/perspectives/mmm/All'
 import InstanceHomePage from '../components/main_layout/InstanceHomePage'
 import TextPage from '../components/main_layout/TextPage'
-import { perspectiveConfig } from '../configs/sampo/PerspectiveConfig'
-import { perspectiveConfigOnlyInfoPages } from '../configs/sampo/PerspectiveConfigOnlyInfoPages'
+import { perspectiveConfig } from '../configs/mmm/PerspectiveConfig'
+import { perspectiveConfigOnlyInfoPages } from '../configs/mmm/PerspectiveConfigOnlyInfoPages'
 import InfoHeader from '../components/main_layout/InfoHeader'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import { has } from 'lodash'
@@ -184,12 +186,12 @@ const SemanticPortal = props => {
   const renderPerspective = (perspective, routeProps) => {
     let perspectiveElement = null
     switch (perspective.id) {
-      case 'perspective1':
+      case 'manuscripts':
         perspectiveElement =
-          <Perspective1
-            perspective1={props.perspective1}
+          <Manuscripts
+            manuscripts={props.manuscripts}
             places={props.places}
-            facetData={props.perspective1Facets}
+            facetData={props.manuscriptsFacets}
             fetchPaginatedResults={props.fetchPaginatedResults}
             fetchResults={props.fetchResults}
             fetchByURI={props.fetchByURI}
@@ -204,12 +206,12 @@ const SemanticPortal = props => {
             screenSize={screenSize}
           />
         break
-      case 'perspective2':
+      case 'works':
         perspectiveElement =
-          <Perspective2
-            perspective2={props.perspective2}
+          <Works
+            works={props.works}
             places={props.places}
-            facetData={props.perspective2Facets}
+            facetData={props.worksFacets}
             fetchPaginatedResults={props.fetchPaginatedResults}
             fetchResults={props.fetchResults}
             fetchByURI={props.fetchByURI}
@@ -221,18 +223,54 @@ const SemanticPortal = props => {
             screenSize={screenSize}
           />
         break
-      case 'perspective3':
+      case 'events':
         perspectiveElement =
-          <Perspective3
-            perspective3={props.perspective3}
+          <Events
+            events={props.events}
             places={props.places}
-            facetData={props.perspective3Facets}
+            facetData={props.eventsFacets}
             fetchPaginatedResults={props.fetchPaginatedResults}
             fetchResults={props.fetchResults}
             fetchByURI={props.fetchByURI}
             updatePage={props.updatePage}
             updateRowsPerPage={props.updateRowsPerPage}
             updateFacetOption={props.updateFacetOption}
+            sortResults={props.sortResults}
+            routeProps={routeProps}
+            perspective={perspective}
+            screenSize={screenSize}
+          />
+        break
+      case 'actors':
+        perspectiveElement =
+          <Actors
+            actors={props.actors}
+            places={props.places}
+            facetData={props.actorsFacets}
+            fetchResults={props.fetchResults}
+            fetchPaginatedResults={props.fetchPaginatedResults}
+            fetchByURI={props.fetchByURI}
+            filters={props.manuscriptsFacets.filters}
+            updatePage={props.updatePage}
+            updateRowsPerPage={props.updateRowsPerPage}
+            updateFacetOption={props.updateFacetOption}
+            sortResults={props.sortResults}
+            routeProps={routeProps}
+            perspective={perspective}
+            screenSize={screenSize}
+          />
+        break
+      case 'places':
+        perspectiveElement =
+          <Places
+            places={props.places}
+            facetData={props.placesFacets}
+            fetchResults={props.fetchResults}
+            fetchPaginatedResults={props.fetchPaginatedResults}
+            fetchByURI={props.fetchByURI}
+            filters={props.manuscriptsFacets.filters}
+            updatePage={props.updatePage}
+            updateRowsPerPage={props.updateRowsPerPage}
             sortResults={props.sortResults}
             routeProps={routeProps}
             perspective={perspective}
@@ -287,6 +325,7 @@ const SemanticPortal = props => {
                   <All
                     clientSideFacetedSearch={props.clientSideFacetedSearch}
                     routeProps={routeProps}
+                    screenSize={screenSize}
                   />
                 </Grid>
               </Grid>}
@@ -448,13 +487,19 @@ const SemanticPortal = props => {
 
 const mapStateToProps = state => {
   return {
-    perspective1: state.perspective1,
-    perspective1Facets: state.perspective1Facets,
-    perspective2: state.perspective2,
-    perspective2Facets: state.perspective2Facets,
-    perspective3: state.perspective3,
-    perspective3Facets: state.perspective3Facets,
+    manuscripts: state.manuscripts,
+    manuscriptsFacets: state.manuscriptsFacets,
+    manuscriptsFacetsConstrainSelf: state.manuscriptsFacetsConstrainSelf,
+    works: state.works,
+    worksFacets: state.worksFacets,
+    events: state.events,
+    eventsFacets: state.eventsFacets,
+    actors: state.actors,
+    actorsFacets: state.actorsFacets,
     places: state.places,
+    placesFacets: state.placesFacets,
+    collections: state.collections,
+    expressions: state.expressions,
     clientSideFacetedSearch: state.clientSideFacetedSearch,
     animationValue: state.animation.value,
     options: state.options,
@@ -486,13 +531,19 @@ SemanticPortal.propTypes = {
   theme: PropTypes.object.isRequired,
   options: PropTypes.object.isRequired,
   error: PropTypes.object.isRequired,
-  perspective1: PropTypes.object.isRequired,
-  perspective1Facets: PropTypes.object.isRequired,
-  perspective2: PropTypes.object.isRequired,
-  perspective2Facets: PropTypes.object.isRequired,
-  perspective3: PropTypes.object.isRequired,
-  perspective3Facets: PropTypes.object.isRequired,
+  manuscripts: PropTypes.object.isRequired,
+  manuscriptsFacets: PropTypes.object.isRequired,
+  manuscriptsFacetsConstrainSelf: PropTypes.object.isRequired,
+  works: PropTypes.object.isRequired,
+  worksFacets: PropTypes.object.isRequired,
+  events: PropTypes.object.isRequired,
+  eventsFacets: PropTypes.object.isRequired,
+  actors: PropTypes.object.isRequired,
+  actorsFacets: PropTypes.object.isRequired,
   places: PropTypes.object.isRequired,
+  placesFacets: PropTypes.object.isRequired,
+  collections: PropTypes.object.isRequired,
+  expressions: PropTypes.object.isRequired,
   animationValue: PropTypes.array.isRequired,
   fetchResults: PropTypes.func.isRequired,
   fetchResultCount: PropTypes.func.isRequired,
