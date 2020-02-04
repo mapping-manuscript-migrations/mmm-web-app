@@ -1,4 +1,6 @@
-# Sampo Web App
+# Mapping Manuscript Migrations - Semantic Portal 
+
+based on https://github.com/SemanticComputing/sampo-web-app
 
 master branch visible at https://mappingmanuscriptmigrations.org
 
