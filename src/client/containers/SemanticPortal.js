@@ -302,7 +302,10 @@ const SemanticPortal = props => {
             exact path='/'
             render={() =>
               <Grid container spacing={1} className={classes.mainContainer}>
-                <Main perspectives={perspectiveConfig} />
+                <Main
+                  perspectives={perspectiveConfig}
+                  screenSize={screenSize}
+                />
                 <Footer />
               </Grid>}
           />
