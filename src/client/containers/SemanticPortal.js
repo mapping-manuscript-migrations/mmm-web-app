@@ -9,7 +9,7 @@ import classNames from 'classnames'
 import compose from 'recompose/compose'
 import Grid from '@material-ui/core/Grid'
 import TopBar from '../components/main_layout/TopBar'
-import Main from '../components/main_layout/Main'
+import MainMMM from '../components/main_layout/MainMMM'
 import Footer from '../components/main_layout/Footer'
 import Message from '../components/main_layout/Message'
 import FacetBar from '../components/facet_bar/FacetBar'
@@ -302,7 +302,7 @@ const SemanticPortal = props => {
             exact path='/'
             render={() =>
               <Grid container spacing={1} className={classes.mainContainer}>
-                <Main
+                <MainMMM
                   perspectives={perspectiveConfig}
                   screenSize={screenSize}
                 />

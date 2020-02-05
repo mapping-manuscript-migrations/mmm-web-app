@@ -46,8 +46,7 @@ const MainGridLgMMM = props => {
 }
 
 MainGridLgMMM.propTypes = {
-  perspectives: PropTypes.array.isRequired,
-  screenSize: PropTypes.string.isRequired
+  perspectives: PropTypes.array.isRequired
 }
 
 export default MainGridLgMMM
