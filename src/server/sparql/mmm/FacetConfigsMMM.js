@@ -324,18 +324,14 @@ export const facetConfigs = {
     }
   },
   events: {
-    facetClass: 'crm:E10_Transfer_of_Custody crm:E12_Production crm:E7_Activity',
+    facetClass: 'crm:E10_Transfer_of_Custody crm:E12_Production mmm-schema:ManuscriptActivity',
     prefLabel: {
       id: 'prefLabel',
       labelPath: 'skos:prefLabel'
     },
     type: {
       predicate: 'a',
-      facetValueFilter: `
-        FILTER(?id NOT IN (
-          <http://ldf.fi/mmm/schema/PlaceNationality>
-        ))  
-      `,
+      facetValueFilter: '',
       type: 'list',
       labelPath: 'a/(skos:prefLabel|rdfs:label)'
     },
