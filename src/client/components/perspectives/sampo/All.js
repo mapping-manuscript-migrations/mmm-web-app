@@ -18,7 +18,6 @@ const All = props => {
           icon: <CalendarViewDayIcon />,
           value: 0
         }]}
-        screenSize={props.screenSize}
       />
       <Route
         exact path={perspectiveUrl}

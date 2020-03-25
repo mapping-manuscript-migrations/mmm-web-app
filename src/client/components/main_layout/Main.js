@@ -130,13 +130,13 @@ const Main = props => {
           <div className={classes.bannerHeading}>
             <img className={classes.firstLetter} src={mmmLogo} />
             <Typography component='span' variant={headingVariant} align='center'>
-              {intl.get('appTitle.long')}
+              {intl.getHTML('appTitle.long')}
             </Typography>
           </div>
           <div className={classes.bannerSubheading}>
             <div>
               <Typography component='h2' variant={subheadingVariant} align='center'>
-                {intl.get('appTitle.subheading')}
+                {intl.getHTML('appTitle.subheading')}
               </Typography>
             </div>
           </div>

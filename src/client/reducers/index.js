@@ -16,7 +16,7 @@ import eventsFacets from './mmm/eventsFacets'
 import actorsFacets from './mmm/actorsFacets'
 import placesFacets from './mmm/placesFacets'
 import animation from './mmm/animation'
-import clientSideFacetedSearch from './mmm/clientSideFacetedSearch'
+import clientSideFacetedSearch from './sampo/clientSideFacetedSearch'
 
 const reducer = combineReducers({
   manuscripts,

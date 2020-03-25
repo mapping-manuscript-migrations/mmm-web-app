@@ -1,17 +1,17 @@
 import { runSelectQuery } from './SparqlApi'
-import { prefixes } from './mmm/SparqlQueriesPrefixes'
+import { endpoint } from './mmm/FacetConfigsMMM'
+import { prefixes } from './sampo/SparqlQueriesPrefixes'
 import { jenaQuery } from './SparqlQueriesGeneral'
 import { makeObjectList } from './SparqlObjectMapper'
-import { endpoint } from './mmm/FacetConfigsMMM'
+import { fullTextSearchProperties } from './mmm/SparqlQueriesFullText'
 
 export const queryJenaIndex = async ({
   queryTerm,
   resultFormat
 }) => {
   let q = jenaQuery
-  q = q.replace('<QUERY>', `
-  ?id text:query ('${queryTerm.toLowerCase()}' 2000) .
-  `)
+  q = q.replace('<QUERY>', `?id text:query ('${queryTerm.toLowerCase()}' 2000) .`)
+  q = q.replace('<RESULT_SET_PROPERTIES>', fullTextSearchProperties)
   const results = await runSelectQuery({
     query: prefixes + q,
     endpoint,

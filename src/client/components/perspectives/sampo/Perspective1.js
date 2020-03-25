@@ -7,6 +7,8 @@ import LeafletMap from '../../facet_results/LeafletMap'
 import Deck from '../../facet_results/Deck'
 import Network from '../../facet_results/Network'
 import Export from '../../facet_results/Export'
+import MigrationsMapLegend from '../mmm/MigrationsMapLegend'
+import { MAPBOX_ACCESS_TOKEN } from '../../../configs/sampo/GeneralConfig'
 
 const Perspective1 = props => {
   const { rootUrl, perspective } = props
@@ -41,6 +43,7 @@ const Perspective1 = props => {
         render={() =>
           <LeafletMap
             results={props.places.results}
+            layers={props.leafletMapLayers}
             pageType='facetResults'
             facetUpdateID={props.facetData.facetUpdateID}
             facet={props.facetData.facets.productionPlace}
@@ -48,12 +51,30 @@ const Perspective1 = props => {
             resultClass='placesMsProduced'
             facetClass='perspective1'
             mapMode='cluster'
+            showMapModeControl={false}
             instance={props.places.instance}
             fetchResults={props.fetchResults}
+            fetchGeoJSONLayers={props.fetchGeoJSONLayers}
             fetchByURI={props.fetchByURI}
             fetching={props.places.fetching}
             showInstanceCountInClusters
             updateFacetOption={props.updateFacetOption}
+            showExternalLayers
+          />}
+      />
+      <Route
+        path={`${rootUrl}/${perspective.id}/faceted-search/production_places_heatmap`}
+        render={() =>
+          <Deck
+            results={props.places.results}
+            facetUpdateID={props.facetData.facetUpdateID}
+            resultClass='placesMsProduced'
+            facetClass='perspective1'
+            fetchResults={props.fetchResults}
+            fetching={props.places.fetching}
+            legendComponent={<MigrationsMapLegend />}
+            layerType='heatmapLayer'
+            mapBoxAccessToken={MAPBOX_ACCESS_TOKEN}
           />}
       />
       <Route
@@ -70,6 +91,7 @@ const Perspective1 = props => {
             mapMode='cluster'
             instance={props.places.instance}
             fetchResults={props.fetchResults}
+            fetchGeoJSONLayers={props.fetchGeoJSONLayers}
             fetchByURI={props.fetchByURI}
             fetching={props.places.fetching}
             showInstanceCountInClusters
@@ -77,13 +99,15 @@ const Perspective1 = props => {
           />}
       />
       <Route
-        path={`${rootUrl}/${perspective.id}/faceted-search/statistics`}
+        path={`${rootUrl}/${perspective.id}/faceted-search/network`}
         render={() =>
           <Network
             results={props.perspective1.results}
+            resultUpdateID={props.perspective1.resultUpdateID}
             fetchResults={props.fetchResults}
             resultClass='perspective1Network'
             facetClass='perspective1'
+            facetUpdateID={props.facetData.facetUpdateID}
           />}
       />
       <Route
@@ -94,13 +118,11 @@ const Perspective1 = props => {
             facetUpdateID={props.facetData.facetUpdateID}
             resultClass='placesMsMigrations'
             facetClass='perspective1'
-            mapMode='cluster'
-            instance={props.places.instance}
             fetchResults={props.fetchResults}
-            fetchByURI={props.fetchByURI}
             fetching={props.places.fetching}
-            showInstanceCountInClusters
-            updateFacetOption={props.updateFacetOption}
+            legendComponent={<MigrationsMapLegend />}
+            layerType='arcLayer'
+            mapBoxAccessToken={MAPBOX_ACCESS_TOKEN}
           />}
       />
       <Route
@@ -118,8 +140,10 @@ const Perspective1 = props => {
 Perspective1.propTypes = {
   perspective1: PropTypes.object.isRequired,
   places: PropTypes.object.isRequired,
+  leafletMapLayers: PropTypes.object.isRequired,
   facetData: PropTypes.object.isRequired,
   fetchResults: PropTypes.func.isRequired,
+  fetchGeoJSONLayers: PropTypes.func.isRequired,
   fetchPaginatedResults: PropTypes.func.isRequired,
   fetchByURI: PropTypes.func.isRequired,
   updatePage: PropTypes.func.isRequired,

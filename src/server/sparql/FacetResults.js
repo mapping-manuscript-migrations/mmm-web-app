@@ -12,6 +12,7 @@ import {
   expressionProperties,
   collectionProperties,
   productionPlacesQuery,
+  productionCoordinatesQuery,
   lastKnownLocationsQuery,
   migrationsQuery,
   networkLinksQuery,
@@ -73,7 +74,8 @@ export const getAllResults = ({
   resultClass,
   facetClass,
   constraints,
-  resultFormat
+  resultFormat,
+  groupBy
 }) => {
   let q = ''
   let filterTarget = ''
@@ -84,9 +86,9 @@ export const getAllResults = ({
       filterTarget = 'id'
       break
     case 'placesMsProduced':
-      q = productionPlacesQuery
+      q = groupBy ? productionPlacesQuery : productionCoordinatesQuery
       filterTarget = 'manuscripts'
-      mapper = mapPlaces
+      mapper = groupBy ? mapPlaces : mapCoordinates
       break
     case 'lastKnownLocations':
       q = lastKnownLocationsQuery

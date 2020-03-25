@@ -26,6 +26,8 @@ export const UPDATE_FACET_VALUES = 'UPDATE_FACET_VALUES'
 export const UPDATE_FACET_VALUES_CONSTRAIN_SELF = 'UPDATE_FACET_VALUES_CONSTRAIN_SELF'
 export const UPDATE_FACET_OPTION = 'UPDATE_FACET_OPTION'
 export const UPDATE_CLIENT_SIDE_FILTER = 'UPDATE_CLIENT_SIDE_FILTER'
+export const FETCH_GEOJSON_LAYERS = 'FETCH_GEOJSON_LAYERS'
+export const UPDATE_GEOJSON_LAYERS = 'UPDATE_GEOJSON_LAYERS'
 export const OPEN_MARKER_POPUP = 'OPEN_MARKER_POPUP'
 export const SHOW_ERROR = 'SHOW_ERROR'
 export const UPDATE_PERSPECTIVE_HEADER_EXPANDED = 'UPDATE_PERSPECTIVE_HEADER_EXPANDED'
@@ -47,11 +49,12 @@ export const fetchPaginatedResultsFailed = (resultClass, error, message) => ({
   error,
   message
 })
-export const fetchResults = ({ resultClass, facetClass, sortBy }) => ({
+export const fetchResults = ({ resultClass, facetClass, sortBy, groupBy = true }) => ({
   type: FETCH_RESULTS,
   resultClass,
   facetClass,
-  sortBy
+  sortBy,
+  groupBy
 })
 export const fetchResultCount = ({ resultClass, facetClass }) => ({
   type: FETCH_RESULT_COUNT,
@@ -247,4 +250,13 @@ export const updateLocale = ({ language }) => ({
 export const animateMap = value => ({
   type: ANIMATE_MAP,
   value
+})
+export const fetchGeoJSONLayers = ({ layerIDs, bounds }) => ({
+  type: FETCH_GEOJSON_LAYERS,
+  layerIDs,
+  bounds
+})
+export const updateGeoJSONLayers = ({ payload }) => ({
+  type: UPDATE_GEOJSON_LAYERS,
+  payload
 })

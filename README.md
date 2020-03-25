@@ -1,19 +1,27 @@
 # Mapping Manuscript Migrations - Semantic Portal 
 
-based on https://github.com/SemanticComputing/sampo-web-app
+Based on [Sampo-UI &ndash; A framework for implementing semantic portals](https://github.com/SemanticComputing/sampo-ui)
 
 master branch visible at https://mappingmanuscriptmigrations.org
 
 dev branch visible at https://dev.mappingmanuscriptmigrations.org
 
-## Requirements
+## Key JavaScript libraries in use
 
-Node.js https://nodejs.org/en/ (tested with 10.15.3 LTS)
+### Client
 
-Nodemon https://nodemon.io/
+* [React &ndash; A JavaScript library for building user interfaces](https://reactjs.org/)
+* [Material-UI &ndash; React components for faster and easier web development.](https://material-ui.com/)
+* [Redux &ndash; A Predictable State Container for JS Apps](https://redux.js.org/)
+* [React Router](https://reacttraining.com/react-router/web/guides/quick-start)
+* [deck.gl &ndash; Large-scale WebGL-powered Data Visualization](https://deck.gl) 
+* [Leaflet &ndash; a JavaScript library for interactive maps](https://leafletjs.com/) 
+* [Cytoscape &ndash; an open source software platform for visualizing complex networks](https://cytoscape.org/)
+* [ApexCharts.js &ndash; Open Source JavaScript Charts for your website](https://apexcharts.com/)
 
-If your home directory is mounted from a network drive, Node.js should
-be installed using Node Version Manager https://github.com/nvm-sh/nvm  
+### Server
+
+* [Express -- Fast, unopinionated, minimalist web framework for Node.js](https://expressjs.com/)
 
 ## Local development
 
