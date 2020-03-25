@@ -6,7 +6,7 @@ export const showLanguageButton = false
 
 export const publishedPort = 3006
 
-export const MAPBOX_ACCESS_TOKEN = ''
+export const MAPBOX_ACCESS_TOKEN = 'pk.eyJ1IjoiZWtrb25lbiIsImEiOiJjazg3NXY3YzAwMHpwM2xtNnZ1NGgwZnBhIn0.6WbNmqi8H_UZzk9iFPYv7g'
 
 export const documentFinderAPIUrl = 'https://data.finlex.fi/document-finder-backend'
 
