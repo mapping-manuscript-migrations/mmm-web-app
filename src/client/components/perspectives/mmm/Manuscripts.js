@@ -8,7 +8,7 @@ import Deck from '../../facet_results/Deck'
 import Network from '../../facet_results/Network'
 import Export from '../../facet_results/Export'
 import MigrationsMapLegend from '../mmm/MigrationsMapLegend'
-import { MAPBOX_ACCESS_TOKEN } from '../../../configs/mmm/GeneralConfig'
+import { MAPBOX_ACCESS_TOKEN, MAPBOX_STYLE } from '../../../configs/mmm/GeneralConfig'
 
 const Manuscripts = props => {
   return (
@@ -100,6 +100,7 @@ const Manuscripts = props => {
             legendComponent={<MigrationsMapLegend />}
             layerType='arcLayer'
             mapBoxAccessToken={MAPBOX_ACCESS_TOKEN}
+            mapBoxStyle={MAPBOX_STYLE}
           />}
       />
       <Route
