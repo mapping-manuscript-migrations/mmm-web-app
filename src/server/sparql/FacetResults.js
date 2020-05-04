@@ -1,5 +1,5 @@
 import { runSelectQuery } from './SparqlApi'
-import { runNetworkQuery } from './NetworkApi'
+// import { runNetworkQuery } from './NetworkApi'
 import { prefixes } from './mmm/SparqlQueriesPrefixes'
 import {
   countQuery,
@@ -12,15 +12,11 @@ import {
   expressionProperties,
   collectionProperties,
   productionPlacesQuery,
-  productionCoordinatesQuery,
   lastKnownLocationsQuery,
-  migrationsQuery,
-  networkLinksQuery,
-  networkNodesQuery
+  migrationsQuery
 } from './mmm/SparqlQueriesManuscripts'
 import { workProperties } from './mmm/SparqlQueriesWorks'
 import { eventProperties, eventPlacesQuery } from './mmm/SparqlQueriesEvents'
-import { generateEventsByPeriodQuery } from './mmm/FacetResultsEvents'
 import {
   actorProperties,
   placesActorsQuery
@@ -86,9 +82,9 @@ export const getAllResults = ({
       filterTarget = 'id'
       break
     case 'placesMsProduced':
-      q = groupBy ? productionPlacesQuery : productionCoordinatesQuery
+      q = productionPlacesQuery
       filterTarget = 'manuscripts'
-      mapper = groupBy ? mapPlaces : mapCoordinates
+      mapper = mapPlaces
       break
     case 'lastKnownLocations':
       q = lastKnownLocationsQuery
@@ -108,14 +104,6 @@ export const getAllResults = ({
       q = eventPlacesQuery
       filterTarget = 'event'
       break
-    case 'eventsByTimePeriod':
-      q = generateEventsByPeriodQuery({ startYear: 1600, endYear: 1620, periodLength: 10 })
-      filterTarget = 'event'
-      break
-    case 'manuscriptsNetwork':
-      q = networkLinksQuery
-      filterTarget = 'source'
-      break
   }
   if (constraints == null) {
     q = q.replace('<FILTER>', '# no filters')
@@ -127,15 +115,6 @@ export const getAllResults = ({
       filterTarget: filterTarget,
       facetID: null
     }))
-  }
-  if (resultClass === 'manuscriptsNetwork') {
-    // console.log(prefixes + q)
-    return runNetworkQuery({
-      endpoint,
-      prefixes,
-      links: q,
-      nodes: networkNodesQuery
-    })
   }
   // console.log(prefixes + q)
   return runSelectQuery({

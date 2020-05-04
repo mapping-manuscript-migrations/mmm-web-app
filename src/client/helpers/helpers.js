@@ -22,45 +22,50 @@ export const stateToUrl = ({
   if (constrainSelf !== null) { params.constrainSelf = constrainSelf }
   if (groupBy !== null) { params.groupBy = groupBy }
   if (facets !== null) {
-    const constraints = {}
+    const constraints = []
     for (const [key, value] of Object.entries(facets)) {
       if (has(value, 'uriFilter') && value.uriFilter !== null) {
-        constraints[key] = {
+        constraints.push({
+          facetID: key,
           filterType: value.filterType,
           priority: value.priority,
           values: Object.keys(value.uriFilter)
-        }
+        })
       } else if (has(value, 'spatialFilter') && value.spatialFilter !== null) {
-        constraints[key] = {
+        constraints.push({
+          facetID: key,
           filterType: value.filterType,
           priority: value.priority,
           values: boundsToValues(value.spatialFilter._bounds)
-        }
+        })
       } else if (has(value, 'textFilter') && value.textFilter !== null) {
-        constraints[key] = {
+        constraints.push({
+          facetID: key,
           filterType: value.filterType,
           priority: value.priority,
           values: value.textFilter
-        }
+        })
       } else if (has(value, 'timespanFilter') && value.timespanFilter !== null) {
-        constraints[key] = {
+        constraints.push({
+          facetID: key,
           filterType: value.filterType,
           priority: value.priority,
           values: value.timespanFilter
-        }
+        })
       } else if (has(value, 'integerFilter') && value.integerFilter !== null) {
-        constraints[key] = {
+        constraints.push({
+          facetID: key,
           filterType: value.filterType,
           priority: value.priority,
           values: value.integerFilter
-        }
+        })
       }
     }
-    if (Object.keys(constraints).length > 0) {
-      params.constraints = JSON.stringify(constraints)
+    if (constraints.length > 0) {
+      params.constraints = constraints
     }
   }
-  return querystring.stringify(params)
+  return params
 }
 
 export const urlToState = ({ initialState, queryString }) => {
@@ -68,7 +73,7 @@ export const urlToState = ({ initialState, queryString }) => {
   return params
 }
 
-const boundsToValues = bounds => {
+export const boundsToValues = bounds => {
   const latMin = bounds._southWest.lat
   const longMin = bounds._southWest.lng
   const latMax = bounds._northEast.lat
@@ -98,4 +103,26 @@ export const handleAxiosError = error => {
     console.log('Error', error.message)
   }
   console.log(error.config)
+}
+
+export const pickSelectedDatasets = datasets => {
+  const selected = []
+  Object.keys(datasets).map(key => {
+    if (datasets[key].selected) {
+      selected.push(key)
+    }
+  })
+  return selected
+}
+
+export const updateLocaleToPathname = ({ pathname, locale, replaceOld }) => {
+  const numberOfSlashes = pathname.split('/').length - 1
+  let newPathname
+  if (replaceOld) {
+    const pathnameLangRemoved = numberOfSlashes === 1 ? '' : pathname.substring(pathname.indexOf('/', 1))
+    newPathname = `/${locale}${pathnameLangRemoved}` // TODO: handle rootUrl from generalConfig
+  } else {
+    newPathname = `/${locale}${pathname}`
+  }
+  return newPathname
 }

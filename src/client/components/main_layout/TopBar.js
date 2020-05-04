@@ -16,14 +16,10 @@ import TopBarInfoButton from './TopBarInfoButton'
 import TopBarLanguageButton from './TopBarLanguageButton'
 import Divider from '@material-ui/core/Divider'
 import { has } from 'lodash'
-// import mmmLogo from '../../img/mmm-logo-52x50.png'
-import secoLogo from '../../img/seco-logo-48x50.png'
-import { showLanguageButton } from '../../configs/mmm/GeneralConfig'
+import secoLogo from '../../img/logos/seco-logo-48x50.png'
+import { showLanguageButton } from '../../configs/sampo/GeneralConfig'
 
 const styles = theme => ({
-  root: {
-    // width: '100%',
-  },
   grow: {
     flexGrow: 1
   },
@@ -46,7 +42,14 @@ const styles = theme => ({
       display: 'none'
     }
   },
+  homeButtonText: {
+    whiteSpace: 'nowrap',
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '1rem'
+    }
+  },
   appBarButton: {
+    whiteSpace: 'nowrap',
     color: 'white !important',
     border: `1px solid ${theme.palette.primary.main}`
   },
@@ -93,6 +96,7 @@ class TopBar extends React.Component {
   AdapterNavLink = React.forwardRef((props, ref) => <NavLink innerRef={ref} {...props} />);
 
   renderMobileMenuItem = perspective => {
+    const searchMode = perspective.id.startsWith('clientFS') ? 'federated-search' : 'faceted-search'
     if (has(perspective, 'externalUrl')) {
       return (
         <a
@@ -112,7 +116,7 @@ class TopBar extends React.Component {
         <MenuItem
           key={perspective.id}
           component={this.AdapterLink}
-          to={`/${perspective.id}/faceted-search`}
+          to={`${this.props.rootUrl}/${perspective.id}/${searchMode}`}
         >
           {intl.get(`perspectives.${perspective.id}.label`).toUpperCase()}
         </MenuItem>
@@ -121,6 +125,7 @@ class TopBar extends React.Component {
   }
 
   renderDesktopTopMenuItem = perspective => {
+    const searchMode = perspective.id.startsWith('clientFS') ? 'federated-search' : 'faceted-search'
     if (has(perspective, 'externalUrl')) {
       return (
         <a
@@ -143,8 +148,8 @@ class TopBar extends React.Component {
           key={perspective.id}
           className={this.props.classes.appBarButton}
           component={this.AdapterNavLink}
-          to={`/${perspective.id}/faceted-search`}
-          isActive={(match, location) => location.pathname.startsWith(`/${perspective.id}`)}
+          to={`${this.props.rootUrl}/${perspective.id}/${searchMode}`}
+          isActive={(match, location) => location.pathname.startsWith(`${this.props.rootUrl}/${perspective.id}`)}
           activeClassName={this.props.classes.appBarButtonActive}
         >
           {intl.get(`perspectives.${perspective.id}.label`).toUpperCase()}
@@ -166,14 +171,14 @@ class TopBar extends React.Component {
       <MenuItem
         key='feedback'
         component={this.AdapterLink}
-        to='/feedback'
+        to={`${this.props.rootUrl}/feedback`}
       >
         {intl.get('topBar.feedback').toUpperCase()}
       </MenuItem>
       <MenuItem
         key={0}
         component={this.AdapterLink}
-        to='/about'
+        to={`${this.props.rootUrl}/about`}
       >
         {intl.get('topBar.info.aboutThePortal').toUpperCase()}
       </MenuItem>
@@ -191,14 +196,14 @@ class TopBar extends React.Component {
       <MenuItem
         key='info'
         component={this.AdapterLink}
-        to='/instructions'
+        to={`${this.props.rootUrl}/instructions`}
       >
         {intl.get('topBar.instructions').toUpperCase()}
       </MenuItem>
     </Menu>
 
   render () {
-    const { classes, perspectives, currentLocale, availableLocales } = this.props
+    const { classes, perspectives, currentLocale, availableLocales, rootUrl } = this.props
     return (
       <div className={classes.root}>
         {/* Add an empty Typography element to ensure that that the MuiTypography class is loaded for
@@ -207,12 +212,13 @@ class TopBar extends React.Component {
         <AppBar position='absolute'>
           <Toolbar className={classes.toolbar}>
             <Button component={this.AdapterLink} to='/'>
-              <Typography variant='h6'>{intl.get('appTitle.short')}</Typography>
+              <Typography className={classes.homeButtonText} variant='h6'>{intl.get('appTitle.short')}</Typography>
             </Button>
             <TopBarSearchField
-              fetchResultsClientSide={this.props.fetchResultsClientSide}
+              fetchFullTextResults={this.props.fetchFullTextResults}
               clearResults={this.props.clearResults}
               xsScreen={this.props.xsScreen}
+              rootUrl={rootUrl}
             />
             <div className={classes.grow} />
             <div className={classes.sectionDesktop}>
@@ -221,18 +227,18 @@ class TopBar extends React.Component {
               <Button
                 className={classes.appBarButton}
                 component={this.AdapterNavLink}
-                to='/feedback'
-                isActive={(match, location) => location.pathname.startsWith('/feedback')}
+                to={`${this.props.rootUrl}/feedback`}
+                isActive={(match, location) => location.pathname.startsWith(`${this.props.rootUrl}/feedback`)}
                 activeClassName={this.props.classes.appBarButtonActive}
               >
                 {intl.get('topBar.feedback')}
               </Button>
-              <TopBarInfoButton />
+              <TopBarInfoButton rootUrl={this.props.rootUrl} />
               <Button
                 className={classes.appBarButton}
                 component={this.AdapterNavLink}
-                to='/instructions'
-                isActive={(match, location) => location.pathname.startsWith('/instructions')}
+                to={`${this.props.rootUrl}/instructions`}
+                isActive={(match, location) => location.pathname.startsWith(`${this.props.rootUrl}/instructions`)}
                 activeClassName={this.props.classes.appBarButtonActive}
               >
                 {intl.get('topBar.instructions')}
@@ -242,11 +248,12 @@ class TopBar extends React.Component {
                   currentLocale={currentLocale}
                   availableLocales={availableLocales}
                   loadLocales={this.props.loadLocales}
+                  location={this.props.location}
                 />}
             </div>
             <a
               className={classes.secoLogo}
-              href='https://seco.cs.aalto.fi/projects/mmm'
+              href='https://seco.cs.aalto.fi'
               target='_blank'
               rel='noopener noreferrer'
             >
@@ -267,13 +274,15 @@ class TopBar extends React.Component {
 
 TopBar.propTypes = {
   classes: PropTypes.object.isRequired,
-  fetchResultsClientSide: PropTypes.func.isRequired,
+  fetchFullTextResults: PropTypes.func.isRequired,
   clearResults: PropTypes.func.isRequired,
   loadLocales: PropTypes.func.isRequired,
   perspectives: PropTypes.array.isRequired,
   currentLocale: PropTypes.string.isRequired,
   availableLocales: PropTypes.array.isRequired,
-  xsScreen: PropTypes.bool.isRequired
+  xsScreen: PropTypes.bool.isRequired,
+  location: PropTypes.object.isRequired,
+  rootUrl: PropTypes.string.isRequired
 }
 
 export default withStyles(styles)(TopBar)
