@@ -4,11 +4,11 @@ import { Route, Redirect } from 'react-router-dom'
 import PerspectiveTabs from '../../main_layout/PerspectiveTabs'
 import ResultTable from '../../facet_results/ResultTable'
 import Export from '../../facet_results/Export'
-import ApexChart from '../../facet_results/ApexChart'
+// import ApexChart from '../../facet_results/ApexChart'
 import LeafletMap from '../../facet_results/LeafletMap'
 
 const Events = props => {
-  // console.log(props.events.results)
+  const { rootUrl, perspective } = props
   return (
     <>
       <PerspectiveTabs
@@ -17,11 +17,11 @@ const Events = props => {
         screenSize={props.screenSize}
       />
       <Route
-        exact path='/events/faceted-search'
-        render={() => <Redirect to='/events/faceted-search/table' />}
+        exact path={`${rootUrl}/${perspective.id}/faceted-search`}
+        render={() => <Redirect to={`${rootUrl}/${perspective.id}/faceted-search/table`} />}
       />
       <Route
-        path='/events/faceted-search/table'
+        path={`${props.rootUrl}/${perspective.id}/faceted-search/table`}
         render={routeProps =>
           <ResultTable
             data={props.events}
@@ -33,13 +33,17 @@ const Events = props => {
             updateRowsPerPage={props.updateRowsPerPage}
             sortResults={props.sortResults}
             routeProps={routeProps}
+            rootUrl={rootUrl}
           />}
       />
       <Route
-        path='/events/faceted-search/map'
+        path={`${rootUrl}/${perspective.id}/faceted-search/map`}
         render={() =>
           <LeafletMap
+            center={[22.43, 10.37]}
+            zoom={2}
             results={props.places.results}
+            layers={props.leafletMapLayers}
             pageType='facetResults'
             facetUpdateID={props.facetData.facetUpdateID}
             facet={props.facetData.facets.place}
@@ -47,15 +51,18 @@ const Events = props => {
             resultClass='placesEvents'
             facetClass='events'
             mapMode='cluster'
+            showMapModeControl={false}
             instance={props.places.instance}
             fetchResults={props.fetchResults}
+            fetchGeoJSONLayers={props.fetchGeoJSONLayers}
             fetchByURI={props.fetchByURI}
             fetching={props.places.fetching}
             showInstanceCountInClusters
             updateFacetOption={props.updateFacetOption}
+            showExternalLayers={false}
           />}
       />
-      <Route
+      {/* <Route
         path='/events/faceted-search/by-period'
         render={() =>
           <ApexChart
@@ -74,9 +81,9 @@ const Events = props => {
               }
             }}
           />}
-      />
+      /> */}
       <Route
-        path='/events/faceted-search/export'
+        path={`${rootUrl}/${perspective.id}/faceted-search/export`}
         render={() =>
           <Export
             sparqlQuery={props.events.paginatedResultsSparqlQuery}

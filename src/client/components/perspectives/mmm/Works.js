@@ -6,6 +6,7 @@ import ResultTable from '../../facet_results/ResultTable'
 import Export from '../../facet_results/Export'
 
 const Works = props => {
+  const { rootUrl, perspective } = props
   return (
     <>
       <PerspectiveTabs
@@ -14,11 +15,11 @@ const Works = props => {
         screenSize={props.screenSize}
       />
       <Route
-        exact path='/works/faceted-search'
-        render={() => <Redirect to='/works/faceted-search/table' />}
+        exact path={`${rootUrl}/${perspective.id}/faceted-search`}
+        render={() => <Redirect to={`${rootUrl}/${perspective.id}/faceted-search/table`} />}
       />
       <Route
-        path='/works/faceted-search/table'
+        path={`${props.rootUrl}/${perspective.id}/faceted-search/table`}
         render={routeProps =>
           <ResultTable
             data={props.works}
@@ -30,10 +31,11 @@ const Works = props => {
             updateRowsPerPage={props.updateRowsPerPage}
             sortResults={props.sortResults}
             routeProps={routeProps}
+            rootUrl={rootUrl}
           />}
       />
       <Route
-        path='/works/faceted-search/export'
+        path={`${rootUrl}/${perspective.id}/faceted-search/export`}
         render={() =>
           <Export
             sparqlQuery={props.works.paginatedResultsSparqlQuery}

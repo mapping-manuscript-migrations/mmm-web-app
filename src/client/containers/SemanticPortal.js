@@ -20,21 +20,23 @@ import InstanceHomePage from '../components/main_layout/InstanceHomePage'
 import InfoHeader from '../components/main_layout/InfoHeader'
 import TextPage from '../components/main_layout/TextPage'
 import Message from '../components/main_layout/Message'
-import Main from '../components/main_layout/Main'
 import FacetBar from '../components/facet_bar/FacetBar'
 // ** General components end **
 
 // ** Portal specific components and configs **
-import Perspective1 from '../components/perspectives/sampo/Perspective1'
-import Perspective2 from '../components/perspectives/sampo/Perspective2'
-import Perspective3 from '../components/perspectives/sampo/Perspective3'
-import FullTextSearch from '../components/perspectives/sampo/FullTextSearch'
-import ClientFSPerspective from '../components/perspectives/sampo/client_fs/ClientFSPerspective'
-import ClientFSMain from '../components/perspectives/sampo/client_fs/ClientFSMain'
-import Footer from '../components/perspectives/sampo/Footer'
-import { perspectiveConfig } from '../configs/sampo/PerspectiveConfig'
-import { perspectiveConfigOnlyInfoPages } from '../configs/sampo/PerspectiveConfigOnlyInfoPages'
-import { rootUrl } from '../configs/sampo/GeneralConfig'
+import Main from '../components/perspectives/mmm/Main'
+import Manuscripts from '../components/perspectives/mmm/Manuscripts'
+import Works from '../components/perspectives/mmm/Works'
+import Events from '../components/perspectives/mmm/Events'
+import Places from '../components/perspectives/mmm/Places'
+import Actors from '../components/perspectives/mmm/Actors'
+import FullTextSearch from '../components/perspectives/mmm/FullTextSearch'
+// import ClientFSPerspective from '../components/perspectives/sampo/client_fs/ClientFSPerspective'
+// import ClientFSMain from '../components/perspectives/sampo/client_fs/ClientFSMain'
+import Footer from '../components/perspectives/mmm/Footer'
+import { perspectiveConfig } from '../configs/mmm/PerspectiveConfig'
+import { perspectiveConfigOnlyInfoPages } from '../configs/mmm/PerspectiveConfigOnlyInfoPages'
+import { rootUrl } from '../configs/mmm/GeneralConfig'
 // ** Portal specific components and configs end **
 
 import {
@@ -64,7 +66,7 @@ import {
   clientFSUpdateQuery,
   clientFSUpdateFacet
 } from '../actions'
-import { filterResults } from '../selectors'
+// import { filterResults } from '../selectors'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -253,7 +255,7 @@ const SemanticPortal = props => {
   if (lgScreen) { screenSize = 'lg' }
   if (xlScreen) { screenSize = 'xl' }
   const rootUrlWithLang = `${rootUrl}/${props.options.currentLocale}`
-  const noResults = props.clientFS.results == null
+  // const noResults = props.clientFS.results == null
 
   const renderPerspective = (perspective, routeProps) => {
     let perspectiveElement = null
@@ -264,7 +266,7 @@ const SemanticPortal = props => {
             manuscripts={props.manuscripts}
             places={props.places}
             leafletMapLayers={props.leafletMap}
-            facetData={props.perspective1Facets}
+            facetData={props.manuscriptsFacets}
             fetchPaginatedResults={props.fetchPaginatedResults}
             fetchResults={props.fetchResults}
             fetchGeoJSONLayers={props.fetchGeoJSONLayers}
@@ -287,7 +289,7 @@ const SemanticPortal = props => {
             works={props.works}
             places={props.places}
             leafletMapLayers={props.leafletMap}
-            facetData={props.perspective2Facets}
+            facetData={props.worksFacets}
             fetchPaginatedResults={props.fetchPaginatedResults}
             fetchResults={props.fetchResults}
             fetchByURI={props.fetchByURI}
@@ -306,7 +308,7 @@ const SemanticPortal = props => {
             events={props.events}
             places={props.places}
             leafletMapLayers={props.leafletMap}
-            facetData={props.perspective3Facets}
+            facetData={props.eventsFacets}
             fetchPaginatedResults={props.fetchPaginatedResults}
             fetchResults={props.fetchResults}
             fetchByURI={props.fetchByURI}
@@ -337,7 +339,7 @@ const SemanticPortal = props => {
             routeProps={routeProps}
             perspective={perspective}
             screenSize={screenSize}
-            rootUrl={rootUrl}
+            rootUrl={rootUrlWithLang}
           />
         break
       case 'places':
@@ -355,7 +357,7 @@ const SemanticPortal = props => {
             routeProps={routeProps}
             perspective={perspective}
             screenSize={screenSize}
-            rootUrl={rootUrl}
+            rootUrl={rootUrlWithLang}
           />
         break
       default:
@@ -563,7 +565,7 @@ const SemanticPortal = props => {
                 />
               </Switch>
             )}
-            <Route
+            {/* <Route
               path={`${rootUrlWithLang}/clientFSPlaces/federated-search`}
               render={routeProps =>
                 <Grid container className={classes.mainContainerClientFS}>
@@ -605,7 +607,7 @@ const SemanticPortal = props => {
                       />}
                   </Grid>
                 </Grid>}
-            />
+            /> */}
             {/* create routes for info buttons */}
             <Route
               path={`${rootUrlWithLang}/feedback`}
@@ -636,7 +638,7 @@ const SemanticPortal = props => {
 }
 
 const mapStateToProps = state => {
-  const { clientFSResults, clientFSFacetValues } = filterResults(state.clientSideFacetedSearch)
+  // const { clientFSResults, clientFSFacetValues } = filterResults(state.clientSideFacetedSearch)
   return {
     manuscripts: state.manuscripts,
     manuscriptsFacets: state.manuscriptsFacets,
@@ -654,9 +656,9 @@ const mapStateToProps = state => {
     clientSideFacetedSearch: state.clientSideFacetedSearch,
     leafletMap: state.leafletMap,
     fullTextSearch: state.fullTextSearch,
-    clientFS: state.clientSideFacetedSearch,
-    clientFSResults,
-    clientFSFacetValues,
+    // clientFS: state.clientSideFacetedSearch,
+    // clientFSResults,
+    // clientFSFacetValues,
     animationValue: state.animation.value,
     options: state.options,
     error: state.error
