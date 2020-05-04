@@ -16,8 +16,8 @@ const styles = theme => ({
     '&:hover': {
       backgroundColor: fade(theme.palette.common.white, 0.25)
     },
-    marginRight: theme.spacing(2),
-    marginLeft: theme.spacing(2),
+    marginRight: theme.spacing(3),
+    marginLeft: theme.spacing(2.5),
     width: '100%',
     [theme.breakpoints.up('sm')]: {
       marginLeft: theme.spacing(3),
@@ -65,22 +65,20 @@ class TopBarSearchField extends React.Component {
 
   handleOnKeyDown = (event) => {
     if (event.key === 'Enter' && this.hasValidQuery()) {
-      this.props.clearResults()
-      this.props.fetchResultsClientSide({
-        resultClass: 'all',
-        jenaIndex: 'text',
+      this.props.clearResults({ resultClass: 'fullText' })
+      this.props.fetchFullTextResults({
+        resultClass: 'fullText',
         query: this.state.value
       })
-      history.push({ pathname: '/all/table' })
+      history.push({ pathname: `${this.props.rootUrl}/full-text-search/table` })
     }
   };
 
   handleClick = () => {
     if (this.hasValidQuery()) {
-      this.props.clearResults()
-      this.props.fetchResultsClientSide({
-        resultClass: 'all',
-        jenaIndex: 'text',
+      this.props.clearResults({ resultClass: 'fullText' })
+      this.props.fetchFullTextResults({
+        resultClass: 'fullText',
         query: this.state.value
       })
     }
@@ -114,9 +112,9 @@ class TopBarSearchField extends React.Component {
 
 TopBarSearchField.propTypes = {
   classes: PropTypes.object.isRequired,
-  fetchResultsClientSide: PropTypes.func.isRequired,
-  clearResults: PropTypes.func.isRequired,
-  xsScreen: PropTypes.bool.isRequired
+  fetchFullTextResults: PropTypes.func.isRequired,
+  xsScreen: PropTypes.bool.isRequired,
+  rootUrl: PropTypes.string.isRequired
 }
 
 export default withStyles(styles)(TopBarSearchField)

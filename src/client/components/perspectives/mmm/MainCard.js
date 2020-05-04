@@ -47,9 +47,9 @@ const useStyles = makeStyles(theme => ({
   })
 }))
 
-const MainCardMMM = props => {
+const MainCard = props => {
   const classes = useStyles(props)
-  const { perspective, cardHeadingVariant } = props
+  const { perspective, cardHeadingVariant, rootUrl } = props
   const xsScreen = useMediaQuery(theme => theme.breakpoints.down('xs'))
   // const smScreen = useMediaQuery(theme => theme.breakpoints.between('sm', 'md'))
   return (
@@ -58,7 +58,7 @@ const MainCardMMM = props => {
       key={perspective.id}
       item xs={12} sm={6} md lg xl={4}
       component={Link}
-      to={`/${perspective.id}/faceted-search`}
+      to={`${rootUrl}/${perspective.id}/faceted-search`}
       container={xsScreen}
     >
       <Paper className={classes.perspectiveCard}>
@@ -73,9 +73,10 @@ const MainCardMMM = props => {
   )
 }
 
-MainCardMMM.propTypes = {
+MainCard.propTypes = {
   perspective: PropTypes.object.isRequired,
-  cardHeadingVariant: PropTypes.string.isRequired
+  cardHeadingVariant: PropTypes.string.isRequired,
+  rootUrl: PropTypes.string.isRequired
 }
 
-export default MainCardMMM
+export default MainCard

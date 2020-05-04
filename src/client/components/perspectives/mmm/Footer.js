@@ -3,19 +3,17 @@ import Paper from '@material-ui/core/Paper'
 import PropTypes from 'prop-types'
 import Grid from '@material-ui/core/Grid'
 import { withStyles } from '@material-ui/core/styles'
-// import oxfordLogo from '../../img/logos/partners/ox_brand6_pos_rect.gif'
-import oxfordLogo2 from '../../img/logos/partners/Long-Logo-RGB.jpg'
-import bodleainLogo from '../../img/logos/partners/bodleain.png'
-import pennLogo from '../../img/logos/partners/PL SIMS Logo_small.png'
-import cnrsLogo from '../../img/logos/partners/logo_cnrs_irht2.jpg'
-import aaltoLogo from '../../img/logos/partners/Aalto_SCI_EN_13_BLACK_2_cropped.png'
-// import secoLogo from '../../img/logos/partners/13_9_04_logo_cropped_small.png'
-import tapLogo from '../../img/logos/funders/cropped-logo_tap_0_.png'
-import didLogo from '../../img/logos/funders/did_logo.png'
-import esrcLogo from '../../img/logos/funders/UKRI_ESR_Council-Logo_Horiz-RGB_100px.png'
-import imlsLogo from '../../img/logos/funders/imls_logo_2c_cropped.jpg'
-import anrLogo from '../../img/logos/funders/Agence_Nationale_de_la_Recherche.png'
-import akaLogo from '../../img/logos/funders/aka_en_vaaka_rgb.jpg'
+import oxfordLogo2 from '../../../img/logos/partners/Long-Logo-RGB.jpg'
+import bodleainLogo from '../../../img/logos/partners/bodleain.png'
+import pennLogo from '../../../img/logos/partners/PL SIMS Logo_small.png'
+import cnrsLogo from '../../../img/logos/partners/logo_cnrs_irht2.jpg'
+import aaltoLogo from '../../../img/logos/partners/Aalto_SCI_EN_13_BLACK_2_cropped.png'
+import tapLogo from '../../../img/logos/funders/cropped-logo_tap_0_.png'
+import didLogo from '../../../img/logos/funders/did_logo.png'
+import esrcLogo from '../../../img/logos/funders/UKRI_ESR_Council-Logo_Horiz-RGB_100px.png'
+import imlsLogo from '../../../img/logos/funders/imls_logo_2c_cropped.jpg'
+import anrLogo from '../../../img/logos/funders/Agence_Nationale_de_la_Recherche.png'
+import akaLogo from '../../../img/logos/funders/aka_en_vaaka_rgb.jpg'
 
 const styles = theme => ({
   root: {
@@ -91,11 +89,6 @@ const Footer = props => {
             <img className={classes.logo} src={cnrsLogo} alt='logo' />
           </a>
         </Grid>
-        {/* <Grid item xs className={classes.logoContainer}>
-            <a href='https://seco.cs.aalto.fi/projects/mmm' target='_blank' rel='noopener noreferrer'>
-              <img className={classes.logo} src={secoLogo} alt='logo' />
-            </a>
-          </Grid> */}
         <Grid item xs className={classes.logoContainer}>
           <a href='https://www.aalto.fi/en/department-of-computer-science' target='_blank' rel='noopener noreferrer'>
             <img className={classes.aaltoLogo} src={aaltoLogo} alt='logo' />

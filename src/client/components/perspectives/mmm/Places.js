@@ -7,6 +7,7 @@ import LeafletMap from '../../facet_results/LeafletMap'
 import Export from '../../facet_results/Export'
 
 const Places = props => {
+  const { rootUrl, perspective } = props
   return (
     <>
       <PerspectiveTabs
@@ -15,11 +16,11 @@ const Places = props => {
         screenSize={props.screenSize}
       />
       <Route
-        exact path='/places/faceted-search'
-        render={() => <Redirect to='/places/faceted-search/map' />}
+        exact path={`${rootUrl}/${perspective.id}/faceted-search`}
+        render={() => <Redirect to={`${rootUrl}/${perspective.id}/faceted-search/table`} />}
       />
       <Route
-        path='/places/faceted-search/table'
+        path={`${props.rootUrl}/${perspective.id}/faceted-search/table`}
         render={routeProps =>
           <ResultTable
             data={props.places}
@@ -31,27 +32,36 @@ const Places = props => {
             updateRowsPerPage={props.updateRowsPerPage}
             sortResults={props.sortResults}
             routeProps={routeProps}
+            rootUrl={rootUrl}
           />}
       />
       <Route
-        path='/places/faceted-search/map'
+        path={`${rootUrl}/${perspective.id}/faceted-search/map`}
         render={() =>
           <LeafletMap
+            center={[22.43, 10.37]}
+            zoom={2}
             results={props.places.results}
             pageType='facetResults'
             facetUpdateID={props.facetData.facetUpdateID}
+            facet={props.facetData.facets.area}
+            facetID='area'
             resultClass='placesAll'
             facetClass='places'
+            mapMode='cluster'
+            showMapModeControl={false}
             instance={props.places.instance}
             fetchResults={props.fetchResults}
+            fetchGeoJSONLayers={props.fetchGeoJSONLayers}
             fetchByURI={props.fetchByURI}
             fetching={props.places.fetching}
-            mapMode='cluster'
             showInstanceCountInClusters={false}
+            updateFacetOption={props.updateFacetOption}
+            showExternalLayers={false}
           />}
       />
       <Route
-        path='/places/faceted-search/export'
+        path={`${rootUrl}/${perspective.id}/faceted-search/export`}
         render={() =>
           <Export
             sparqlQuery={props.places.paginatedResultsSparqlQuery}
@@ -73,7 +83,8 @@ Places.propTypes = {
   sortResults: PropTypes.func.isRequired,
   routeProps: PropTypes.object.isRequired,
   perspective: PropTypes.object.isRequired,
-  screenSize: PropTypes.string.isRequired
+  screenSize: PropTypes.string.isRequired,
+  rootUrl: PropTypes.string.isRequired
 }
 
 export default Places

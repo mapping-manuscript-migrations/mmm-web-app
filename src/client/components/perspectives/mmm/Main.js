@@ -4,11 +4,10 @@ import intl from 'react-intl-universal'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
-// import MainCard from './MainCard'
-import MainCardMMM from './MainCardMMM'
-import MainGridLgMMM from './MainGridLgMMM'
-import bannerImage from '../../img/mmm-banner.jpg'
-import mmmLogo from '../../img/mmm-logo-94x90.png'
+import MainCard from './MainCard'
+import MainGridLg from './MainGridLg'
+import bannerImage from '../../../img/main_page/mmm-banner.jpg'
+import mmmLogo from '../../../img/logos/mmm-logo-94x90.png'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -90,8 +89,8 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-const MainMMM = props => {
-  const { perspectives, screenSize } = props
+const Main = props => {
+  const { perspectives, screenSize, rootUrl } = props
   const classes = useStyles(props)
   let headingVariant = 'h5'
   let subheadingVariant = 'body1'
@@ -156,17 +155,18 @@ const MainMMM = props => {
             {intl.get('selectPerspective')}
           </Typography>
         </div>
-        {largeGrid && <MainGridLgMMM perspectives={perspectives} />}
+        {largeGrid && <MainGridLg perspectives={perspectives} rootUrl={rootUrl} />}
         {!largeGrid &&
           <Grid
             container spacing={screenSize === 'sm' ? 2 : 1}
             justify={screenSize === 'xs' || screenSize === 'sm' ? 'center' : 'flex-start'}
           >
             {perspectives.map(perspective =>
-              <MainCardMMM
+              <MainCard
                 key={perspective.id}
                 perspective={perspective}
                 cardHeadingVariant='h5'
+                rootUrl={rootUrl}
               />)}
           </Grid>}
         <div className={classes.licenceTextContainer}>
@@ -177,9 +177,10 @@ const MainMMM = props => {
   )
 }
 
-MainMMM.propTypes = {
+Main.propTypes = {
   perspectives: PropTypes.array.isRequired,
-  screenSize: PropTypes.string.isRequired
+  screenSize: PropTypes.string.isRequired,
+  rootUrl: PropTypes.string.isRequired
 }
 
-export default MainMMM
+export default Main

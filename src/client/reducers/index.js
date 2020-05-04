@@ -1,7 +1,12 @@
 import { combineReducers } from 'redux'
 import { reducer as toastrReducer } from 'react-redux-toastr'
+// general reducers:
 import error from './error'
 import options from './options'
+import animation from './animation'
+import leafletMap from './leafletMap'
+// portal spefic reducers:
+import fullTextSearch from './mmm/fullTextSearch'
 import manuscripts from './mmm/manuscripts'
 import works from './mmm/works'
 import events from './mmm/events'
@@ -15,8 +20,6 @@ import worksFacets from './mmm/worksFacets'
 import eventsFacets from './mmm/eventsFacets'
 import actorsFacets from './mmm/actorsFacets'
 import placesFacets from './mmm/placesFacets'
-import animation from './mmm/animation'
-import clientSideFacetedSearch from './sampo/clientSideFacetedSearch'
 
 const reducer = combineReducers({
   manuscripts,
@@ -32,10 +35,12 @@ const reducer = combineReducers({
   placesFacets,
   collections,
   expressions,
+  leafletMap,
   animation,
   options,
   error,
-  clientSideFacetedSearch,
+  // clientSideFacetedSearch,
+  fullTextSearch,
   toastr: toastrReducer
 })
 

@@ -4,11 +4,11 @@ import AddLocationIcon from '@material-ui/icons/AddLocation'
 import LocationOnIcon from '@material-ui/icons/LocationOn'
 import RedoIcon from '@material-ui/icons/Redo'
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload'
-import manuscriptsImage from '../../img/manuscripts-452x262.jpg'
-import worksImage from '../../img/works-452x262_2.jpg'
-import eventsImage from '../../img/events-452x262.jpg'
-import actorsImage from '../../img/actors-452x262_2.jpg'
-import placesImage from '../../img/places-452x262_2.jpg'
+import manuscriptsImage from '../../img/main_page/manuscripts-452x262.jpg'
+import worksImage from '../../img/main_page/works-452x262_2.jpg'
+import eventsImage from '../../img/main_page/events-452x262.jpg'
+import actorsImage from '../../img/main_page/actors-452x262_2.jpg'
+import placesImage from '../../img/main_page/places-452x262_2.jpg'
 
 export const perspectiveConfig = [
   {

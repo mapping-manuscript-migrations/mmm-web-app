@@ -1,6 +1,6 @@
 # Mapping Manuscript Migrations - Semantic Portal 
 
-Based on [Sampo-UI &ndash; A framework for implementing semantic portals](https://github.com/SemanticComputing/sampo-ui)
+Based on [Sampo-UI &ndash; A framework for building semantic portal user interfaces](https://github.com/SemanticComputing/sampo-ui)
 
 master branch visible at https://mappingmanuscriptmigrations.org
 
