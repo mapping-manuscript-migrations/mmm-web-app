@@ -64,7 +64,7 @@ const Manuscripts = props => {
           />}
       />
       <Route
-        path='/manuscripts/faceted-search/last_known_locations'
+        path={`${rootUrl}/${perspective.id}/faceted-search/last_known_locations`}
         render={() =>
           <LeafletMap
             center={[22.43, 10.37]}
