@@ -25,7 +25,9 @@ export default {
       info: 'Info',
       blog: 'Project blog',
       blogUrl: 'http://blog.mappingmanuscriptmigrations.org',
-      aboutThePortal: 'About the Portal'
+      aboutThePortal: 'About the Portal',
+      technicalDocumentation: 'Technical documentation',
+      technicalDocumentationUrl: 'https://mapping-manuscript-migrations.github.io'
     },
     searchBarPlaceHolder: 'Search all MMM content',
     searchBarPlaceHolderShort: 'Search',
@@ -958,8 +960,13 @@ export default {
       </h2>
       <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
         The MMM project has its own
-        <a href="https://github.com/mapping-manuscript-migrations" target='_blank' rel='noopener noreferrer'>GitHub site</a>. 
+        <a href="https://github.com/mapping-manuscript-migrations" target='_blank' rel='noopener noreferrer'>GitHub account</a>. 
         Here you will find documentation, scripts and programs, and samples of the raw data.
+      </p>
+      <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
+        Also a separate
+        <a href="https://mapping-manuscript-migrations.github.io/" target='_blank' rel='noopener noreferrer'>technical documetation site</a>
+        concerning the whole MMM project is published on GitHub.
       </p>
       <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
         The portal was implemented by the

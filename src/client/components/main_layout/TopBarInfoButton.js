@@ -79,6 +79,17 @@ class TopBarInfoButton extends React.Component {
               {intl.get('topBar.info.blog')}
             </MenuItem>
           </a>
+          <a
+            className={classes.link}
+            key={1}
+            href={intl.get('topBar.info.technicalDocumentationUrl')}
+            target='_blank'
+            rel='noopener noreferrer'
+          >
+            <MenuItem onClick={this.handleInfoMenuClose}>
+              {intl.get('topBar.info.technicalDocumentation')}
+            </MenuItem>
+          </a>
         </Menu>
       </>
     )
