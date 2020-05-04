@@ -15,7 +15,6 @@ import 'moment/locale/fi'
 import Grid from '@material-ui/core/Grid'
 
 // ** General components **
-import TopBar from '../components/main_layout/TopBar'
 import InstanceHomePage from '../components/main_layout/InstanceHomePage'
 import InfoHeader from '../components/main_layout/InfoHeader'
 import TextPage from '../components/main_layout/TextPage'
@@ -24,6 +23,7 @@ import FacetBar from '../components/facet_bar/FacetBar'
 // ** General components end **
 
 // ** Portal specific components and configs **
+import TopBar from '../components/perspectives/mmm/TopBar'
 import Main from '../components/perspectives/mmm/Main'
 import Manuscripts from '../components/perspectives/mmm/Manuscripts'
 import Works from '../components/perspectives/mmm/Works'

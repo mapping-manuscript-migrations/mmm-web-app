@@ -81,7 +81,7 @@ class TopBarInfoButton extends React.Component {
           </a>
           <a
             className={classes.link}
-            key={1}
+            key={2}
             href={intl.get('topBar.info.technicalDocumentationUrl')}
             target='_blank'
             rel='noopener noreferrer'
