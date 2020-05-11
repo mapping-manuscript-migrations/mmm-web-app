@@ -24,7 +24,7 @@ const Events = props => {
         path={`${props.rootUrl}/${perspective.id}/faceted-search/table`}
         render={routeProps =>
           <ResultTable
-            data={props.events}
+            data={props.facetResults}
             facetUpdateID={props.facetData.facetUpdateID}
             resultClass='events'
             facetClass='events'
@@ -42,7 +42,7 @@ const Events = props => {
           <LeafletMap
             center={[22.43, 10.37]}
             zoom={2}
-            results={props.places.results}
+            results={props.placesResults.results}
             layers={props.leafletMapLayers}
             pageType='facetResults'
             facetUpdateID={props.facetData.facetUpdateID}
@@ -52,41 +52,21 @@ const Events = props => {
             facetClass='events'
             mapMode='cluster'
             showMapModeControl={false}
-            instance={props.places.instance}
+            instance={props.placesResults.instance}
             fetchResults={props.fetchResults}
             fetchGeoJSONLayers={props.fetchGeoJSONLayers}
             fetchByURI={props.fetchByURI}
-            fetching={props.places.fetching}
+            fetching={props.placesResults.fetching}
             showInstanceCountInClusters
             updateFacetOption={props.updateFacetOption}
             showExternalLayers={false}
           />}
       />
-      {/* <Route
-        path='/events/faceted-search/by-period'
-        render={() =>
-          <ApexChart
-            fetchResults={props.fetchResults}
-            resultClass='eventsByTimePeriod'
-            facetClass='events'
-            data={props.events.results}
-            fetching={props.events.fetching}
-            options={{
-              chart: {
-                type: 'bar',
-                stacked: true,
-                height: '100%',
-                parentHeightOffset: 0,
-                width: '100%'
-              }
-            }}
-          />}
-      /> */}
       <Route
         path={`${rootUrl}/${perspective.id}/faceted-search/export`}
         render={() =>
           <Export
-            sparqlQuery={props.events.paginatedResultsSparqlQuery}
+            sparqlQuery={props.facetResults.paginatedResultsSparqlQuery}
             pageType='facetResults'
           />}
       />
@@ -95,8 +75,8 @@ const Events = props => {
 }
 
 Events.propTypes = {
-  events: PropTypes.object.isRequired,
-  places: PropTypes.object,
+  facetResults: PropTypes.object.isRequired,
+  placesResults: PropTypes.object,
   facetData: PropTypes.object.isRequired,
   fetchResults: PropTypes.func.isRequired,
   fetchPaginatedResults: PropTypes.func.isRequired,

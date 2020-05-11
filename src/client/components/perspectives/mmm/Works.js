@@ -22,7 +22,7 @@ const Works = props => {
         path={`${props.rootUrl}/${perspective.id}/faceted-search/table`}
         render={routeProps =>
           <ResultTable
-            data={props.works}
+            data={props.facetResults}
             facetUpdateID={props.facetData.facetUpdateID}
             resultClass='works'
             facetClass='works'
@@ -38,7 +38,7 @@ const Works = props => {
         path={`${rootUrl}/${perspective.id}/faceted-search/export`}
         render={() =>
           <Export
-            sparqlQuery={props.works.paginatedResultsSparqlQuery}
+            sparqlQuery={props.facetResults.paginatedResultsSparqlQuery}
             pageType='facetResults'
           />}
       />
@@ -47,8 +47,8 @@ const Works = props => {
 }
 
 Works.propTypes = {
-  works: PropTypes.object.isRequired,
-  places: PropTypes.object.isRequired,
+  facetResults: PropTypes.object.isRequired,
+  placesResults: PropTypes.object.isRequired,
   facetData: PropTypes.object.isRequired,
   fetchResults: PropTypes.func.isRequired,
   fetchPaginatedResults: PropTypes.func.isRequired,

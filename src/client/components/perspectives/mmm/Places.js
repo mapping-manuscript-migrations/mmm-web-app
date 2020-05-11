@@ -23,7 +23,7 @@ const Places = props => {
         path={`${props.rootUrl}/${perspective.id}/faceted-search/table`}
         render={routeProps =>
           <ResultTable
-            data={props.places}
+            data={props.facetResults}
             facetUpdateID={props.facetData.facetUpdateID}
             resultClass='places'
             facetClass='places'
@@ -41,7 +41,7 @@ const Places = props => {
           <LeafletMap
             center={[22.43, 10.37]}
             zoom={2}
-            results={props.places.results}
+            results={props.facetResults.results}
             pageType='facetResults'
             facetUpdateID={props.facetData.facetUpdateID}
             facet={props.facetData.facets.area}
@@ -50,11 +50,11 @@ const Places = props => {
             facetClass='places'
             mapMode='cluster'
             showMapModeControl={false}
-            instance={props.places.instance}
+            instance={props.facetResults.instance}
             fetchResults={props.fetchResults}
             fetchGeoJSONLayers={props.fetchGeoJSONLayers}
             fetchByURI={props.fetchByURI}
-            fetching={props.places.fetching}
+            fetching={props.facetResults.fetching}
             showInstanceCountInClusters={false}
             updateFacetOption={props.updateFacetOption}
             showExternalLayers={false}
@@ -64,7 +64,7 @@ const Places = props => {
         path={`${rootUrl}/${perspective.id}/faceted-search/export`}
         render={() =>
           <Export
-            sparqlQuery={props.places.paginatedResultsSparqlQuery}
+            sparqlQuery={props.facetResults.paginatedResultsSparqlQuery}
             pageType='facetResults'
           />}
       />
@@ -73,7 +73,7 @@ const Places = props => {
 }
 
 Places.propTypes = {
-  places: PropTypes.object.isRequired,
+  facetResults: PropTypes.object.isRequired,
   facetData: PropTypes.object.isRequired,
   fetchResults: PropTypes.func.isRequired,
   fetchPaginatedResults: PropTypes.func.isRequired,
