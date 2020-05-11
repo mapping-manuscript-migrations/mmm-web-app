@@ -26,7 +26,7 @@ const Manuscripts = props => {
         path={`${props.rootUrl}/${perspective.id}/faceted-search/table`}
         render={routeProps =>
           <ResultTable
-            data={props.manuscripts}
+            data={props.facetResults}
             facetUpdateID={props.facetData.facetUpdateID}
             resultClass='manuscripts'
             facetClass='manuscripts'
@@ -44,7 +44,7 @@ const Manuscripts = props => {
           <LeafletMap
             center={[22.43, 10.37]}
             zoom={2}
-            results={props.places.results}
+            results={props.placesResults.results}
             pageType='facetResults'
             facetUpdateID={props.facetData.facetUpdateID}
             facet={props.facetData.facets.productionPlace}
@@ -53,11 +53,11 @@ const Manuscripts = props => {
             facetClass='manuscripts'
             mapMode='cluster'
             showMapModeControl={false}
-            instance={props.places.instance}
+            instance={props.placesResults.instance}
             fetchResults={props.fetchResults}
             fetchGeoJSONLayers={props.fetchGeoJSONLayers}
             fetchByURI={props.fetchByURI}
-            fetching={props.places.fetching}
+            fetching={props.placesResults.fetching}
             showInstanceCountInClusters
             updateFacetOption={props.updateFacetOption}
             showExternalLayers={false}
@@ -69,7 +69,7 @@ const Manuscripts = props => {
           <LeafletMap
             center={[22.43, 10.37]}
             zoom={2}
-            results={props.places.results}
+            results={props.placesResults.results}
             layers={props.leafletMapLayers}
             pageType='facetResults'
             facetUpdateID={props.facetData.facetUpdateID}
@@ -79,11 +79,11 @@ const Manuscripts = props => {
             facetClass='manuscripts'
             mapMode='cluster'
             showMapModeControl={false}
-            instance={props.places.instance}
+            instance={props.placesResults.instance}
             fetchResults={props.fetchResults}
             fetchGeoJSONLayers={props.fetchGeoJSONLayers}
             fetchByURI={props.fetchByURI}
-            fetching={props.places.fetching}
+            fetching={props.placesResults.fetching}
             showInstanceCountInClusters
             updateFacetOption={props.updateFacetOption}
             showExternalLayers={false}
@@ -93,12 +93,12 @@ const Manuscripts = props => {
         path={`${rootUrl}/${perspective.id}/faceted-search/migrations`}
         render={() =>
           <Deck
-            results={props.places.results}
+            results={props.placesResults.results}
             facetUpdateID={props.facetData.facetUpdateID}
             resultClass='placesMsMigrations'
             facetClass='manuscripts'
             fetchResults={props.fetchResults}
-            fetching={props.places.fetching}
+            fetching={props.placesResults.fetching}
             legendComponent={<MigrationsMapLegend />}
             layerType='arcLayer'
             mapBoxAccessToken={MAPBOX_ACCESS_TOKEN}
@@ -109,7 +109,7 @@ const Manuscripts = props => {
         path={`${rootUrl}/${perspective.id}/faceted-search/export`}
         render={() =>
           <Export
-            sparqlQuery={props.manuscripts.paginatedResultsSparqlQuery}
+            sparqlQuery={props.facetResults.paginatedResultsSparqlQuery}
             pageType='facetResults'
           />}
       />
@@ -118,8 +118,8 @@ const Manuscripts = props => {
 }
 
 Manuscripts.propTypes = {
-  manuscripts: PropTypes.object.isRequired,
-  places: PropTypes.object.isRequired,
+  facetResults: PropTypes.object.isRequired,
+  placesResults: PropTypes.object.isRequired,
   leafletMapLayers: PropTypes.object.isRequired,
   facetData: PropTypes.object.isRequired,
   fetchResults: PropTypes.func.isRequired,

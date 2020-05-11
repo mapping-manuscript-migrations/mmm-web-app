@@ -23,16 +23,10 @@ import FacetBar from '../components/facet_bar/FacetBar'
 // ** General components end **
 
 // ** Portal specific components and configs **
+import FacetedSearchPerspective from '../components/perspectives/mmm/FacetedSearchPerspective'
+import FullTextSearch from '../components/perspectives/mmm/FullTextSearch'
 import TopBar from '../components/perspectives/mmm/TopBar'
 import Main from '../components/perspectives/mmm/Main'
-import Manuscripts from '../components/perspectives/mmm/Manuscripts'
-import Works from '../components/perspectives/mmm/Works'
-import Events from '../components/perspectives/mmm/Events'
-import Places from '../components/perspectives/mmm/Places'
-import Actors from '../components/perspectives/mmm/Actors'
-import FullTextSearch from '../components/perspectives/mmm/FullTextSearch'
-// import ClientFSPerspective from '../components/perspectives/sampo/client_fs/ClientFSPerspective'
-// import ClientFSMain from '../components/perspectives/sampo/client_fs/ClientFSMain'
 import Footer from '../components/perspectives/mmm/Footer'
 import { perspectiveConfig } from '../configs/mmm/PerspectiveConfig'
 import { perspectiveConfigOnlyInfoPages } from '../configs/mmm/PerspectiveConfigOnlyInfoPages'
