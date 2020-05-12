@@ -7,15 +7,16 @@ import {
   productionPlacesQuery,
   lastKnownLocationsQuery,
   migrationsQuery
-} from './SparqlQueriesManuscripts'
-import { eventPlacesQuery } from './SparqlQueriesEvents'
-import { actorPlacesQuery } from './SparqlQueriesActors'
+} from './sparql_queries/SparqlQueriesManuscripts'
+import { eventPlacesQuery } from './sparql_queries/SparqlQueriesEvents'
+import { actorPlacesQuery } from './sparql_queries/SparqlQueriesActors'
 import {
   placePropertiesInfoWindow,
   manuscriptsProducedAt,
   lastKnownLocationsAt,
   allPlacesQuery
-} from './SparqlQueriesPlaces'
+} from './sparql_queries/SparqlQueriesPlaces'
+import { fullTextSearchProperties } from './sparql_queries/SparqlQueriesFullText'
 import { makeObjectList } from '../SparqlObjectMapper'
 import { mapPlaces } from '../Mappers'
 
@@ -82,9 +83,7 @@ export const backendSearchConfig = {
     }
   },
   jenaText: {
-    endpoint: {
-      url: 'http://ldf.fi/mmm/sparql',
-      useAuth: false
-    }
+    perspectiveID: 'manuscripts',
+    properties: fullTextSearchProperties
   }
 }

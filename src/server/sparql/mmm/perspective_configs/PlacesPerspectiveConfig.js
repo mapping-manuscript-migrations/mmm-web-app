@@ -1,11 +1,13 @@
 import {
   placePropertiesInstancePage,
   placePropertiesFacetResults
-} from '../SparqlQueriesPlaces'
+} from '../sparql_queries/SparqlQueriesPlaces'
+import { prefixes } from '../sparql_queries/SparqlQueriesPrefixes'
 
 export const placesPerspectiveConfig = {
   endpoint: {
     url: 'http://ldf.fi/mmm/sparql',
+    prefixes,
     useAuth: false
   },
   facetClass: 'crm:E53_Place',
