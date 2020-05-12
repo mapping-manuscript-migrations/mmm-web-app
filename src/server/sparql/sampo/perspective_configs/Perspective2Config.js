@@ -1,10 +1,12 @@
 import {
   workProperties
-} from './SparqlQueriesPerspective2'
+} from '../sparql_queries/SparqlQueriesPerspective2'
+import { prefixes } from '../sparql_queries/SparqlQueriesPrefixes'
 
 export const perspective2Config = {
   endpoint: {
     url: 'http://ldf.fi/mmm/sparql',
+    prefixes,
     useAuth: false
   },
   facetClass: 'frbroo:F1_Work',
