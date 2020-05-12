@@ -207,16 +207,16 @@ export const actorProperties = `
 
 `
 
-export const placesActorsQuery = `
+export const actorPlacesQuery = `
   SELECT ?id ?lat ?long
-  (COUNT(DISTINCT ?actor__id) as ?instanceCount)
+  (COUNT(DISTINCT ?actor) as ?instanceCount)
   WHERE {
     <FILTER>
-    { ?actor__id crm:P98i_was_born/crm:P7_took_place_at ?id }
+    { ?actor crm:P98i_was_born/crm:P7_took_place_at ?id }
     UNION
-    { ?actor__id crm:P100i_died_in/crm:P7_took_place_at ?id }
+    { ?actor crm:P100i_died_in/crm:P7_took_place_at ?id }
     UNION
-    { ?actor__id ^crm:P11_had_participant/crm:P7_took_place_at ?id }
+    { ?actor ^crm:P11_had_participant/crm:P7_took_place_at ?id }
     ?id wgs84:lat ?lat ;
         wgs84:long ?long .
   }
