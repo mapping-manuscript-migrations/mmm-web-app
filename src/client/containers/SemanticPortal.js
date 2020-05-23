@@ -44,6 +44,7 @@ import {
   fetchFacetConstrainSelf,
   fetchGeoJSONLayers,
   fetchGeoJSONLayersBackend,
+  clearGeoJSONLayers,
   sortResults,
   updateFacetOption,
   updatePage,
@@ -364,11 +365,14 @@ const SemanticPortal = props => {
                                   fetchPaginatedResults={props.fetchPaginatedResults}
                                   fetchResults={props.fetchResults}
                                   fetchGeoJSONLayers={props.fetchGeoJSONLayers}
+                                  fetchGeoJSONLayersBackend={props.fetchGeoJSONLayersBackend}
+                                  clearGeoJSONLayers={props.clearGeoJSONLayers}
                                   fetchByURI={props.fetchByURI}
                                   updatePage={props.updatePage}
                                   updateRowsPerPage={props.updateRowsPerPage}
                                   updateFacetOption={props.updateFacetOption}
                                   sortResults={props.sortResults}
+                                  showError={props.showError}
                                   routeProps={routeProps}
                                   perspective={perspective}
                                   animationValue={props.animationValue}
@@ -514,6 +518,9 @@ const SemanticPortal = props => {
                         clientFSSortResults={props.clientFSSortResults}
                         leafletMap={props.leafletMap}
                         fetchGeoJSONLayersBackend={props.fetchGeoJSONLayersBackend}
+                        fetchGeoJSONLayers={props.fetchGeoJSONLayers}
+                        clearGeoJSONLayers={props.clearGeoJSONLayers}
+                        showError={props.showError}
                         rootUrl={rootUrlWithLang}
                       />}
                   </Grid>
@@ -586,6 +593,7 @@ const mapDispatchToProps = ({
   fetchFacetConstrainSelf,
   fetchGeoJSONLayers,
   fetchGeoJSONLayersBackend,
+  clearGeoJSONLayers,
   sortResults,
   clearResults,
   updateFacetOption,
@@ -655,6 +663,10 @@ SemanticPortal.propTypes = {
    * Redux action for loading external GeoJSON layers.
    */
   fetchGeoJSONLayers: PropTypes.func.isRequired,
+  /**
+   * Redux action for clearing external GeoJSON layers.
+   */
+  clearGeoJSONLayers: PropTypes.func.isRequired,
   /**
    * Redux action for loading external GeoJSON layers via the backend.
    * Useful when the API or similar needs to be hidden.
