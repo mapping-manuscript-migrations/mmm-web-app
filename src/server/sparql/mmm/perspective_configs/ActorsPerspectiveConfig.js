@@ -1,10 +1,12 @@
 import {
   actorProperties
-} from '../SparqlQueriesActors'
+} from '../sparql_queries/SparqlQueriesActors'
+import { prefixes } from '../sparql_queries/SparqlQueriesPrefixes'
 
 export const actorsPerspectiveConfig = {
   endpoint: {
     url: 'http://ldf.fi/mmm/sparql',
+    prefixes,
     useAuth: false
   },
   facetClass: 'crm:E21_Person crm:E74_Group crm:E39_Actor',

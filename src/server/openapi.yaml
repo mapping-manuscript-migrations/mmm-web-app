@@ -127,6 +127,16 @@ paths:
                   sparqlQuery:
                     type: string
                     description: The SPARQL query that was used for the results
+    get:
+        summary: Return all search results as a CSV file
+        responses:
+          '200':   
+            description: All search results as a CSV file
+            content:
+              text/plain:
+                schema:
+                  type: string
+                  format: binary                  
   /faceted-search/{resultClass}/count:
     post:
       summary: Return the total count of the faceted search results
@@ -354,6 +364,27 @@ paths:
                   type: object
                 description: Search results from multiple SPARQL endpoints
                       merged into a single array
+  /wfs:
+    get:
+      summary: Make preconfigured Web Feature Service (WFS) API calls via the backend. 
+      parameters:
+        - in: query
+          name: layerID
+          schema: 
+            type: array
+            items: 
+              type: string
+          explode: true
+          required: true
+      responses:
+        '200':
+          description: An array of GeoJSON layers.
+          content:
+            application/json:
+              schema:
+                type: array
 
+
+        
 
 

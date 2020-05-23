@@ -1,18 +1,19 @@
-import { perspective1Config } from './Perspective1Config'
-import { perspective2Config } from './Perspective2Config'
-import { perspective3Config } from './Perspective3Config'
+import { perspective1Config } from './perspective_configs/Perspective1Config'
+import { perspective2Config } from './perspective_configs/Perspective2Config'
+import { perspective3Config } from './perspective_configs/Perspective3Config'
 import {
   productionPlacesQuery,
   lastKnownLocationsQuery,
   migrationsQuery
-} from './SparqlQueriesPerspective1'
-import { /* eventProperties, */ eventPlacesQuery } from './SparqlQueriesPerspective3'
+} from './sparql_queries/SparqlQueriesPerspective1'
+import { /* eventProperties, */ eventPlacesQuery } from './sparql_queries/SparqlQueriesPerspective3'
 import {
   placePropertiesInfoWindow,
   manuscriptsProducedAt,
   lastKnownLocationsAt
-} from './SparqlQueriesPlaces'
-import { federatedSearchDatasets } from './SparqlQueriesFederatedSearch'
+} from './sparql_queries/SparqlQueriesPlaces'
+import { federatedSearchDatasets } from './sparql_queries/SparqlQueriesFederatedSearch'
+import { fullTextSearchProperties } from './sparql_queries/SparqlQueriesFullText'
 import { makeObjectList } from '../SparqlObjectMapper'
 import { mapPlaces } from '../Mappers'
 
@@ -21,7 +22,7 @@ export const backendSearchConfig = {
   perspective2: perspective2Config,
   perspective3: perspective3Config,
   placesMsProduced: {
-    perspectiveID: 'perspective1',
+    perspectiveID: 'perspective1', // use endpoint config from perspective1
     q: productionPlacesQuery,
     filterTarget: 'manuscripts',
     resultMapper: mapPlaces,
@@ -57,10 +58,8 @@ export const backendSearchConfig = {
     }
   },
   jenaText: {
-    endpoint: {
-      url: 'http://ldf.fi/mmm/sparql',
-      useAuth: false
-    }
+    perspectiveID: 'perspective1',
+    properties: fullTextSearchProperties
   },
   federatedSearch: {
     datasets: federatedSearchDatasets
