@@ -6,7 +6,9 @@ import { placesPerspectiveConfig } from './perspective_configs/PlacesPerspective
 import {
   productionPlacesQuery,
   lastKnownLocationsQuery,
-  migrationsQuery
+  migrationsQuery,
+  collectionProperties,
+  expressionProperties
 } from './sparql_queries/SparqlQueriesManuscripts'
 import { eventPlacesQuery } from './sparql_queries/SparqlQueriesEvents'
 import { actorPlacesQuery } from './sparql_queries/SparqlQueriesActors'
@@ -26,6 +28,20 @@ export const backendSearchConfig = {
   events: eventsPerspectiveConfig,
   actors: actorsPerspectiveConfig,
   places: placesPerspectiveConfig,
+  expressions: {
+    perspectiveID: 'manuscripts',
+    instance: {
+      properties: expressionProperties,
+      relatedInstances: ''
+    }
+  },
+  collections: {
+    perspectiveID: 'manuscripts',
+    instance: {
+      properties: collectionProperties,
+      relatedInstances: ''
+    }
+  },
   placesMsProduced: {
     perspectiveID: 'manuscripts',
     q: productionPlacesQuery,
