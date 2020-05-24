@@ -441,7 +441,7 @@ const SemanticPortal = props => {
                   to={`${rootUrlWithLang}/${perspective.id}/page/:id`}
                 />
                 <Route
-                  path={`/${perspective.id}/page/:id`}
+                  path={`${rootUrlWithLang}/${perspective.id}/page/:id`}
                   render={routeProps => {
                     return (
                       <>
