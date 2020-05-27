@@ -70,15 +70,24 @@ const ChartDialog = props => {
                 height: 18
               },
               formatter: (seriesName, opts) => {
-                return `${seriesName} [${opts.w.globals.series[opts.seriesIndex]}]`
+                const { series } = opts.w.globals
+                const value = series[opts.seriesIndex]
+                const arrSum = series.reduce((a, b) => a + b, 0)
+                const percentage = value / arrSum * 100
+                return `${seriesName}: ${value} (${percentage.toFixed(2)} %)`
               }
             },
             tooltip: {
-              // enabled: false,
-              followCursor: false,
-              fixed: {
-                enabled: true,
-                position: 'topRight'
+              custom: ({ series, seriesIndex, dataPointIndex, w }) => {
+                const arrSum = series.reduce((a, b) => a + b, 0)
+                const value = series[seriesIndex]
+                const percentage = value / arrSum * 100
+                return `
+                    <div class="apexcharts-custom-tooltip">
+                      <span>${w.config.labels[seriesIndex]}: ${value} (${percentage.toFixed(2)} %)</span> 
+                    </div>  
+      
+                `
               }
             }
           }}
