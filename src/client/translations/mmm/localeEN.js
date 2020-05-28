@@ -35,7 +35,16 @@ export default {
   },
   facetBar: {
     results: 'Results',
-    narrowDownBy: 'Narrow down by'
+    narrowDownBy: 'Narrow down by',
+    filterOptions: 'Filter options',
+    filterByName: 'Filter by name',
+    filterByBoundingBox: 'Filter by bounding box',
+    selectionOptions: 'Selection options',
+    selectAlsoSubconcepts: 'Automatically select all subconcepts',
+    doNotSelectSubconcepts: 'Do not select subconcepts',
+    sortingOptions: 'Sorting options',
+    sortAlphabetically: 'Sort alphabetically',
+    sortByNumberOfSearchResults: 'Sort by number of search results'
   },
   tabs: {
     table: 'table',
