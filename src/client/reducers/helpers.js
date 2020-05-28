@@ -213,6 +213,22 @@ export const fetchFacet = (state, action) => {
   }
 }
 
+export const clearFacet = (state, action) => {
+  return {
+    ...state,
+    updatedFacet: '', // force all facets to fetch new falues
+    facetUpdateID: ++state.facetUpdateID,
+    // updatedFilter: action.value, // a react sortable tree object, latlngbounds or text filter
+    facets: {
+      ...state.facets,
+      [action.facetID]: {
+        ...state.facets[action.facetID],
+        uriFilter: null
+      }
+    }
+  }
+}
+
 export const fetchFacetFailed = (state, action) => {
   return {
     ...state,

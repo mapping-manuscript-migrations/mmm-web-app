@@ -42,6 +42,7 @@ import {
   fetchByURI,
   fetchFacet,
   fetchFacetConstrainSelf,
+  clearFacet,
   fetchGeoJSONLayers,
   fetchGeoJSONLayersBackend,
   clearGeoJSONLayers,
@@ -350,6 +351,7 @@ const SemanticPortal = props => {
                                   resultCount={props[perspective.id].resultCount}
                                   fetchFacet={props.fetchFacet}
                                   fetchFacetConstrainSelf={props.fetchFacetConstrainSelf}
+                                  clearFacet={props.clearFacet}
                                   fetchResultCount={props.fetchResultCount}
                                   updateFacetOption={props.updateFacetOption}
                                   defaultActiveFacets={perspective.defaultActiveFacets}
@@ -591,6 +593,7 @@ const mapDispatchToProps = ({
   fetchByURI,
   fetchFacet,
   fetchFacetConstrainSelf,
+  clearFacet,
   fetchGeoJSONLayers,
   fetchGeoJSONLayersBackend,
   clearGeoJSONLayers,
@@ -696,6 +699,10 @@ SemanticPortal.propTypes = {
    * Redux action for fetching the values of a facet.
    */
   fetchFacet: PropTypes.func.isRequired,
+  /**
+   * Redux action for resetting a facet.
+   */
+  clearFacet: PropTypes.func.isRequired,
   /**
    * Redux action for displaying an error message.
    */
