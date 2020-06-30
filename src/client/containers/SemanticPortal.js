@@ -24,13 +24,13 @@ import FacetBar from '../components/facet_bar/FacetBar'
 // ** Portal specific components and configs **
 import TopBar from '../components/perspectives/mmm/TopBar'
 import Main from '../components/perspectives/mmm/Main'
-import FacetedSearchPerspective from '../components/perspectives/sampo/FacetedSearchPerspective'
-import FullTextSearch from '../components/perspectives/sampo/FullTextSearch'
-import InstanceHomePage from '../components/perspectives/sampo/InstanceHomePage'
-import Footer from '../components/perspectives/sampo/Footer'
-import { perspectiveConfig } from '../configs/sampo/PerspectiveConfig'
-import { perspectiveConfigOnlyInfoPages } from '../configs/sampo/PerspectiveConfigOnlyInfoPages'
-import { rootUrl } from '../configs/sampo/GeneralConfig'
+import FacetedSearchPerspective from '../components/perspectives/mmm/FacetedSearchPerspective'
+import FullTextSearch from '../components/perspectives/mmm/FullTextSearch'
+import InstanceHomePage from '../components/perspectives/mmm/InstanceHomePage'
+import Footer from '../components/perspectives/mmm/Footer'
+import { perspectiveConfig } from '../configs/mmm/PerspectiveConfig'
+import { perspectiveConfigOnlyInfoPages } from '../configs/mmm/PerspectiveConfigOnlyInfoPages'
+import { rootUrl } from '../configs/mmm/GeneralConfig'
 // ** Portal specific components and configs end **
 
 import {
