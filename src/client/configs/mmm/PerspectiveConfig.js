@@ -103,15 +103,10 @@ export const perspectiveConfig = [
         value: 1,
         icon: <AddLocationIcon />
       },
-      // {
-      //   id: 'by-period',
-      //   value: 2,
-      //   icon: <AddLocationIcon />,
-      // },
       {
         id: 'export',
         label: 'export',
-        value: 3,
+        value: 2,
         icon: <CloudDownloadIcon />
       }
     ],
