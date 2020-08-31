@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import intl from 'react-intl-universal'
 import L from 'leaflet'
-import { has, orderBy } from 'lodash'
+import { has, orderBy, isEqual } from 'lodash'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import { purple } from '@material-ui/core/colors'
 import { MAPBOX_ACCESS_TOKEN, MAPBOX_STYLE } from '../../configs/mmm/GeneralConfig'
@@ -99,11 +99,13 @@ class LeafletMap extends React.Component {
   }
 
   componentDidMount = () => {
-    if (this.props.mapMode && this.props.pageType === 'facetResults') {
+    if (this.props.mapMode &&
+      (this.props.pageType === 'facetResults' || this.props.pageType === 'instancePage')) {
       this.props.fetchResults({
         resultClass: this.props.resultClass,
         facetClass: this.props.facetClass,
-        sortBy: null
+        sortBy: null,
+        uri: this.props.uri
       })
     }
     this.initMap()
@@ -161,7 +163,7 @@ class LeafletMap extends React.Component {
     }
 
     // check if instance have changed
-    if ((this.props.instance !== null) && prevProps.instance !== this.props.instance) {
+    if ((this.props.instance !== null) && !isEqual(prevProps.instance, this.props.instance)) {
       this.markers[this.props.instance.id]
         .bindPopup(this.createPopUpContent(this.props.instance), {
           maxHeight: 300,
@@ -710,12 +712,12 @@ class LeafletMap extends React.Component {
           events: result.events ? result.events : null
         })
       }
-      if (this.props.pageType === 'facetResults') {
+      if (this.props.pageType === 'facetResults' || this.props.pageType === 'instancePage') {
         marker.on('click', this.markerOnClickFacetResults)
       }
-      if (this.props.pageType === 'instancePage') {
-        marker.bindPopup(this.createPopUpContent(marker.options))
-      }
+      // if (this.props.pageType === 'instancePage') {
+      //   marker.bindPopup(this.createPopUpContent(marker.options))
+      // }
       if (this.props.pageType === 'clientFSResults') {
         marker.bindPopup(this.createPopUpContentNameSampo(result))
       }
@@ -904,7 +906,8 @@ LeafletMap.propTypes = {
   updateFacetOption: PropTypes.func,
   facetedSearchMode: PropTypes.string,
   container: PropTypes.string,
-  showError: PropTypes.func
+  showError: PropTypes.func,
+  uri: PropTypes.string
 }
 
 export const LeafletMapComponent = LeafletMap

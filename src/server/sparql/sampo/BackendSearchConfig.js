@@ -1,6 +1,8 @@
 import { perspective1Config } from './perspective_configs/Perspective1Config'
 import { perspective2Config } from './perspective_configs/Perspective2Config'
 import { perspective3Config } from './perspective_configs/Perspective3Config'
+import { findsConfig } from './perspective_configs/FindsConfig'
+import { actorsConfig } from './perspective_configs/EmloActorsConfig'
 import {
   productionPlacesQuery,
   lastKnownLocationsQuery,
@@ -29,6 +31,22 @@ import {
   manuscriptsProducedAt,
   lastKnownLocationsAt
 } from './sparql_queries/SparqlQueriesPlaces'
+import {
+  findPropertiesInstancePage,
+  findsPlacesQuery,
+  findsTimelineQuery,
+  nearbyFindsQuery
+} from './sparql_queries/SparqlQueriesFinds'
+import {
+  emloLetterLinksQuery,
+  emloNetworkNodesQuery,
+  emloPeopleEventPlacesQuery,
+  emloSentReceivedQuery
+} from './sparql_queries/SparqlQueriesEmloActors'
+import {
+  emloPlacePropertiesInfoWindow,
+  emloPeopleRelatedTo
+} from './sparql_queries/SparqlQueriesEmloPlaces'
 import { federatedSearchDatasets } from './sparql_queries/SparqlQueriesFederatedSearch'
 import { fullTextSearchProperties } from './sparql_queries/SparqlQueriesFullText'
 import { makeObjectList } from '../SparqlObjectMapper'
@@ -42,6 +60,8 @@ export const backendSearchConfig = {
   perspective1: perspective1Config,
   perspective2: perspective2Config,
   perspective3: perspective3Config,
+  finds: findsConfig,
+  emloActors: actorsConfig,
   manuscripts: {
     perspectiveID: 'perspective1', // use endpoint config from perspective1
     instance: {
@@ -127,7 +147,7 @@ export const backendSearchConfig = {
       relatedInstances: ''
     }
   },
-  productionLineChart: {
+  productionTimespanLineChart: {
     perspectiveID: 'perspective1',
     q: productionsByDecadeQuery,
     filterTarget: 'instance',
@@ -141,9 +161,56 @@ export const backendSearchConfig = {
   },
   manuscriptInstancePageNetwork: {
     perspectiveID: 'perspective1',
-    links: manuscriptNetworkLinksQuery,
+    q: manuscriptNetworkLinksQuery,
     nodes: manuscriptNetworkNodesQuery,
     useNetworkAPI: true
+  },
+  findsPlaces: {
+    perspectiveID: 'finds', // use endpoint config from finds
+    q: findsPlacesQuery,
+    filterTarget: 'id',
+    resultMapper: mapPlaces,
+    instance: {
+      properties: findPropertiesInstancePage,
+      relatedInstances: ''
+    }
+  },
+  findsTimeline: {
+    perspectiveID: 'finds', // use endpoint config from finds
+    q: findsTimelineQuery,
+    filterTarget: 'find',
+    resultMapper: makeObjectList
+  },
+  nearbyFinds: {
+    perspectiveID: 'finds', // use endpoint config from finds
+    q: nearbyFindsQuery,
+    resultMapper: mapPlaces,
+    instance: {
+      properties: findPropertiesInstancePage,
+      relatedInstances: ''
+    }
+  },
+  emloPlacesActors: {
+    perspectiveID: 'emloActors',
+    q: emloPeopleEventPlacesQuery,
+    filterTarget: 'person',
+    resultMapper: mapPlaces,
+    instance: {
+      properties: emloPlacePropertiesInfoWindow,
+      relatedInstances: emloPeopleRelatedTo
+    }
+  },
+  emloLetterNetwork: {
+    perspectiveID: 'emloActors',
+    q: emloLetterLinksQuery,
+    nodes: emloNetworkNodesQuery,
+    useNetworkAPI: true
+  },
+  emloSentReceived: {
+    perspectiveID: 'emloActors',
+    q: emloSentReceivedQuery,
+    // filterTarget: 'id',
+    resultMapper: mapMultipleLineChart
   },
   jenaText: {
     perspectiveID: 'perspective1',

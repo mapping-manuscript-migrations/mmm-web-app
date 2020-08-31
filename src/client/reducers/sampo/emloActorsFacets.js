@@ -11,6 +11,8 @@ export const INITIAL_STATE = {
       distinctValueCount: 0,
       values: [],
       flatValues: [],
+      sortBy: null,
+      sortDirection: null,
       sortButton: false,
       spatialFilterButton: false,
       isFetching: false,
@@ -20,42 +22,44 @@ export const INITIAL_STATE = {
       textFilter: null,
       priority: 1
     },
-    author: {
-      id: 'author',
-      // predicate: defined in backend
-      distinctValueCount: 0,
-      values: [],
-      flatValues: [],
-      sortBy: 'prefLabel',
-      sortDirection: 'asc',
-      sortButton: true,
-      spatialFilterButton: false,
-      isFetching: false,
-      searchField: true,
-      containerClass: 'ten',
-      filterType: 'uriFilter',
-      uriFilter: null,
-      priority: 2
-    },
-    language: {
-      id: 'language',
+    gender: {
+      id: 'gender',
       // predicate: defined in backend
       distinctValueCount: 0,
       values: [],
       flatValues: [],
       sortBy: 'instanceCount',
       sortDirection: 'desc',
-      sortButton: true,
+      sortButton: false,
       spatialFilterButton: false,
+      chartButton: true,
       isFetching: false,
-      searchField: true,
-      containerClass: 'ten',
+      searchField: false,
+      containerClass: 'three',
       filterType: 'uriFilter',
       uriFilter: null,
-      priority: 3
+      priority: 9
     },
-    productionTimespan: {
-      id: 'productionTimespan',
+    type: {
+      id: 'type',
+      // predicate: defined in backend
+      distinctValueCount: 0,
+      values: [],
+      flatValues: [],
+      sortBy: 'instanceCount',
+      sortDirection: 'desc',
+      sortButton: false,
+      spatialFilterButton: false,
+      chartButton: false,
+      isFetching: false,
+      searchField: false,
+      containerClass: 'three',
+      filterType: 'uriFilter',
+      uriFilter: null,
+      priority: 9
+    },
+    birthDateTimespan: {
+      id: 'birthDateTimespan',
       // predicate: defined in backend
       distinctValueCount: 0,
       values: [],
@@ -72,49 +76,35 @@ export const INITIAL_STATE = {
       max: null,
       timespanFilter: null,
       type: 'timespan',
-      priority: 6
+      priority: 8
     },
-    collection: {
-      id: 'collection',
+    deathDateTimespan: {
+      id: 'deathDateTimespan',
       // predicate: defined in backend
       distinctValueCount: 0,
       values: [],
       flatValues: [],
-      sortBy: 'instanceCount',
-      sortDirection: 'desc',
-      sortButton: true,
-      spatialFilterButton: false,
-      isFetching: false,
-      searchField: true,
-      containerClass: 'ten',
-      filterType: 'uriFilter',
-      uriFilter: null,
-      priority: 5
-    },
-    source: {
-      id: 'source',
-      // predicate: defined in backend
-      distinctValueCount: 0,
-      values: [],
-      flatValues: [],
-      sortBy: 'instanceCount',
-      sortDirection: 'desc',
+      sortBy: null,
+      sortDirection: null,
       sortButton: false,
       spatialFilterButton: false,
       isFetching: false,
       searchField: false,
-      containerClass: 'five',
-      filterType: 'uriFilter',
-      uriFilter: null,
-      priority: 7
+      containerClass: 'three',
+      filterType: 'timespanFilter',
+      min: null,
+      max: null,
+      timespanFilter: null,
+      type: 'timespan',
+      priority: 8
     }
   }
 }
 
-const perspective2FacetsConstrainSelf = (state = INITIAL_STATE, action) => {
-  if (action.facetClass === 'perspective2') {
+const actorsFacets = (state = INITIAL_STATE, action) => {
+  if (action.facetClass === 'emloActors') {
     return handleFacetAction(state, action)
   } else return state
 }
 
-export default perspective2FacetsConstrainSelf
+export default actorsFacets

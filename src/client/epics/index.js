@@ -32,8 +32,6 @@ import {
   FETCH_SIMILAR_DOCUMENTS_BY_ID_FAILED,
   FETCH_FACET_FAILED,
   FETCH_GEOJSON_LAYERS,
-  FETCH_NETWORK_BY_ID,
-  FETCH_NETWORK_BY_ID_FAILED,
   FETCH_GEOJSON_LAYERS_BACKEND,
   CLIENT_FS_FETCH_RESULTS,
   CLIENT_FS_FETCH_RESULTS_FAILED,
@@ -42,9 +40,8 @@ import {
   updatePaginatedResults,
   updateResults,
   clientFSUpdateResults,
-  updateInstance,
-  updateInstanceRelatedData,
-  updateInstanceNetworkData,
+  updateInstanceTable,
+  updateInstanceTableExternal,
   updateFacetValues,
   updateFacetValuesConstrainSelf,
   updateLocale,
@@ -125,8 +122,9 @@ const fetchResultsEpic = (action$, state$) => action$.pipe(
   mergeMap(([action, state]) => {
     const { resultClass, facetClass, limit, optimize } = action
     const params = stateToUrl({
-      facets: state[`${facetClass}Facets`].facets,
+      facets: facetClass ? state[`${facetClass}Facets`].facets : null,
       facetClass,
+      uri: action.uri ? action.uri : null,
       limit,
       optimize
     })
@@ -238,7 +236,7 @@ const fetchByURIEpic = (action$, state$) => action$.pipe(
       },
       body: params
     }).pipe(
-      map(ajaxResponse => updateInstance({
+      map(ajaxResponse => updateInstanceTable({
         resultClass: resultClass,
         data: ajaxResponse.response.data,
         sparqlQuery: ajaxResponse.response.sparqlQuery
@@ -394,7 +392,7 @@ const fetchSimilarDocumentsEpic = (action$, state$) => action$.pipe(
     const { resultClass, id, modelName, resultSize } = action
     const requestUrl = `${documentFinderAPIUrl}/top-similar/${modelName}/${id}?n=${resultSize}`
     return ajax.getJSON(requestUrl).pipe(
-      map(res => updateInstanceRelatedData({
+      map(res => updateInstanceTableExternal({
         resultClass,
         data: res.documents || null
       })),
@@ -402,32 +400,6 @@ const fetchSimilarDocumentsEpic = (action$, state$) => action$.pipe(
         type: FETCH_SIMILAR_DOCUMENTS_BY_ID_FAILED,
         resultClass: action.resultClass,
         id: action.id,
-        error: error,
-        message: {
-          text: backendErrorText,
-          title: 'Error'
-        }
-      }))
-    )
-  })
-)
-
-const fetchNetworkByURIEpic = (action$, state$) => action$.pipe(
-  ofType(FETCH_NETWORK_BY_ID),
-  withLatestFrom(state$),
-  mergeMap(([action]) => {
-    const { resultClass, id, limit, optimize } = action
-    const params = { limit, optimize }
-    const requestUrl = `${apiUrl}/${resultClass}/network/${encodeURIComponent(id)}?${querystring.stringify(params)}`
-    return ajax.getJSON(requestUrl).pipe(
-      map(response => updateInstanceNetworkData({
-        resultClass: resultClass,
-        data: response.data,
-        sparqlQuery: response.sparqlQuery
-      })),
-      catchError(error => of({
-        type: FETCH_NETWORK_BY_ID_FAILED,
-        resultClass: resultClass,
         error: error,
         message: {
           text: backendErrorText,
@@ -512,7 +484,6 @@ const rootEpic = combineEpics(
   fetchByURIEpic,
   fetchFacetEpic,
   fetchFacetConstrainSelfEpic,
-  fetchNetworkByURIEpic,
   fullTextSearchEpic,
   clientFSFetchResultsEpic,
   loadLocalesEpic,

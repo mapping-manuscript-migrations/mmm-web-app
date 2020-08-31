@@ -3,10 +3,14 @@ import PropTypes from 'prop-types'
 import { Route, Redirect } from 'react-router-dom'
 import PerspectiveTabs from '../../main_layout/PerspectiveTabs'
 import ResultTable from '../../facet_results/ResultTable'
-import Export from '../../facet_results/Export'
 import LeafletMap from '../../facet_results/LeafletMap'
+// import Deck from '../../facet_results/Deck'
+// import Network from '../../facet_results/Network'
+import Export from '../../facet_results/Export'
+// import MigrationsMapLegend from './MigrationsMapLegend'
+// import { MAPBOX_ACCESS_TOKEN, MAPBOX_STYLE } from '../../../configs/emlo/GeneralConfig'
 
-const Perspective3 = props => {
+const EmloActors = props => {
   const { rootUrl, perspective } = props
   return (
     <>
@@ -20,13 +24,13 @@ const Perspective3 = props => {
         render={() => <Redirect to={`${rootUrl}/${perspective.id}/faceted-search/table`} />}
       />
       <Route
-        path={`${props.rootUrl}/${perspective.id}/faceted-search/table`}
+        path={[`${props.rootUrl}/${perspective.id}/faceted-search/table`, '/iframe.html']}
         render={routeProps =>
           <ResultTable
             data={props.facetResults}
             facetUpdateID={props.facetData.facetUpdateID}
-            resultClass='perspective3'
-            facetClass='perspective3'
+            resultClass='emloActors'
+            facetClass='emloActors'
             fetchPaginatedResults={props.fetchPaginatedResults}
             updatePage={props.updatePage}
             updateRowsPerPage={props.updateRowsPerPage}
@@ -45,22 +49,17 @@ const Perspective3 = props => {
             layers={props.leafletMapLayers}
             pageType='facetResults'
             facetUpdateID={props.facetData.facetUpdateID}
-            facet={props.facetData.facets.place}
-            facetID='place'
-            resultClass='placesEvents'
-            facetClass='perspective3'
+            facetID=''
+            resultClass='emloPlacesActors'
+            facetClass='emloActors'
             mapMode='cluster'
-            showMapModeControl={false}
             instance={props.placesResults.instanceTableData}
             fetchResults={props.fetchResults}
-            clearGeoJSONLayers={props.clearGeoJSONLayers}
-            fetchGeoJSONLayers={props.fetchGeoJSONLayersBackend}
             fetchByURI={props.fetchByURI}
             fetching={props.placesResults.fetching}
             showInstanceCountInClusters
             updateFacetOption={props.updateFacetOption}
-            showExternalLayers
-            showError={props.showError}
+            showExternalLayers={false}
           />}
       />
       <Route
@@ -68,8 +67,8 @@ const Perspective3 = props => {
         render={() =>
           <Export
             data={props.facetResults}
-            resultClass='perspective3'
-            facetClass='perspective3'
+            resultClass='emloActors'
+            facetClass='emloActors'
             pageType='facetResults'
             fetchPaginatedResults={props.fetchPaginatedResults}
             updatePage={props.updatePage}
@@ -79,15 +78,15 @@ const Perspective3 = props => {
   )
 }
 
-Perspective3.propTypes = {
+EmloActors.propTypes = {
   facetResults: PropTypes.object.isRequired,
   placesResults: PropTypes.object.isRequired,
   leafletMapLayers: PropTypes.object.isRequired,
   facetData: PropTypes.object.isRequired,
   fetchResults: PropTypes.func.isRequired,
+  clearGeoJSONLayers: PropTypes.func.isRequired,
   fetchGeoJSONLayers: PropTypes.func.isRequired,
   fetchGeoJSONLayersBackend: PropTypes.func.isRequired,
-  clearGeoJSONLayers: PropTypes.func.isRequired,
   fetchPaginatedResults: PropTypes.func.isRequired,
   fetchByURI: PropTypes.func.isRequired,
   updatePage: PropTypes.func.isRequired,
@@ -103,4 +102,4 @@ Perspective3.propTypes = {
   showError: PropTypes.func.isRequired
 }
 
-export default Perspective3
+export default EmloActors

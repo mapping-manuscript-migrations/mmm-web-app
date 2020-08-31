@@ -18,9 +18,9 @@ export const FETCH_SIMILAR_DOCUMENTS_BY_ID = 'FETCH_SIMILAR_DOCUMENTS_BY_ID'
 export const FETCH_SIMILAR_DOCUMENTS_BY_ID_FAILED = 'FETCH_SIMILAR_DOCUMENTS_BY_ID_FAILED'
 export const FETCH_NETWORK_BY_ID = 'FETCH_NETWORK_BY_ID'
 export const FETCH_NETWORK_BY_ID_FAILED = 'FETCH_NETWORK_BY_ID_FAILED'
-export const UPDATE_INSTANCE = 'UPDATE_INSTANCE'
-export const UPDATE_INSTANCE_RELATED_DATA = 'UPDATE_INSTANCE_RELATED_DATA'
-export const UPDATE_INSTANCE_NETWORK_DATA = 'UPDATE_INSTANCE_NETWORK_DATA'
+export const UPDATE_INSTANCE_TABLE = 'UPDATE_INSTANCE_TABLE'
+export const UPDATE_INSTANCE_TABLE_EXTERNAL = 'UPDATE_INSTANCE_TABLE_EXTERNAL'
+export const UPDATE_INSTANCE_ANALYSIS = 'UPDATE_INSTANCE_ANALYSIS'
 export const FETCH_FACET = 'FETCH_FACET'
 export const FETCH_FACET_CONSTRAIN_SELF = 'FETCH_FACET_CONSTRAIN_SELF'
 export const FETCH_FACET_FAILED = 'FETCH_FACET_FAILED'
@@ -64,10 +64,11 @@ export const fetchPaginatedResultsFailed = (resultClass, error, message) => ({
   error,
   message
 })
-export const fetchResults = ({ resultClass, facetClass, limit = null, optimize = null }) => ({
+export const fetchResults = ({ resultClass, facetClass, uri = null, limit = null, optimize = null }) => ({
   type: FETCH_RESULTS,
   resultClass,
   facetClass,
+  uri,
   limit,
   optimize
 })
@@ -153,19 +154,6 @@ export const fetchSimilarDocumentsById = ({ resultClass, id, modelName, resultSi
   modelName,
   resultSize
 })
-export const fetchNetworkById = ({ resultClass, id, limit = null, optimize = null }) => ({
-  type: FETCH_NETWORK_BY_ID,
-  resultClass,
-  id,
-  limit,
-  optimize
-})
-export const fetchNetworkByIdFailed = ({ resultClass, id, error, message }) => ({
-  type: FETCH_NETWORK_BY_ID_FAILED,
-  resultClass,
-  error,
-  message
-})
 export const fetchSimilarDocumentsByIdFailed = (resultClass, id, error, message) => ({
   type: FETCH_SIMILAR_DOCUMENTS_BY_ID_FAILED,
   resultClass,
@@ -173,19 +161,14 @@ export const fetchSimilarDocumentsByIdFailed = (resultClass, id, error, message)
   error,
   message
 })
-export const updateInstance = ({ resultClass, data, sparqlQuery }) => ({
-  type: UPDATE_INSTANCE,
+export const updateInstanceTable = ({ resultClass, data, sparqlQuery }) => ({
+  type: UPDATE_INSTANCE_TABLE,
   resultClass,
   data,
   sparqlQuery
 })
-export const updateInstanceRelatedData = ({ resultClass, data }) => ({
-  type: UPDATE_INSTANCE_RELATED_DATA,
-  resultClass,
-  data
-})
-export const updateInstanceNetworkData = ({ resultClass, data }) => ({
-  type: UPDATE_INSTANCE_NETWORK_DATA,
+export const updateInstanceTableExternal = ({ resultClass, data }) => ({
+  type: UPDATE_INSTANCE_TABLE_EXTERNAL,
   resultClass,
   data
 })
