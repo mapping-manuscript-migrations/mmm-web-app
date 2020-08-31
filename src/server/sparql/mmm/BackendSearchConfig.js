@@ -16,7 +16,8 @@ import {
   placePropertiesInfoWindow,
   manuscriptsProducedAt,
   lastKnownLocationsAt,
-  allPlacesQuery
+  allPlacesQuery,
+  actorsAt
 } from './sparql_queries/SparqlQueriesPlaces'
 import { fullTextSearchProperties } from './sparql_queries/SparqlQueriesFullText'
 import { makeObjectList } from '../SparqlObjectMapper'
@@ -85,7 +86,7 @@ export const backendSearchConfig = {
     resultMapper: mapPlaces,
     instance: {
       properties: placePropertiesInfoWindow,
-      relatedInstances: ''
+      relatedInstances: actorsAt
     }
   },
   placesAll: {

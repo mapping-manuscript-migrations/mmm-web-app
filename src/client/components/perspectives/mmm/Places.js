@@ -50,7 +50,7 @@ const Places = props => {
             facetClass='places'
             mapMode='cluster'
             showMapModeControl={false}
-            instance={props.facetResults.instance}
+            instance={props.facetResults.instanceTableData}
             fetchResults={props.fetchResults}
             fetchGeoJSONLayers={props.fetchGeoJSONLayers}
             fetchByURI={props.fetchByURI}

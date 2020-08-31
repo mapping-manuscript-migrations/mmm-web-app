@@ -53,7 +53,7 @@ const Manuscripts = props => {
             facetClass='manuscripts'
             mapMode='cluster'
             showMapModeControl={false}
-            instance={props.placesResults.instance}
+            instance={props.placesResults.instanceTableData}
             fetchResults={props.fetchResults}
             fetchGeoJSONLayers={props.fetchGeoJSONLayers}
             fetchByURI={props.fetchByURI}
@@ -79,7 +79,7 @@ const Manuscripts = props => {
             facetClass='manuscripts'
             mapMode='cluster'
             showMapModeControl={false}
-            instance={props.placesResults.instance}
+            instance={props.placesResults.instanceTableData}
             fetchResults={props.fetchResults}
             fetchGeoJSONLayers={props.fetchGeoJSONLayers}
             fetchByURI={props.fetchByURI}

@@ -1,17 +1,4 @@
-import {
-  FETCH_FACET,
-  FETCH_FACET_FAILED,
-  UPDATE_FACET_VALUES,
-  UPDATE_FACET_OPTION,
-  CLEAR_FACET
-} from '../../actions'
-import {
-  fetchFacet,
-  fetchFacetFailed,
-  updateFacetValues,
-  updateFacetOption,
-  clearFacet
-} from '../helpers'
+import { handleFacetAction } from '../general/facets'
 
 export const INITIAL_STATE = {
   updatedFacet: null,
@@ -45,7 +32,6 @@ export const INITIAL_STATE = {
       sortDirection: 'desc',
       sortButton: true,
       spatialFilterButton: false,
-      chartButton: true,
       isFetching: false,
       searchField: true,
       containerClass: 'ten',
@@ -139,7 +125,7 @@ export const INITIAL_STATE = {
       sortDirection: 'desc',
       sortButton: true,
       spatialFilterButton: false,
-      chartButton: true,
+      pieChartButton: true,
       isFetching: false,
       searchField: true,
       containerClass: 'ten',
@@ -158,7 +144,7 @@ export const INITIAL_STATE = {
       sortDirection: 'desc',
       sortButton: true,
       spatialFilterButton: false,
-      chartButton: true,
+      pieChartButton: true,
       isFetching: false,
       searchField: true,
       containerClass: 'ten',
@@ -176,7 +162,7 @@ export const INITIAL_STATE = {
       sortDirection: 'desc',
       sortButton: true,
       spatialFilterButton: false,
-      chartButton: true,
+      pieChartButton: true,
       isFetching: false,
       searchField: true,
       containerClass: 'ten',
@@ -257,7 +243,7 @@ export const INITIAL_STATE = {
       sortDirection: 'desc',
       sortButton: true,
       spatialFilterButton: false,
-      chartButton: true,
+      pieChartButton: true,
       isFetching: false,
       searchField: true,
       containerClass: 'ten',
@@ -379,7 +365,7 @@ export const INITIAL_STATE = {
       sortDirection: 'desc',
       sortButton: false,
       spatialFilterButton: false,
-      chartButton: true,
+      pieChartButton: true,
       isFetching: false,
       searchField: false,
       containerClass: 'three',
@@ -392,20 +378,7 @@ export const INITIAL_STATE = {
 
 const manuscriptsFacets = (state = INITIAL_STATE, action) => {
   if (action.facetClass === 'manuscripts') {
-    switch (action.type) {
-      case FETCH_FACET:
-        return fetchFacet(state, action)
-      case FETCH_FACET_FAILED:
-        return fetchFacetFailed(state, action)
-      case UPDATE_FACET_VALUES:
-        return updateFacetValues(state, action)
-      case UPDATE_FACET_OPTION:
-        return updateFacetOption(state, action)
-      case CLEAR_FACET:
-        return clearFacet(state, action)
-      default:
-        return state
-    }
+    return handleFacetAction(state, action)
   } else return state
 }
 
