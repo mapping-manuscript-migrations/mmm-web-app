@@ -852,7 +852,7 @@ export default {
       }
     }
   },
-  aboutThePortal: `
+  aboutThePortalPartOne: `
       <h1 class="MuiTypography-root MuiTypography-h2 MuiTypography-gutterBottom">
         Mapping Manuscript Migrations
       </h1>
@@ -865,37 +865,15 @@ export default {
         Linked Open Data
       </h2>
       <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
-        MMM combines data from three specialist databases, based on Linked Open Data
+        By using Linked Open Data
         <a 
           href="https://www.w3.org/standards/semanticweb" 
           target='_blank' rel='noopener noreferrer'
         >
-          principles and technology
-          </a>: 
+          principles and technology</a>, MMM combines data from three specialist databases: 
       </p>
-      <ul class="MuiTypography-root MuiTypography-body1 MuiTypography-gutterBottom">
-        <li>
-          <a href="https://sdbm.library.upenn.edu/"
-            target='_blank' rel='noopener noreferrer'
-          >
-            Schoenberg Database of Manuscripts
-          </a>
-        </li>
-        <li>
-          <a href="http://bibale.irht.cnrs.fr/"
-            target='_blank' rel='noopener noreferrer'
-          >
-            Bibale
-          </a>
-        </li>
-        <li>
-          <a href="https://medieval.bodleian.ox.ac.uk/"
-            target='_blank' rel='noopener noreferrer'
-          >
-            Medieval Manuscripts in Oxford Libraries
-          </a>
-        </li>
-      </ul>
+    `,
+  aboutThePortalPartTwo: `
       <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
         The data have been combined using a set of shared ontologies and a novel unified Data Model 
         that extends the CIDOC-CRM and FRBRoo ontologies. A diagram of the Data Model can be seen

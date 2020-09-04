@@ -28,6 +28,7 @@ import FacetedSearchPerspective from '../components/perspectives/mmm/FacetedSear
 import FullTextSearch from '../components/perspectives/mmm/FullTextSearch'
 import InstanceHomePage from '../components/perspectives/mmm/InstanceHomePage'
 import Footer from '../components/perspectives/mmm/Footer'
+import KnowledgeGraphMetadataTable from '../components/perspectives/mmm/KnowledgeGraphMetadataTable'
 import { perspectiveConfig } from '../configs/mmm/PerspectiveConfig'
 import { perspectiveConfigOnlyInfoPages } from '../configs/mmm/PerspectiveConfigOnlyInfoPages'
 import { rootUrl } from '../configs/mmm/GeneralConfig'
@@ -573,12 +574,14 @@ const SemanticPortal = props => {
               path={`${rootUrlWithLang}/about`}
               render={() =>
                 <div className={classNames(classes.mainContainer, classes.textPageContainer)}>
-                  <TextPage
-                    resultClass='perspective1KnowledgeGraphMetadata'
-                    fetchKnowledgeGraphMetadata={props.fetchKnowledgeGraphMetadata}
-                    knowledgeGraphMetadata={props.perspective1.knowledgeGraphMetadata}
-                  >
-                    {intl.getHTML('aboutThePortal')}
+                  <TextPage>
+                    {intl.getHTML('aboutThePortalPartOne')}
+                    <KnowledgeGraphMetadataTable
+                      resultClass='manuscriptsKnowledgeGraphMetadata'
+                      fetchKnowledgeGraphMetadata={props.fetchKnowledgeGraphMetadata}
+                      knowledgeGraphMetadata={props.manuscripts.knowledgeGraphMetadata}
+                    />
+                    {intl.getHTML('aboutThePortalPartTwo')}
                   </TextPage>
                 </div>}
             />

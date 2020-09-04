@@ -258,7 +258,8 @@ export const INITIAL_STATE = {
 
 const resultClasses = new Set([
   'manuscripts',
-  'manuscriptsNetwork'
+  'manuscriptsNetwork',
+  'manuscriptsKnowledgeGraphMetadata'
 ])
 
 const manuscripts = (state = INITIAL_STATE, action) => {

@@ -8,7 +8,8 @@ import {
   lastKnownLocationsQuery,
   migrationsQuery,
   collectionProperties,
-  expressionProperties
+  expressionProperties,
+  knowledgeGraphMetadataQuery
 } from './sparql_queries/SparqlQueriesManuscripts'
 import { eventPlacesQuery } from './sparql_queries/SparqlQueriesEvents'
 import { actorPlacesQuery } from './sparql_queries/SparqlQueriesActors'
@@ -98,6 +99,11 @@ export const backendSearchConfig = {
       properties: placePropertiesInfoWindow,
       relatedInstances: ''
     }
+  },
+  manuscriptsKnowledgeGraphMetadata: {
+    perspectiveID: 'manuscripts',
+    q: knowledgeGraphMetadataQuery,
+    resultMapper: makeObjectList
   },
   jenaText: {
     perspectiveID: 'manuscripts',
