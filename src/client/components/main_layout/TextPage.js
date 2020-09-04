@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { makeStyles } from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper'
@@ -34,6 +34,14 @@ const useStyles = makeStyles(theme => ({
  */
 const TextPage = props => {
   const classes = useStyles()
+
+  useEffect(() => {
+    if (props.fetchKnowledgeGraphMetadata) {
+      const { resultClass } = props
+      props.fetchKnowledgeGraphMetadata({ resultClass })
+    }
+  }, [])
+
   return (
     <div className={classes.root}>
       <Paper className={classes.layout}>
@@ -47,7 +55,9 @@ TextPage.propTypes = {
   /**
    * The content of the page.
    */
-  children: PropTypes.node
+  children: PropTypes.node,
+  fetchKnowledgeGraphMetadata: PropTypes.func,
+  resultClass: PropTypes.string
 }
 
 export default TextPage
