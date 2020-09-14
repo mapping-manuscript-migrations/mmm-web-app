@@ -50,7 +50,6 @@ export const getAllResults = ({
   uri,
   constraints,
   resultFormat,
-  groupBy,
   optimize,
   limit
 }) => {
@@ -75,9 +74,6 @@ export const getAllResults = ({
       facetID: null
     }))
   }
-  if (uri !== null) {
-    q = q.replace('<ID>', `<${uri}>`)
-  }
   if (has(config, 'useNetworkAPI') && config.useNetworkAPI) {
     return runNetworkQuery({
       endpoint: endpoint.url,
@@ -89,6 +85,9 @@ export const getAllResults = ({
       limit
     })
   } else {
+    if (uri !== null) {
+      q = q.replace('<ID>', `<${uri}>`)
+    }
     return runSelectQuery({
       query: endpoint.prefixes + q,
       endpoint: endpoint.url,
@@ -123,7 +122,8 @@ export const getResultCount = async ({
       facetClass: resultClass,
       constraints: constraints,
       filterTarget: 'id',
-      facetID: null
+      facetID: null,
+      filterTripleFirst: true
     }))
   }
   // console.log(endpoint.prefixes + q)
