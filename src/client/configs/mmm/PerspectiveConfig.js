@@ -4,6 +4,7 @@ import AddLocationIcon from '@material-ui/icons/AddLocation'
 import LocationOnIcon from '@material-ui/icons/LocationOn'
 import RedoIcon from '@material-ui/icons/Redo'
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload'
+import LineChartIcon from '@material-ui/icons/ShowChart'
 import manuscriptsImage from '../../img/main_page/manuscripts-452x262.jpg'
 import worksImage from '../../img/main_page/works-452x262_2.jpg'
 import eventsImage from '../../img/main_page/events-452x262.jpg'
@@ -27,6 +28,11 @@ export const perspectiveConfig = [
         value: 1,
         icon: <AddLocationIcon />
       },
+      // {
+      //   id: 'production_dates',
+      //   value: 2,
+      //   icon: <LineChartIcon />
+      // },
       {
         id: 'last_known_locations',
         value: 2,

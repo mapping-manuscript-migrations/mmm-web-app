@@ -5,9 +5,14 @@ import PerspectiveTabs from '../../main_layout/PerspectiveTabs'
 import ResultTable from '../../facet_results/ResultTable'
 import LeafletMap from '../../facet_results/LeafletMap'
 import Deck from '../../facet_results/Deck'
+import ApexChart from '../../facet_results/ApexChart'
 import Export from '../../facet_results/Export'
 import MigrationsMapLegend from '../mmm/MigrationsMapLegend'
 import { MAPBOX_ACCESS_TOKEN, MAPBOX_STYLE } from '../../../configs/mmm/GeneralConfig'
+import {
+  createSingleLineChartData,
+  createMultipleLineChartData
+} from '../../../configs/sampo/ApexCharts/LineChartConfig'
 
 const Manuscripts = props => {
   const { rootUrl, perspective } = props
@@ -61,6 +66,44 @@ const Manuscripts = props => {
             showInstanceCountInClusters
             updateFacetOption={props.updateFacetOption}
             showExternalLayers={false}
+          />}
+      />
+      <Route
+        path={`${rootUrl}/${perspective.id}/faceted-search/production_dates`}
+        render={() =>
+          <ApexChart
+            pageType='facetResults'
+            rawData={props.facetResults.results}
+            rawDataUpdateID={props.facetResults.resultUpdateID}
+            facetUpdateID={props.facetData.facetUpdateID}
+            fetching={props.facetResults.fetching}
+            fetchData={props.fetchResults}
+            createChartData={createSingleLineChartData}
+            title='Manuscript production by decade'
+            xaxisTitle='Decade'
+            yaxisTitle='Manuscript count'
+            seriesTitle='Manuscript count'
+            resultClass='productionTimespanLineChart'
+            facetClass='manuscripts'
+          />}
+      />
+      <Route
+        path={`${rootUrl}/${perspective.id}/faceted-search/event_dates`}
+        render={() =>
+          <ApexChart
+            pageType='facetResults'
+            rawData={props.facetResults.results}
+            rawDataUpdateID={props.facetResults.resultUpdateID}
+            facetUpdateID={props.facetData.facetUpdateID}
+            fetching={props.facetResults.fetching}
+            fetchData={props.fetchResults}
+            createChartData={createMultipleLineChartData}
+            title='Manuscript events by decade'
+            xaxisTitle='Decade'
+            yaxisTitle='Count'
+            seriesTitle='Count'
+            resultClass='eventLineChart'
+            facetClass='manuscripts'
           />}
       />
       <Route

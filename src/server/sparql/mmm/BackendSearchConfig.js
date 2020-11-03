@@ -7,6 +7,7 @@ import {
   productionPlacesQuery,
   lastKnownLocationsQuery,
   migrationsQuery,
+  productionsByDecadeQuery,
   collectionProperties,
   expressionProperties,
   knowledgeGraphMetadataQuery
@@ -22,7 +23,11 @@ import {
 } from './sparql_queries/SparqlQueriesPlaces'
 import { fullTextSearchProperties } from './sparql_queries/SparqlQueriesFullText'
 import { makeObjectList } from '../SparqlObjectMapper'
-import { mapPlaces } from '../Mappers'
+import {
+  mapPlaces,
+  mapLineChart
+  // mapMultipleLineChart
+} from '../Mappers'
 
 export const backendSearchConfig = {
   manuscripts: manuscriptsPerspectiveConfig,
@@ -99,6 +104,12 @@ export const backendSearchConfig = {
       properties: placePropertiesInfoWindow,
       relatedInstances: ''
     }
+  },
+  productionTimespanLineChart: {
+    perspectiveID: 'manuscripts',
+    q: productionsByDecadeQuery,
+    filterTarget: 'instance',
+    resultMapper: mapLineChart
   },
   manuscriptsKnowledgeGraphMetadata: {
     perspectiveID: 'manuscripts',

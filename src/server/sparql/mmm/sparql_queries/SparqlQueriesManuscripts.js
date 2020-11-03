@@ -466,6 +466,15 @@ export const productionCoordinatesQuery = `
   }
 `
 
+export const productionsByDecadeQuery = `
+  SELECT ?category (COUNT (DISTINCT ?instance) as ?count) WHERE {
+    <FILTER>
+    ?instance ^crm:P108_has_produced/crm:P4_has_time-span/mmm-schema:decade ?category .
+  }
+  GROUP BY ?category
+  ORDER BY ?category
+`
+
 export const lastKnownLocationsQuery = `
   SELECT ?id ?lat ?long
   (COUNT(DISTINCT ?manuscripts) as ?instanceCount)
