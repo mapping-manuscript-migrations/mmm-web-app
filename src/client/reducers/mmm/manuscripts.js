@@ -259,6 +259,7 @@ export const INITIAL_STATE = {
 const resultClasses = new Set([
   'manuscripts',
   'manuscriptsNetwork',
+  'productionTimespanLineChart',
   'manuscriptsKnowledgeGraphMetadata'
 ])
 
