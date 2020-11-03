@@ -53,6 +53,11 @@ export default {
     sortByNumberOfSearchResults: 'Sort by number of search results',
     useDisjunction: 'Use logical OR between selections',
     useConjuction: 'Use logical AND between selections',
+    minYear: 'Min year',
+    maxYear: 'Max year',
+    min: 'Min',
+    max: 'Max',
+    applyFacetSelection: 'apply',
     pieChart: {
       tooltip: 'Pie chart'
     },
@@ -122,6 +127,9 @@ export default {
     },
     textFacet: {
       inputLabel: 'Etsi nimellä'
+    },
+    sliderFacet: {
+      invalidStartOrEnd: 'Min value must be smaller than max value. The smallest value can be {min} and the largest value can be {max}.'
     }
   },
   leafletMap: {
@@ -174,6 +182,19 @@ export default {
         to create the MMM record.
       </p>
     `
+  },
+  deckGlMap: {
+    arcColouring: 'Arc colouring:',
+    showMoreInformation: 'Click to show more information.',
+    manuscriptMigrations: {
+      legendTitle: 'Arc colouring',
+      legendFrom: 'Manuscript production place',
+      legendTo: 'Last known location',
+      from: 'Production place:',
+      to: 'Last known location:',
+      listHeadingSingleInstance: 'Manuscript:',
+      listHeadingMultipleInstances: 'Manuscripts:'
+    }
   },
   perspectives: {
     perspective1: {

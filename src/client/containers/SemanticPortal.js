@@ -364,6 +364,7 @@ const SemanticPortal = props => {
                                   clearFacet={props.clearFacet}
                                   fetchResultCount={props.fetchResultCount}
                                   updateFacetOption={props.updateFacetOption}
+                                  showError={props.showError}
                                   defaultActiveFacets={perspective.defaultActiveFacets}
                                   rootUrl={rootUrlWithLang}
                                 />
