@@ -44,13 +44,39 @@ export default {
     doNotSelectSubconcepts: 'Do not select subconcepts',
     sortingOptions: 'Sorting options',
     sortAlphabetically: 'Sort alphabetically',
-    sortByNumberOfSearchResults: 'Sort by number of search results'
+    sortByNumberOfSearchResults: 'Sort by number of search results',
+    useDisjunction: 'Use logical OR between selections',
+    useConjuction: 'Use logical AND between selections',
+    pieChart: {
+      tooltip: 'Pie chart'
+    },
+    barChart: {
+      tooltip: 'Bar chart',
+      language: {
+        title: 'Language',
+        xaxisTitle: 'Language',
+        yaxisTitle: 'Manuscript count',
+        seriesTitle: 'Manuscript count'
+      }
+    },
+    lineChart: {
+      tooltip: 'Line chart',
+      productionTimespan: {
+        title: 'Manuscript production by decade',
+        xaxisTitle: 'Decade',
+        yaxisTitle: 'Manuscript count',
+        seriesTitle: 'Manuscript count'
+      }
+    }
   },
   tabs: {
     table: 'table',
     map: 'map',
     production_places: 'production places',
+    production_places_heatmap: 'production heatmap',
     last_known_locations: 'last known locations',
+    production_dates: 'production dates',
+    event_dates: 'event dates',
     migrations: 'migrations',
     network: 'network',
     export: 'export',
