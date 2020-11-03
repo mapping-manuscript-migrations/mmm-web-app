@@ -117,6 +117,19 @@ export default {
         </p>
       `
   },
+  deckGlMap: {
+    arcColouring: 'Arc colouring:',
+    showMoreInformation: 'Click to show more information.',
+    manuscriptMigrations: {
+      legendTitle: 'Arc colouring',
+      legendFrom: 'Manuscript production place',
+      legendTo: 'Last known location',
+      from: 'Production place:',
+      to: 'Last known location:',
+      listHeadingSingleInstance: 'Manuscript:',
+      listHeadingMultipleInstances: 'Manuscripts:'
+    }
+  },
   perspectives: {
     manuscripts: {
       label: 'Manuscripts',
