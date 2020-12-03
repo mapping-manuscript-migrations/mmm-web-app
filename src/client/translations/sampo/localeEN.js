@@ -1,7 +1,7 @@
 export default {
   languageLabel: 'English',
   appTitle: {
-    short: 'sampo-ui',
+    short: 'Sampo-UI',
     long: ' &nbsp; &nbsp; Sampo-UI  &nbsp;  &nbsp;',
     subheading: `
       "Here to forge for us the Sampo, Hammer us the lid in colors"
@@ -41,6 +41,8 @@ export default {
   },
   facetBar: {
     results: 'Results',
+    activeFilters: 'Active filters:',
+    removeAllFilters: 'Remove all',
     narrowDownBy: 'Narrow down by',
     filterOptions: 'Filter options',
     filterByName: 'Filter by name',
