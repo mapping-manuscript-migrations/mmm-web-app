@@ -268,7 +268,7 @@ const SemanticPortal = props => {
   // const noResults = props.clientFS.results == null
 
   useEffect(() => {
-    document.title = intl.get('appTitle.short')
+    document.title = intl.get('appTitle.html')
   }, [props.options.currentLocale])
 
   return (

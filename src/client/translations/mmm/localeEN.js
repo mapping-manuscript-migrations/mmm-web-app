@@ -3,6 +3,7 @@ export default {
   appTitle: {
     short: 'mmm',
     long: 'apping Manuscript Migrations',
+    html: 'Mapping Manuscript Migrations – A Digging into Data project for 2017–2020',
     subheading: `Navigating the network of connections between people, institutions, and
         places within European medieval and Renaissance manuscripts`
   },
