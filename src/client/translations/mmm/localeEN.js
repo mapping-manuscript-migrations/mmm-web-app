@@ -36,6 +36,8 @@ export default {
   },
   facetBar: {
     results: 'Results',
+    activeFilters: 'Active filters:',
+    removeAllFilters: 'Remove all',
     narrowDownBy: 'Narrow down by',
     filterOptions: 'Filter options',
     filterByName: 'Filter by name',
@@ -52,6 +54,7 @@ export default {
     maxYear: 'Max year',
     min: 'Min',
     max: 'Max',
+    facetSearchFieldPlaceholder: 'Search...',
     applyFacetSelection: 'apply',
     pieChart: {
       tooltip: 'Pie chart'
@@ -206,8 +209,9 @@ export default {
           description: 'Uniform Resource Identifier'
         },
         prefLabel: {
-          label: 'Label',
-          description: 'A short label describing the manuscript.'
+          label: 'Manuscript',
+          description: 'A short label describing the manuscript.',
+          textFacetInputPlaceholder: 'Search...'
         },
         author: {
           label: 'Author',
@@ -251,7 +255,8 @@ export default {
               Other info such as distinguishing characteristics, notes on the physical structure
               of the manuscript, script types, note glosses, physical relationships among various
               texts and/or parts of a miscellany, such as multiple types of page layout.
-            `
+            `,
+          textFacetInputPlaceholder: 'Search...'
         },
         language: {
           label: 'Language',
@@ -420,7 +425,8 @@ export default {
         },
         prefLabel: {
           label: 'Title',
-          description: 'The name or title of the Work.'
+          description: 'The name or title of the Work.',
+          textFacetInputPlaceholder: 'Search...'
         },
         author: {
           label: 'Possible author',
@@ -553,7 +559,8 @@ export default {
           label: 'Note',
           description: `
               Note
-            `
+            `,
+          textFacetInputPlaceholder: 'Search...'
         },
         surrender: {
           label: 'Custody surrendered by',
@@ -632,7 +639,8 @@ export default {
           label: 'Name',
           description: `
               The standardized name of the actor.
-            `
+            `,
+          textFacetInputPlaceholder: 'Search...'
         },
         type: {
           label: 'Type',
@@ -736,7 +744,8 @@ export default {
           label: 'Name',
           description: `
               The name of the place.
-            `
+            `,
+          textFacetInputPlaceholder: 'Search...'
         },
         placeType: {
           label: 'Place type',
