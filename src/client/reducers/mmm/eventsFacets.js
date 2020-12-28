@@ -104,7 +104,7 @@ export const INITIAL_STATE = {
 
 const eventsFacets = (state = INITIAL_STATE, action) => {
   if (action.facetClass === 'events') {
-    return handleFacetAction(state, action)
+    return handleFacetAction(state, action, INITIAL_STATE)
   } else return state
 }
 

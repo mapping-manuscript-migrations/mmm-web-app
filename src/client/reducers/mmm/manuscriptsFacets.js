@@ -380,7 +380,7 @@ export const INITIAL_STATE = {
 
 const manuscriptsFacets = (state = INITIAL_STATE, action) => {
   if (action.facetClass === 'manuscripts') {
-    return handleFacetAction(state, action)
+    return handleFacetAction(state, action, INITIAL_STATE)
   } else return state
 }
 
