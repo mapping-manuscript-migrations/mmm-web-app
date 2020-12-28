@@ -28,11 +28,6 @@ export const perspectiveConfig = [
         value: 1,
         icon: <AddLocationIcon />
       },
-      // {
-      //   id: 'production_dates',
-      //   value: 2,
-      //   icon: <LineChartIcon />
-      // },
       {
         id: 'last_known_locations',
         value: 2,
