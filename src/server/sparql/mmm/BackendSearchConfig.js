@@ -37,6 +37,8 @@ export const backendSearchConfig = {
   places: placesPerspectiveConfig,
   expressions: {
     perspectiveID: 'manuscripts',
+    includeInSitemap: true,
+    rdfType: 'frbroo:F2_Expression',
     instance: {
       properties: expressionProperties,
       relatedInstances: ''
@@ -44,6 +46,8 @@ export const backendSearchConfig = {
   },
   collections: {
     perspectiveID: 'manuscripts',
+    includeInSitemap: true,
+    rdfType: 'crm:E78_Collection',
     instance: {
       properties: collectionProperties,
       relatedInstances: ''

@@ -11,6 +11,7 @@ export const manuscriptsPerspectiveConfig = {
     useAuth: false
   },
   facetClass: 'frbroo:F4_Manifestation_Singleton',
+  includeInSitemap: true,
   paginatedResults: {
     properties: manuscriptPropertiesFacetResults
   },

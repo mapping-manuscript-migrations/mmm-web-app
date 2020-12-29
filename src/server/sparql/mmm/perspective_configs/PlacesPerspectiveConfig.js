@@ -11,6 +11,7 @@ export const placesPerspectiveConfig = {
     useAuth: false
   },
   facetClass: 'crm:E53_Place',
+  includeInSitemap: true,
   paginatedResults: {
     properties: placePropertiesFacetResults
   },

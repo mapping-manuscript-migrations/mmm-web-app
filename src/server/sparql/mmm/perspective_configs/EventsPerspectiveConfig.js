@@ -10,6 +10,7 @@ export const eventsPerspectiveConfig = {
     useAuth: false
   },
   facetClass: 'crm:E10_Transfer_of_Custody crm:E12_Production mmm-schema:ManuscriptActivity',
+  includeInSitemap: true,
   paginatedResults: {
     properties: eventProperties
   },

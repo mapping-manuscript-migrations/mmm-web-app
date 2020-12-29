@@ -10,6 +10,7 @@ export const actorsPerspectiveConfig = {
     useAuth: false
   },
   facetClass: 'crm:E21_Person crm:E74_Group crm:E39_Actor',
+  includeInSitemap: true,
   paginatedResults: {
     properties: actorProperties
   },
