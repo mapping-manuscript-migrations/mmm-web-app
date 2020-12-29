@@ -1,4 +1,4 @@
-import { backendSearchConfig } from '../sparql/sampo/BackendSearchConfig'
+import { backendSearchConfig } from '../sparql/mmm/BackendSearchConfig'
 import { createWriteStream } from 'fs'
 import { resolve } from 'path'
 import { createGzip } from 'zlib'
@@ -12,8 +12,8 @@ import { sitemapQuery } from '../sparql/SparqlQueriesGeneral'
 import { runSelectQuery } from '../sparql/SparqlApi'
 
 const outputDir = './src/server/sitemap_generator/sitemap_output'
-const baseURL = 'https://sampo-ui.demo.seco.cs.aalto.fi/en'
-const sitemapURL = 'https://sampo-ui.demo.seco.cs.aalto.fi/sitemap'
+const baseURL = 'https://mappingmanuscriptmigrations.org/en'
+const sitemapURL = 'https://mappingmanuscriptmigrations.org/en/sitemap'
 
 const mapURLs = sparqlBindings => {
   const results = sparqlBindings.map(b => ({
