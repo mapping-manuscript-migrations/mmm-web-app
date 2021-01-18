@@ -27,6 +27,7 @@ export const eventsPerspectiveConfig = {
       predicate: 'a',
       facetValueFilter: '',
       type: 'list',
+      facetLabelPredicate: 'skos:prefLabel|rdfs:label',
       labelPath: 'a/(skos:prefLabel|rdfs:label)'
     },
     manuscript: {
