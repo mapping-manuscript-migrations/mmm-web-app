@@ -27,6 +27,7 @@ export const eventsPerspectiveConfig = {
       predicate: 'a',
       facetValueFilter: '',
       type: 'list',
+      facetLabelPredicate: 'skos:prefLabel|rdfs:label',
       labelPath: 'a/(skos:prefLabel|rdfs:label)'
     },
     manuscript: {
@@ -60,7 +61,6 @@ export const eventsPerspectiveConfig = {
       labelPath: 'crm:P7_took_place_at/skos:prefLabel',
       predicate: 'crm:P7_took_place_at',
       parentProperty: 'gvp:broaderPreferred',
-      parentPredicate: 'crm:P7_took_place_at/gvp:broaderPreferred+',
       type: 'hierarchical'
     },
     source: {

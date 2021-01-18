@@ -44,7 +44,6 @@ export const placesPerspectiveConfig = {
       labelPath: 'gvp:broaderPreferred/skos:prefLabel',
       predicate: 'gvp:broaderPreferred',
       parentProperty: 'gvp:broaderPreferred',
-      parentPredicate: 'gvp:broaderPreferred+',
       type: 'hierarchical'
     },
     placeType: {
