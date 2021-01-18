@@ -67,7 +67,6 @@ export const actorsPerspectiveConfig = {
       labelPath: '^crm:P11_had_participant/crm:P7_took_place_at/skos:prefLabel',
       predicate: '^crm:P11_had_participant/crm:P7_took_place_at',
       parentProperty: 'gvp:broaderPreferred',
-      parentPredicate: '^crm:P11_had_participant/crm:P7_took_place_at/gvp:broaderPreferred+',
       type: 'hierarchical'
     },
     work: {

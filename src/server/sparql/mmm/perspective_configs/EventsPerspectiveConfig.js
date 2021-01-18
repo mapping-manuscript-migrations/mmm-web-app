@@ -60,7 +60,6 @@ export const eventsPerspectiveConfig = {
       labelPath: 'crm:P7_took_place_at/skos:prefLabel',
       predicate: 'crm:P7_took_place_at',
       parentProperty: 'gvp:broaderPreferred',
-      parentPredicate: 'crm:P7_took_place_at/gvp:broaderPreferred+',
       type: 'hierarchical'
     },
     source: {
