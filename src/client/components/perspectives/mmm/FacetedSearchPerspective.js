@@ -22,6 +22,7 @@ const FacetedSearchPerspective = props => {
             facetData={props.facetData}
             fetchPaginatedResults={props.fetchPaginatedResults}
             fetchResults={props.fetchResults}
+            fetchInstanceAnalysis={props.fetchInstanceAnalysis}
             fetchGeoJSONLayers={props.fetchGeoJSONLayers}
             fetchByURI={props.fetchByURI}
             updatePage={props.updatePage}
@@ -45,6 +46,7 @@ const FacetedSearchPerspective = props => {
             facetData={props.facetData}
             fetchPaginatedResults={props.fetchPaginatedResults}
             fetchResults={props.fetchResults}
+            fetchInstanceAnalysis={props.fetchInstanceAnalysis}
             fetchGeoJSONLayers={props.fetchGeoJSONLayers}
             fetchByURI={props.fetchByURI}
             updatePage={props.updatePage}
@@ -68,6 +70,7 @@ const FacetedSearchPerspective = props => {
             facetData={props.facetData}
             fetchPaginatedResults={props.fetchPaginatedResults}
             fetchResults={props.fetchResults}
+            fetchInstanceAnalysis={props.fetchInstanceAnalysis}
             fetchGeoJSONLayers={props.fetchGeoJSONLayers}
             fetchByURI={props.fetchByURI}
             updatePage={props.updatePage}
@@ -91,6 +94,7 @@ const FacetedSearchPerspective = props => {
             facetData={props.facetData}
             fetchPaginatedResults={props.fetchPaginatedResults}
             fetchResults={props.fetchResults}
+            fetchInstanceAnalysis={props.fetchInstanceAnalysis}
             fetchGeoJSONLayers={props.fetchGeoJSONLayers}
             fetchByURI={props.fetchByURI}
             updatePage={props.updatePage}
@@ -114,6 +118,7 @@ const FacetedSearchPerspective = props => {
             facetData={props.facetData}
             fetchPaginatedResults={props.fetchPaginatedResults}
             fetchResults={props.fetchResults}
+            fetchInstanceAnalysis={props.fetchInstanceAnalysis}
             fetchGeoJSONLayers={props.fetchGeoJSONLayers}
             fetchByURI={props.fetchByURI}
             updatePage={props.updatePage}
