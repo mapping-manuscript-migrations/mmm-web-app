@@ -38,6 +38,7 @@ import {
   fetchResultCount,
   fetchPaginatedResults,
   fetchResults,
+  fetchInstanceAnalysis,
   fetchFullTextResults,
   clearResults,
   fetchByURI,
@@ -386,6 +387,7 @@ const SemanticPortal = props => {
                                   leafletMap={props.leafletMap}
                                   fetchPaginatedResults={props.fetchPaginatedResults}
                                   fetchResults={props.fetchResults}
+                                  fetchInstanceAnalysis={props.fetchInstanceAnalysis}
                                   fetchFacetConstrainSelf={props.fetchFacetConstrainSelf}
                                   fetchGeoJSONLayers={props.fetchGeoJSONLayers}
                                   fetchGeoJSONLayersBackend={props.fetchGeoJSONLayersBackend}
@@ -638,6 +640,7 @@ const mapDispatchToProps = ({
   fetchResultCount,
   fetchPaginatedResults,
   fetchResults,
+  fetchInstanceAnalysis,
   fetchFullTextResults,
   fetchByURI,
   fetchFacet,

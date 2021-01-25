@@ -7,6 +7,7 @@ import {
   productionPlacesQuery,
   lastKnownLocationsQuery,
   migrationsQuery,
+  migrationsDialogQuery,
   productionsByDecadeQuery,
   collectionProperties,
   expressionProperties,
@@ -25,8 +26,9 @@ import { fullTextSearchProperties } from './sparql_queries/SparqlQueriesFullText
 import { makeObjectList } from '../SparqlObjectMapper'
 import {
   mapPlaces,
-  mapLineChart
+  mapLineChart,
   // mapMultipleLineChart
+  linearScale
 } from '../Mappers'
 
 export const backendSearchConfig = {
@@ -76,7 +78,21 @@ export const backendSearchConfig = {
   placesMsMigrations: {
     perspectiveID: 'manuscripts',
     q: migrationsQuery,
-    filterTarget: 'manuscript__id',
+    filterTarget: 'manuscript',
+    resultMapper: makeObjectList,
+    postprocess: {
+      func: linearScale,
+      config: {
+        variable: 'instanceCount',
+        minAllowed: 3,
+        maxAllowed: 30
+      }
+    }
+  },
+  placesMsMigrationsDialog: {
+    perspectiveID: 'manuscripts',
+    q: migrationsDialogQuery,
+    filterTarget: 'id',
     resultMapper: makeObjectList
   },
   placesEvents: {

@@ -12,6 +12,7 @@ export const INITIAL_STATE = {
   sortBy: null,
   sortDirection: null,
   fetching: false,
+  fetchingInstanceAnalysisData: false,
   fetchingResultCount: false,
   facetedSearchHeaderExpanded: true,
   instancePageHeaderExpanded: true,
@@ -115,6 +116,7 @@ const resultClasses = new Set([
   'placesMsProduced',
   'lastKnownLocations',
   'placesMsMigrations',
+  'placesMsMigrationsDialog',
   'placesEvents'
 ])
 
