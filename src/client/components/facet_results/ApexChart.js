@@ -133,7 +133,6 @@ class ApexChart extends React.Component {
       }
     }
     const spinnerContainerStyle = {
-      ...rootStyle,
       display: 'flex',
       width: '100%',
       height: '100%',
@@ -207,5 +206,7 @@ ApexChart.propTypes = {
   facetResultsType: PropTypes.string,
   resultClasses: PropTypes.array
 }
+
+export const ApexChartComponent = ApexChart
 
 export default withStyles(styles)(ApexChart)

@@ -51,8 +51,9 @@ const Perspective1 = props => {
           <LeafletMap
             center={[22.43, 10.37]}
             zoom={2}
-            // center={[60.17, 24.81]}
-            // zoom={14}
+            // locateUser
+            // center={[60.187, 24.821]}
+            // zoom={15}
             results={props.placesResults.results}
             layers={props.leafletMapLayers}
             pageType='facetResults'
@@ -65,13 +66,18 @@ const Perspective1 = props => {
             showMapModeControl={false}
             instance={props.placesResults.instanceTableData}
             fetchResults={props.fetchResults}
-            fetchGeoJSONLayers={props.fetchGeoJSONLayersBackend}
+            fetchGeoJSONLayers={props.fetchGeoJSONLayers}
             clearGeoJSONLayers={props.clearGeoJSONLayers}
             fetchByURI={props.fetchByURI}
             fetching={props.placesResults.fetching}
             showInstanceCountInClusters
             updateFacetOption={props.updateFacetOption}
             showExternalLayers
+            // activeOverlays={[
+            //   'arkeologiset_kohteet_alue',
+            //   'arkeologiset_kohteet_piste'
+            // ]}
+            layerControlExpanded
             showError={props.showError}
           />}
       />
@@ -108,7 +114,7 @@ const Perspective1 = props => {
             showMapModeControl={false}
             instance={props.placesResults.instanceTableData}
             fetchResults={props.fetchResults}
-            fetchGeoJSONLayers={props.fetchGeoJSONLayersBackend}
+            fetchGeoJSONLayers={props.fetchGeoJSONLayers}
             clearGeoJSONLayers={props.clearGeoJSONLayers}
             fetchByURI={props.fetchByURI}
             fetching={props.placesResults.fetching}

@@ -1,5 +1,11 @@
 export default {
   languageLabel: 'English',
+  html: {
+    title: 'Sampo-UI – A framework for building user interfaces for semantic portals',
+    description: `The Sampo-UI framework makes it possible to create highly customizable, 
+      user-friendly, and responsive user interfaces using current state-of-the-art JavaScript 
+      libraries and data from SPARQL endpoints.`
+  },
   appTitle: {
     short: 'Sampo-UI',
     long: ' &nbsp; &nbsp; Sampo-UI  &nbsp;  &nbsp;',
@@ -145,8 +151,9 @@ export default {
       backgroundMapNLS: 'Background map (National Land Survey of Finland)'
     },
     externalLayers: {
-      arkeologiset_kohteet_alue: 'Register of Archaeological Sites, areas',
-      arkeologiset_kohteet_piste: 'Register of Archaeological Sites, points',
+      arkeologiset_kohteet_alue: 'Register of Archaeological Sites, areas (Finnish Heritage Agency)',
+      arkeologiset_kohteet_piste: 'Register of Archaeological Sites, points (Finnish Heritage Agency)',
+      fhaLidar: 'Elevation model (Finnish Heritage Agency)',
       karelianMaps: 'Karelian maps, 1:100 000 topographic (SeCo)',
       senateAtlas: 'Senate atlas, 1:21 000 topographic (SeCo)',
       'kotus:pitajat': 'Finnish parishes in 1938 (Institute for the Languages of Finland)',
