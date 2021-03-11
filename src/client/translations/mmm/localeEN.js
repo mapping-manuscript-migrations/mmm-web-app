@@ -1,9 +1,12 @@
 export default {
   languageLabel: 'English',
+  html: {
+    title: 'Mapping Manuscript Migrations – A Digging into Data project for 2017–2020',
+    description: 'The Mapping Manuscript Migrations project links datasets from Europe and U.S. to provide a global view of the history of medieval and Renaissance manuscripts.'
+  },
   appTitle: {
     short: 'mmm',
     long: 'apping Manuscript Migrations',
-    html: 'Mapping Manuscript Migrations – A Digging into Data project for 2017–2020',
     subheading: `Navigating the network of connections between people, institutions, and
         places within European medieval and Renaissance manuscripts`
   },
