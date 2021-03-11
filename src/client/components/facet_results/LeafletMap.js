@@ -4,6 +4,7 @@ import { withStyles } from '@material-ui/core/styles'
 import intl from 'react-intl-universal'
 import L from 'leaflet'
 import { has, orderBy, isEqual } from 'lodash'
+// import buffer from '@turf/buffer'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import { purple } from '@material-ui/core/colors'
 import history from '../../History'
@@ -29,6 +30,8 @@ import 'leaflet-draw/dist/leaflet.draw.js'
 import 'leaflet-draw/dist/leaflet.draw.css'
 import 'leaflet.zoominfo/dist/L.Control.Zoominfo'
 import 'leaflet.zoominfo/dist/L.Control.Zoominfo.css'
+import 'leaflet-usermarker/src/leaflet.usermarker.js'
+import 'leaflet-usermarker/src/leaflet.usermarker.css'
 // import 'leaflet.gridlayer.googlemutant/Leaflet.GoogleMutant.js'
 
 import markerShadowIcon from '../../img/markers/marker-shadow.png'
@@ -94,7 +97,7 @@ class LeafletMap extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      activeOverlays: [],
+      activeOverlays: props.activeOverlays ? props.activeOverlays : [],
       prevZoomLevel: null,
       mapMode: props.mapMode
     }
@@ -114,8 +117,8 @@ class LeafletMap extends React.Component {
     if (this.props.mapMode && this.props.pageType === 'clientFSResults') {
       this.drawPointData()
     }
-    if (this.props.showExternalLayers) {
-      this.props.clearGeoJSONLayers()
+    if (this.props.showExternalLayers && !this.props.locateUser) {
+      this.fetchDefaultGeoJSONLayers()
     }
   }
 
@@ -220,8 +223,10 @@ class LeafletMap extends React.Component {
     const container = this.props.container ? this.props.container : 'map'
 
     this.leafletMap = L.map(container, {
-      center: this.props.center,
-      zoom: this.props.zoom,
+      ...(!this.props.locateUser && {
+        center: this.props.center,
+        zoom: this.props.zoom
+      }),
       zoomControl: false,
       zoominfoControl: true,
       layers: [
@@ -240,6 +245,9 @@ class LeafletMap extends React.Component {
         // [intl.get('leafletMap.basemaps.googleRoadmap')]: googleRoadmap,
       }
       this.initOverLays(basemaps)
+      if (!this.props.locateUser) {
+        this.initMapEventListeners()
+      }
     }
 
     // Add scale
@@ -255,6 +263,44 @@ class LeafletMap extends React.Component {
       this.props.updateMapBounds(this.boundsToValues())
       this.leafletMap.on('moveend', () => {
         this.props.updateMapBounds(this.boundsToValues())
+      })
+    }
+
+    if (this.props.locateUser) {
+      this.leafletMap.on('locationfound', this.onLocationFound)
+      this.leafletMap.on('locationerror', this.onLocationError)
+      this.leafletMap.locate({ setView: true, enableHighAccuracy: true })
+    }
+  }
+
+  onLocationFound = e => {
+    L.userMarker(e.latlng, {
+      pulsing: true,
+      accuracy: e.accuracy,
+      smallIcon: true
+    })
+      .addTo(this.leafletMap)
+      .bindPopup('You are within ' + e.accuracy + ' meters from this point')
+      // .openPopup()
+    this.initMapEventListeners()
+    this.fetchDefaultGeoJSONLayers()
+  }
+
+  onLocationError = e => {
+    // this.props.showError({
+    //   title: '',
+    //   text: e.message
+    // })
+    this.initMapEventListeners()
+    this.fetchDefaultGeoJSONLayers()
+  }
+
+  fetchDefaultGeoJSONLayers = () => {
+    this.props.clearGeoJSONLayers()
+    if (this.state.activeOverlays.length > 0 && this.isSafeToLoadLargeLayers()) {
+      this.props.fetchGeoJSONLayers({
+        layerIDs: this.state.activeOverlays,
+        bounds: this.leafletMap.getBounds()
       })
     }
   }
@@ -356,84 +402,94 @@ class LeafletMap extends React.Component {
     })
   }
 
-  isSafeToLoadLargeLayersAfterZooming = () => true
-  // {
-  //   return (this.leafletMap.getZoom() === 13 ||
-  //     (this.leafletMap.getZoom() >= 13 && this.state.prevZoomLevel > this.leafletMap.getZoom()))
-  // }
+  isSafeToLoadLargeLayersAfterZooming = () => {
+    return (this.leafletMap.getZoom() === 13 ||
+      (this.leafletMap.getZoom() >= 13 && this.state.prevZoomLevel > this.leafletMap.getZoom()))
+  }
 
-  isSafeToLoadLargeLayers = () => true
-  // this.leafletMap.getZoom() >= 13
+  isSafeToLoadLargeLayers = () => this.leafletMap.getZoom() >= 13
 
   initOverLays = basemaps => {
-    // const fhaArchaeologicalSiteRegistryAreas = L.layerGroup([], {
-    //   id: 'arkeologiset_kohteet_alue',
+    const fhaArchaeologicalSiteRegistryAreas = L.layerGroup([], {
+      id: 'arkeologiset_kohteet_alue',
+      type: 'geoJSON',
+      source: 'FHA',
+      // this layer includes only GeoJSON Polygons, define style for them
+      geoJSONPolygonOptions: {
+        color: '#dd2c00',
+        cursor: 'pointer'
+        // dashArray: '3, 5'
+      },
+      geoJSONPolygonBoundaryOptions: {
+        color: '#dd2c00',
+        // cursor: 'pointer',
+        dashArray: '3, 5'
+      }
+    })
+    const fhaArchaeologicalSiteRegistryPoints = L.layerGroup([], {
+      id: 'arkeologiset_kohteet_piste',
+      type: 'geoJSON',
+      source: 'FHA',
+      // this layer includes only GeoJSON points, define style for them
+      geoJSONMarkerOptions: {
+        radius: 8,
+        fillColor: '#dd2c00',
+        weight: 1,
+        opacity: 1,
+        fillOpacity: 0.8
+      }
+    })
+    // const fhaLidar = L.tileLayer.wms(`${process.env.API_URL}/fha-wms`, {
+    //   layers: 'NBA:lidar',
+    //   version: '1.3.0',
+    //   attribution: 'FHA',
+    //   minZoom: 12,
+    //   maxZoom: 16
+    // })
+    // const kotusParishes1938 = L.layerGroup([], {
+    //   id: 'kotus:pitajat',
     //   type: 'geoJSON',
-    //   source: 'FHA',
+    //   source: 'kotus',
     //   // this layer includes only GeoJSON Polygons, define style for them
-    //   geojsonMPolygonOptions: {
+    //   geoJSONPolygonOptions: {
     //     color: '#dd2c00',
     //     cursor: 'pointer',
     //     dashArray: '3, 5'
     //   }
     // })
-    // const fhaArchaeologicalSiteRegistryPoints = L.layerGroup([], {
-    //   id: 'arkeologiset_kohteet_piste',
+    // const kotusParishesDialecticalRegions = L.layerGroup([], {
+    //   id: 'kotus:rajat-sms-alueet',
     //   type: 'geoJSON',
-    //   source: 'FHA',
-    //   // this layer includes only GeoJSON points, define style for them
-    //   geojsonMarkerOptions: {
-    //     radius: 8,
-    //     fillColor: '#dd2c00',
-    //     weight: 1,
-    //     opacity: 1,
-    //     fillOpacity: 0.8
+    //   source: 'kotus',
+    //   // this layer includes only GeoJSON Polygons, define style for them
+    //   geoJSONPolygonOptions: {
+    //     color: '#fca903',
+    //     cursor: 'pointer',
+    //     dashArray: '3, 5'
     //   }
     // })
-    const kotusParishes1938 = L.layerGroup([], {
-      id: 'kotus:pitajat',
-      type: 'geoJSON',
-      source: 'kotus',
-      // this layer includes only GeoJSON Polygons, define style for them
-      geojsonMPolygonOptions: {
-        color: '#dd2c00',
-        cursor: 'pointer',
-        dashArray: '3, 5'
-      }
-    })
-    const kotusParishesDialecticalRegions = L.layerGroup([], {
-      id: 'kotus:rajat-sms-alueet',
-      type: 'geoJSON',
-      source: 'kotus',
-      // this layer includes only GeoJSON Polygons, define style for them
-      geojsonMPolygonOptions: {
-        color: '#fca903',
-        cursor: 'pointer',
-        dashArray: '3, 5'
-      }
-    })
-    const kotusParishesDialecticalSubRegions = L.layerGroup([], {
-      id: 'kotus:rajat-sms-alueosat',
-      type: 'geoJSON',
-      source: 'kotus',
-      // this layer includes only GeoJSON Polygons, define style for them
-      geojsonMPolygonOptions: {
-        color: '#119100',
-        cursor: 'pointer',
-        dashArray: '3, 5'
-      }
-    })
-    const kotusParishesDialecticalBorder = L.layerGroup([], {
-      id: 'kotus:rajat-lansi-ita',
-      type: 'geoJSON',
-      source: 'kotus',
-      // this layer includes only GeoJSON Polygons, define style for them
-      geojsonMPolygonOptions: {
-        color: '#2403fc',
-        cursor: 'pointer',
-        dashArray: '3, 5'
-      }
-    })
+    // const kotusParishesDialecticalSubRegions = L.layerGroup([], {
+    //   id: 'kotus:rajat-sms-alueosat',
+    //   type: 'geoJSON',
+    //   source: 'kotus',
+    //   // this layer includes only GeoJSON Polygons, define style for them
+    //   geoJSONPolygonOptions: {
+    //     color: '#119100',
+    //     cursor: 'pointer',
+    //     dashArray: '3, 5'
+    //   }
+    // })
+    // const kotusParishesDialecticalBorder = L.layerGroup([], {
+    //   id: 'kotus:rajat-lansi-ita',
+    //   type: 'geoJSON',
+    //   source: 'kotus',
+    //   // this layer includes only GeoJSON Polygons, define style for them
+    //   geoJSONPolygonOptions: {
+    //     color: '#2403fc',
+    //     cursor: 'pointer',
+    //     dashArray: '3, 5'
+    //   }
+    // })
     const karelianMaps = L.tileLayer('https:///mapwarper.onki.fi/mosaics/tile/4/{z}/{x}/{y}.png', {
       type: 'tile',
       attribution: 'SeCo'
@@ -443,22 +499,29 @@ class LeafletMap extends React.Component {
       attribution: 'SeCo'
     })
     this.overlayLayers = {
-      // [intl.get('leafletMap.externalLayers.arkeologiset_kohteet_alue')]: fhaArchaeologicalSiteRegistryAreas,
-      // [intl.get('leafletMap.externalLayers.arkeologiset_kohteet_piste')]: fhaArchaeologicalSiteRegistryPoints,
+      [intl.get('leafletMap.externalLayers.arkeologiset_kohteet_alue')]: fhaArchaeologicalSiteRegistryAreas,
+      [intl.get('leafletMap.externalLayers.arkeologiset_kohteet_piste')]: fhaArchaeologicalSiteRegistryPoints,
+      // [intl.get('leafletMap.externalLayers.fhaLidar')]: fhaLidar,
       [intl.get('leafletMap.externalLayers.karelianMaps')]: karelianMaps,
-      [intl.get('leafletMap.externalLayers.senateAtlas')]: senateAtlas,
-      [intl.get('leafletMap.externalLayers.kotus:pitajat')]: kotusParishes1938,
-      [intl.get('leafletMap.externalLayers.kotus:rajat-sms-alueet')]: kotusParishesDialecticalRegions,
-      [intl.get('leafletMap.externalLayers.kotus:rajat-sms-alueosat')]: kotusParishesDialecticalSubRegions,
-      [intl.get('leafletMap.externalLayers.kotus:rajat-lansi-ita')]: kotusParishesDialecticalBorder
+      [intl.get('leafletMap.externalLayers.senateAtlas')]: senateAtlas
+      // [intl.get('leafletMap.externalLayers.kotus:pitajat')]: kotusParishes1938,
+      // [intl.get('leafletMap.externalLayers.kotus:rajat-sms-alueet')]: kotusParishesDialecticalRegions,
+      // [intl.get('leafletMap.externalLayers.kotus:rajat-sms-alueosat')]: kotusParishesDialecticalSubRegions,
+      // [intl.get('leafletMap.externalLayers.kotus:rajat-lansi-ita')]: kotusParishesDialecticalBorder
     }
-    L.control.layers(basemaps, this.overlayLayers).addTo(this.leafletMap)
+
+    // Add default active overlays directly to the map
+    this.state.activeOverlays.map(overlay =>
+      this.leafletMap.addLayer(this.overlayLayers[intl.get(`leafletMap.externalLayers.${overlay}`)]))
+
+    // Add all basemaps and all overlays via the control to the map
+    L.control.layers(basemaps, this.overlayLayers, { collapsed: !this.props.layerControlExpanded }).addTo(this.leafletMap)
+
     const opacityLayers = {
       [intl.get('leafletMap.externalLayers.karelianMaps')]: karelianMaps,
       [intl.get('leafletMap.externalLayers.senateAtlas')]: senateAtlas
     }
     this.createOpacitySlider(opacityLayers)
-    this.initMapEventListeners()
   }
 
   populateOverlay = layerObj => {
@@ -466,19 +529,38 @@ class LeafletMap extends React.Component {
       The baseLayers and overlays parameters are object literals with layer names as keys
       and Layer objects as values
     */
+
+    // console.log(layerObj.geoJSON)
+    // const bufferedGeoJSON = buffer(layerObj.geoJSON, 0.2, { units: 'kilometres' })
+    // const bufferedGeoJSON = transformScale(layerObj.geoJSON, 0.3)
+    // console.log(bufferedGeoJSON)
     const leafletOverlay = this.overlayLayers[intl.get(`leafletMap.externalLayers.${layerObj.layerID}`)]
+    leafletOverlay.clearLayers()
     const leafletGeoJSONLayer = L.geoJSON(layerObj.geoJSON, {
       // style for GeoJSON Points
       pointToLayer: (feature, latlng) => {
         return L.circleMarker(latlng, leafletOverlay.options.geojsonMarkerOptions)
       },
       // style for GeoJSON Polygons
-      style: leafletOverlay.options.geojsonMPolygonOptions,
+      style: leafletOverlay.options.geoJSONPolygonOptions,
       // add popups
       onEachFeature: (feature, layer) => {
         layer.bindPopup(this.createPopUpContentGeoJSON(layerObj.layerID, feature.properties))
       }
     })
+    // const leafletGeoJSONBoundaryLayer = L.geoJSON(bufferedGeoJSON, {
+    //   // style for GeoJSON Points
+    //   pointToLayer: (feature, latlng) => {
+    //     return L.circleMarker(latlng, leafletOverlay.options.geojsonMarkerOptions)
+    //   },
+    //   // style for GeoJSON Polygons
+    //   style: leafletOverlay.options.geoJSONPolygonBoundaryOptions
+    //   // add popups
+    //   // onEachFeature: (feature, layer) => {
+    //   //   layer.bindPopup(this.createPopUpContentGeoJSON(layerObj.layerID, feature.properties))
+    //   // }
+    // })
+    // leafletGeoJSONBoundaryLayer.addTo(leafletOverlay).addTo(this.leafletMap)
     leafletGeoJSONLayer.addTo(leafletOverlay).addTo(this.leafletMap)
   }
 
@@ -817,7 +899,7 @@ class LeafletMap extends React.Component {
     const container = document.createElement('div')
     const heading = document.createElement('h3')
     const headingLink = document.createElement('a')
-    headingLink.href = ''
+    headingLink.style.cssText = 'cursor: pointer; text-decoration: underline'
     headingLink.textContent = data.prefLabel.prefLabel
     headingLink.addEventListener('click', () => history.push(data.dataProviderUrl))
     heading.appendChild(headingLink)

@@ -1,10 +1,11 @@
 import { has, isEmpty } from 'lodash'
 import { UPDATE_FACET_VALUES_CONSTRAIN_SELF } from '../../actions'
 
-export const fetchResults = state => {
+export const fetchResults = (state, action) => {
   return {
     ...state,
     instance: null,
+    instanceTableExternalData: null,
     fetching: true
   }
 }

@@ -269,7 +269,9 @@ const SemanticPortal = props => {
   // const noResults = props.clientFS.results == null
 
   useEffect(() => {
-    document.title = intl.get('appTitle.html')
+    document.title = intl.get('html.title')
+    document.documentElement.lang = props.options.currentLocale
+    document.querySelector('meta[name="description"]').setAttribute('content', intl.get('html.description'))
   }, [props.options.currentLocale])
 
   return (
@@ -572,13 +574,13 @@ const SemanticPortal = props => {
                 </Grid>}
             /> */}
             {/* create routes for info buttons */}
-            <Route
+            {/* <Route
               path={`${rootUrlWithLang}/feedback`}
               render={() =>
                 <div className={classNames(classes.mainContainer, classes.textPageContainer)}>
                   <TextPage>{intl.getHTML('feedback')}</TextPage>
                 </div>}
-            />
+            /> */}
             <Route
               path={`${rootUrlWithLang}/about`}
               render={() =>
