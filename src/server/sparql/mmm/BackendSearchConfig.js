@@ -129,7 +129,10 @@ export const backendSearchConfig = {
     perspectiveID: 'manuscripts',
     q: productionsByDecadeQuery,
     filterTarget: 'instance',
-    resultMapper: mapLineChart
+    resultMapper: mapLineChart,
+    resultMapperConfig: {
+      fillEmptyValues: false // the basic unit on the x-axis is a decade
+    }
   },
   manuscriptsKnowledgeGraphMetadata: {
     perspectiveID: 'manuscripts',
