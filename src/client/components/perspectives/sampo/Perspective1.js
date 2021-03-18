@@ -168,8 +168,11 @@ const Perspective1 = props => {
             createChartData={createSingleLineChartData}
             title='Manuscript production by decade'
             xaxisTitle='Decade'
+            xaxisType='category'
+            xaxisTickAmount={30}
             yaxisTitle='Manuscript count'
             seriesTitle='Manuscript count'
+            stroke={{ width: 2 }}
             resultClass='productionTimespanLineChart'
             facetClass='perspective1'
           />}
@@ -186,9 +189,15 @@ const Perspective1 = props => {
             fetchData={props.fetchResults}
             createChartData={createMultipleLineChartData}
             title='Manuscript events by decade'
-            xaxisTitle='Decade'
+            xaxisTitle='Year'
+            xaxisType='category'
+            xaxisTickAmount={30}
             yaxisTitle='Count'
             seriesTitle='Count'
+            stroke={{
+              curve: 'straight',
+              width: 2
+            }}
             resultClass='eventLineChart'
             facetClass='perspective1'
           />}
