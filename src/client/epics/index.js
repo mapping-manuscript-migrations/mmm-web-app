@@ -12,8 +12,8 @@ import {
 import { combineEpics, ofType } from 'redux-observable'
 import intl from 'react-intl-universal'
 import localeEN from '../translations/mmm/localeEN'
-import localeFI from '../translations/mmm/localeFI'
-import localeSV from '../translations/mmm/localeSV'
+// import localeFI from '../translations/mmm/localeFI'
+// import localeSV from '../translations/mmm/localeSV'
 import { stateToUrl, pickSelectedDatasets } from '../helpers/helpers'
 import querystring from 'querystring'
 import {
