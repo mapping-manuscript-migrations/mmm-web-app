@@ -98,6 +98,11 @@ export default {
     rowsPerPage: 'Rows per page',
     of: 'of'
   },
+  facets: {
+    sliderFacet: {
+      invalidStartOrEnd: 'Only whole numbers are allowed. Min value must be smaller than max value. The smallest value can be {min} and the largest value can be {max}.'
+    }
+  },
   exportToYasgui: 'open the result table query in yasgui sparql editor',
   openInLinkedDataBrowser: 'open in linked data browser',
   instancePageGeneral: {
