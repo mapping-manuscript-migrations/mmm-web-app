@@ -40,6 +40,7 @@ import {
   fetchResults,
   fetchInstanceAnalysis,
   fetchFullTextResults,
+  sortFullTextResults,
   clearResults,
   fetchByURI,
   fetchFacet,
@@ -325,6 +326,7 @@ const SemanticPortal = props => {
                   <Grid item xs={12} className={classes.resultsContainer}>
                     <FullTextSearch
                       fullTextSearch={props.fullTextSearch}
+                      sortFullTextResults={props.sortFullTextResults}
                       routeProps={routeProps}
                       screenSize={screenSize}
                       rootUrl={rootUrlWithLang}
@@ -644,6 +646,7 @@ const mapDispatchToProps = ({
   fetchResults,
   fetchInstanceAnalysis,
   fetchFullTextResults,
+  sortFullTextResults,
   fetchByURI,
   fetchFacet,
   fetchFacetConstrainSelf,
