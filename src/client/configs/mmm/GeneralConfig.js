@@ -10,9 +10,7 @@ export const MAPBOX_ACCESS_TOKEN = 'pk.eyJ1IjoiZWtrb25lbiIsImEiOiJjazg3NXY3YzAwM
 
 export const MAPBOX_STYLE = 'light-v10' // https://docs.mapbox.com/api/maps/#styles
 
-export const documentFinderAPIUrl = 'https://data.finlex.fi/document-finder-backend'
-
-export const backendErrorText = 'The database is not available. Please try again later.'
+// export const documentFinderAPIUrl = 'https://data.finlex.fi/document-finder-backend'
 
 export const yasguiBaseUrl = 'https://yasgui.triply.cc'
 

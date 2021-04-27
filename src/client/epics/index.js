@@ -84,7 +84,7 @@ const fetchPaginatedResultsEpic = (action$, state$) => action$.pipe(
       sortBy: sortBy,
       sortDirection: sortDirection
     })
-    const requestUrl = `${apiUrl}/faceted-search/${resultClass}/paginated`
+    const requestUrl = `${apiUrl}/faceted-search/ss${resultClass}/paginated`
     // https://rxjs-dev.firebaseapp.com/api/ajax/ajax
     return ajax({
       url: requestUrl,

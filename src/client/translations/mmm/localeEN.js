@@ -21,8 +21,8 @@ export default {
   mainPageImageLicence: `
       Images used under licenses from Shutterstock.com, Wikimedia, and 
       <a href='http://openn.library.upenn.edu/ReadMe.html' target='_blank' rel='noopener noreferrer'>OPenn</a>.
-      
     `,
+  backendErrorText: 'One of the backend services is not available at the moment. Please try again later.',
   topBar: {
     feedback: 'feedback',
     info: {
