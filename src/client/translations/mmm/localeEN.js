@@ -144,6 +144,26 @@ export default {
     }
   },
   perspectives: {
+    fullTextSearch: {
+      properties: {
+        prefLabel: {
+          label: 'Label',
+          description: ''
+        },
+        type: {
+          label: 'Type',
+          description: ''
+        },
+        note: {
+          label: 'Note',
+          description: ''
+        }
+        // source: {
+        //   label: 'Source',
+        //   description: ''
+        // }
+      }
+    },
     manuscripts: {
       label: 'Manuscripts',
       facetResultsType: 'manuscripts',
