@@ -16,12 +16,10 @@ export const fullTextSearchProperties = `
       crm:E53_Place
       crm:E78_Collection
     }
-    ?id a ?type__id .
+    ?id a ?type__id ;
+        skos:prefLabel [] . # ignore results with no prefLabel
     ?type__id skos:prefLabel|rdfs:label ?type__prefLabel . 
-  }
-  UNION
-  {
-    ?id crm:P3_has_note ?note . # crm:P3_has_note has been added to text index
+    OPTIONAL { ?id crm:P3_has_note ?note } # crm:P3_has_note has been added to text index
   }
   UNION
   {
@@ -56,9 +54,8 @@ export const fullTextSearchProperties = `
   }
   UNION
   {
-    ?id a crm:E53_Place .
-    OPTIONAL { ?id skos:prefLabel ?prefLabel__id_ }
-    BIND(COALESCE(?prefLabel__id_, ?id) as ?prefLabel__id)
+    ?id a crm:E53_Place ;
+          skos:prefLabel ?prefLabel__id .
     BIND(?prefLabel__id as ?prefLabel__prefLabel)
     BIND(CONCAT("/places/page/", REPLACE(STR(?id), "^.*\\\\/(.+)", "$1")) AS ?prefLabel__dataProviderUrl)
   }
