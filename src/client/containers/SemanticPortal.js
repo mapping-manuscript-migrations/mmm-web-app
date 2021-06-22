@@ -47,7 +47,7 @@ import {
   fetchKnowledgeGraphMetadata
 } from '../actions'
 // import { filterResults } from '../selectors'
-import { perspectiveConfig } from '../configs/sampo/PerspectiveConfig'
+import { perspectiveConfig } from '../configs/mmm/PerspectiveConfig'
 import { perspectiveConfigOnlyInfoPages } from '../configs/mmm/PerspectiveConfigOnlyInfoPages'
 import { rootUrl, layoutConfig } from '../configs/mmm/GeneralConfig'
 
@@ -585,13 +585,13 @@ const SemanticPortal = props => {
 
           /> */}
           {/* create routes for info buttons */}
-          {/* <Route
-              path={`${rootUrlWithLang}/feedback`}
-              render={() =>
-                <div className={classNames(classes.mainContainer, classes.textPageContainer)}>
-                  <TextPage>{intl.getHTML('feedback')}</TextPage>
-                </div>}
-            /> */}
+          <Route
+            path={`${rootUrlWithLang}/feedback`}
+            render={() =>
+              <div className={classNames(classes.mainContainer, classes.textPageContainer)}>
+                <TextPage>{intl.getHTML('feedback')}</TextPage>
+              </div>}
+          />
           <Route
             path={`${rootUrlWithLang}/about`}
             render={() =>

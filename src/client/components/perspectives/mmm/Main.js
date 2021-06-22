@@ -6,33 +6,37 @@ import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
 import MainCard from './MainCard'
 import MainGridLg from './MainGridLg'
-import bannerImage from '../../../img/main_page/mmm-banner.jpg'
 import mmmLogo from '../../../img/logos/mmm-logo-94x90.png'
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    width: '100%',
-    marginBottom: theme.spacing(1),
-    [theme.breakpoints.up('md')]: {
-      height: 'calc(100% - 150px)',
-      overflow: 'auto'
-    }
-  },
-  banner: {
-    background: `linear-gradient( rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45) ), url(${bannerImage})`,
+  root: props => ({
+    [theme.breakpoints.up(props.layoutConfig.hundredPercentHeightBreakPoint)]: {
+      overflow: 'auto',
+      height: `calc(100% - ${props.layoutConfig.topBar.reducedHeight + props.layoutConfig.footer.reducedHeight + theme.spacing(1)}px)`
+    },
+    [theme.breakpoints.up(props.layoutConfig.reducedHeightBreakpoint)]: {
+      overflow: 'auto',
+      height: `calc(100% - ${props.layoutConfig.topBar.defaultHeight + props.layoutConfig.footer.defaultHeight + theme.spacing(1)}px)`
+    },
+    marginBottom: theme.spacing(1)
+  }),
+  banner: props => ({
+    background: props.layoutConfig.mainPage.bannerBackround,
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
-    height: 220,
-    [theme.breakpoints.up('xl')]: {
-      height: 300
+    height: props.layoutConfig.mainPage.bannerMobileHeight,
+    [theme.breakpoints.up('md')]: {
+      height: props.layoutConfig.mainPage.bannerReducedHeight
     },
-    width: '100%',
+    [theme.breakpoints.up('xl')]: {
+      height: props.layoutConfig.mainPage.bannerDefaultHeight
+    },
     boxShadow: '0 -15px 15px 0px #bdbdbd inset',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center'
-  },
+  }),
   bannerContent: {
     display: 'inline-block',
     color: '#fff'
@@ -59,6 +63,9 @@ const useStyles = makeStyles(theme => ({
     '& div': {
       flexGrow: 1,
       width: 0
+    },
+    [theme.breakpoints.down('sm')]: {
+      display: 'none'
     }
   },
   layout: {
@@ -86,6 +93,11 @@ const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing(1),
     display: 'flex',
     justifyContent: 'center'
+  },
+  bannerHeading: {
+    [theme.breakpoints.down('sm')]: {
+      display: 'none'
+    }
   }
 }))
 

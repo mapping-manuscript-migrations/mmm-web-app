@@ -20,6 +20,24 @@ export const INITIAL_STATE = {
   instanceAnalysisData: null,
   instanceAnalysisDataUpdateID: 0,
   instanceSparqlQuery: null,
+  maps: {
+    placesMsProduced: {
+      center: [22.43, 10.37],
+      zoom: 2
+    },
+    placesMsProducedHeatmap: {
+      center: [22.43, 10.37],
+      zoom: 2
+    },
+    lastKnownLocations: {
+      center: [22.43, 10.37],
+      zoom: 2
+    },
+    placesMsMigrations: {
+      center: [22.43, 10.37],
+      zoom: 2
+    }
+  },
   properties: [
     {
       id: 'uri',
@@ -260,7 +278,11 @@ const resultClasses = new Set([
   'manuscripts',
   'manuscriptsNetwork',
   'productionTimespanLineChart',
-  'manuscriptsKnowledgeGraphMetadata'
+  'manuscriptsKnowledgeGraphMetadata',
+  'placesMsProduced',
+  'lastKnownLocations',
+  'placesMsMigrations',
+  'placesMsMigrationsDialog'
 ])
 
 const manuscripts = (state = INITIAL_STATE, action) => {
