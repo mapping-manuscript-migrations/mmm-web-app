@@ -30,6 +30,9 @@ const styles = theme => ({
     // justifyContent: 'space-between',
     width: '100%'
   },
+  facetLabel: props => ({
+    fontSize: '0.875rem'
+  }),
   facetValuesContainerTen: {
     height: 345,
     padding: theme.spacing(1)
@@ -55,6 +58,7 @@ class FacetHeader extends React.Component {
   }
 
   handleMenuButtonClick = event => {
+    event.stopPropagation()
     this.setState({ anchorEl: event.currentTarget })
   };
 
@@ -332,6 +336,7 @@ class FacetHeader extends React.Component {
           <>
             <Tooltip disableFocusListener title={intl.get('facetBar.filterOptions')}>
               <IconButton
+                className='facetMenuButton'
                 aria-label={intl.get('facetBar.filterOptions')}
                 aria-owns={open ? 'facet-option-menu' : undefined}
                 aria-haspopup='true'
@@ -361,12 +366,12 @@ class FacetHeader extends React.Component {
 
     return (
       <div className={classes.headingContainer}>
-        <Typography variant='body1'>{facetLabel} </Typography>
+        <Typography className={classes.facetLabel} variant='body1'>{facetLabel}</Typography>
         <Tooltip
           title={facetDescription}
           enterDelay={300}
         >
-          <IconButton>
+          <IconButton aria-label='description'>
             <InfoIcon />
           </IconButton>
         </Tooltip>
@@ -396,7 +401,8 @@ FacetHeader.propTypes = {
   clearFacet: PropTypes.func,
   updateFacetOption: PropTypes.func,
   facetDescription: PropTypes.string.isRequired,
-  rootUrl: PropTypes.string.isRequired
+  rootUrl: PropTypes.string.isRequired,
+  layoutConfig: PropTypes.object.isRequired
 }
 
 export const FacetHeaderComponent = FacetHeader

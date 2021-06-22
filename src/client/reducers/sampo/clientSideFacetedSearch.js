@@ -6,8 +6,10 @@ import {
   CLIENT_FS_UPDATE_RESULTS,
   CLIENT_FS_CLEAR_RESULTS,
   CLIENT_FS_UPDATE_FACET,
-  CLIENT_FS_SORT_RESULTS
+  CLIENT_FS_SORT_RESULTS,
+  UPDATE_MAP_BOUNDS
 } from '../../actions'
+import { handleDataFetchingAction } from '../general/results'
 
 export const INITIAL_STATE = {
   query: '',
@@ -94,7 +96,21 @@ export const INITIAL_STATE = {
   groupBy: 'broaderTypeLabel',
   groupByLabel: 'Paikanlaji',
   textResultsFetching: false,
-  spatialResultsFetching: false
+  spatialResultsFetching: false,
+  maps: {
+    clientFSBboxSearch: {
+      center: [65.184809, 27.314050],
+      zoom: 5
+    },
+    clientFSMapClusters: {
+      center: [65.184809, 27.314050],
+      zoom: 5
+    },
+    clientFSMapMarkers: {
+      center: [65.184809, 27.314050],
+      zoom: 5
+    }
+  }
 }
 
 const clientSideFacetedSearch = (state = INITIAL_STATE, action) => {
@@ -131,7 +147,15 @@ const clientSideFacetedSearch = (state = INITIAL_STATE, action) => {
         results: null,
         fetchingResults: false,
         query: INITIAL_STATE.query,
-        facets: INITIAL_STATE.facets
+        facets: INITIAL_STATE.facets,
+        facetUpdateID: ++state.facetUpdateID,
+        lastlyUpdatedFacet: null,
+        maps: {
+          ...state.maps,
+          // reset center and zoom for maps that are used for results:
+          clientFSMapClusters: INITIAL_STATE.maps.clientFSMapClusters,
+          clientFSMapMarkers: INITIAL_STATE.maps.clientFSMapMarkers
+        }
       }
     case CLIENT_FS_UPDATE_RESULTS:
       return {
@@ -147,14 +171,26 @@ const clientSideFacetedSearch = (state = INITIAL_STATE, action) => {
         sortBy: action.options.sortBy,
         sortDirection: action.options.sortDirection
       }
+    case UPDATE_MAP_BOUNDS:
+      if (resultClassesForMapBounds.has(action.resultClass)) {
+        return handleDataFetchingAction(state, action)
+      } else {
+        return state
+      }
     default:
       return state
   }
 }
 
+const resultClassesForMapBounds = new Set([
+  'clientFSBboxSearch',
+  'clientFSMapClusters',
+  'clientFSMapMarkers'
+])
+
 const clientFSUpdateFacet = (state, action) => {
   const { facetID, value, latestValues } = action
-  const newSelectionsSet = state.facets[facetID].selectionsSet
+  const newSelectionsSet = new Set(state.facets[facetID].selectionsSet)
   if (newSelectionsSet.has(value)) {
     newSelectionsSet.delete(value)
   } else {
