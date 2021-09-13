@@ -287,7 +287,7 @@ const resultClasses = new Set([
 
 const manuscripts = (state = INITIAL_STATE, action) => {
   if (resultClasses.has(action.resultClass)) {
-    return handleDataFetchingAction(state, action)
+    return handleDataFetchingAction(state, action, INITIAL_STATE)
   } else return state
 }
 
