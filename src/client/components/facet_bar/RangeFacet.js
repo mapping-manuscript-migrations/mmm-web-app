@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import CircularProgress from '@material-ui/core/CircularProgress'
-import purple from '@material-ui/core/colors/purple'
-import { withStyles } from '@material-ui/core/styles'
-import TextField from '@material-ui/core/TextField'
-import Button from '@material-ui/core/Button'
-import InputAdornment from '@material-ui/core/InputAdornment'
+import CircularProgress from '@mui/material/CircularProgress'
+import withStyles from '@mui/styles/withStyles'
+import TextField from '@mui/material/TextField'
+import Button from '@mui/material/Button'
+import InputAdornment from '@mui/material/InputAdornment'
+import { has } from 'lodash'
 
 const styles = theme => ({
   root: {
@@ -42,8 +42,9 @@ class RangeFacet extends Component {
     super(props)
     let min = ''
     let max = ''
-    const { integerFilter } = props.facet
-    if (integerFilter !== null) {
+    const { facet } = props
+    if (has(facet, 'integerFilter') && facet.integerFilter !== null) {
+      const { integerFilter } = facet
       min = integerFilter.start
       max = integerFilter.end
     }
@@ -51,10 +52,11 @@ class RangeFacet extends Component {
   }
 
   componentDidMount = () => {
-    const { integerFilter } = this.props.facet
     let min = ''
     let max = ''
-    if (integerFilter !== null) {
+    const { facet } = this.props
+    if (has(facet, 'integerFilter') && facet.integerFilter !== null) {
+      const { integerFilter } = facet
       min = integerFilter.start
       max = integerFilter.end
     }
@@ -98,7 +100,7 @@ class RangeFacet extends Component {
     if (isFetching) {
       return (
         <div className={classes.spinnerContainer}>
-          <CircularProgress style={{ color: purple[500] }} thickness={5} />
+          <CircularProgress />
         </div>
       )
     } else {

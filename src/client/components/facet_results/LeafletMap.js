@@ -1,13 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { withStyles } from '@material-ui/core/styles'
 import intl from 'react-intl-universal'
 import L from 'leaflet'
 import { has } from 'lodash'
-import CircularProgress from '@material-ui/core/CircularProgress'
-import { purple } from '@material-ui/core/colors'
+import CircularProgress from '@mui/material/CircularProgress'
+import Box from '@mui/material/Box'
 import history from '../../History'
-// import { apiUrl } from '../../epics'
 import 'leaflet/dist/leaflet.css' // Official Leaflet styles
 
 // Leaflet plugins
@@ -41,47 +39,6 @@ import markerIconYellow from '../../img/markers/marker-icon-yellow.png'
 
 // const buffer = lazy(() => import('@turf/buffer'))
 import buffer from '@turf/buffer'
-
-const styles = theme => ({
-  leafletContainerfacetResults: props => ({
-    height: 400,
-    [theme.breakpoints.up(props.layoutConfig.hundredPercentHeightBreakPoint)]: {
-      height: `calc(100% - ${props.layoutConfig.tabHeight}px)`
-    },
-    position: 'relative'
-  }),
-  leafletContainerclientFSResults: props => ({
-    height: 400,
-    [theme.breakpoints.up(props.layoutConfig.hundredPercentHeightBreakPoint)]: {
-      height: `calc(100% - ${props.layoutConfig.tabHeight}px)`
-    },
-    position: 'relative'
-  }),
-  leafletContainerinstancePage: props => ({
-    height: 400,
-    [theme.breakpoints.up(props.layoutConfig.hundredPercentHeightBreakPoint)]: {
-      height: '100%'
-    },
-    position: 'relative'
-  }),
-  leafletContainermobileMapPage: {
-    height: '100%',
-    position: 'relative'
-  },
-  mapElement: {
-    width: '100%',
-    height: '100%'
-  },
-  spinnerContainer: {
-    height: 40,
-    width: 40,
-    position: 'absolute',
-    left: '50%',
-    top: '50%',
-    transform: 'translate(-50%,-50%)',
-    zIndex: 500
-  }
-})
 
 // https://github.com/pointhi/leaflet-color-markers
 const ColorIcon = L.Icon.extend({
@@ -117,6 +74,7 @@ class LeafletMap extends React.Component {
     if (this.props.mapMode &&
       (this.props.pageType === 'facetResults' || this.props.pageType === 'instancePage')) {
       this.props.fetchResults({
+        perspectiveID: this.props.perspectiveConfig.id,
         resultClass: this.props.resultClass,
         facetClass: this.props.facetClass,
         sortBy: null,
@@ -136,8 +94,16 @@ class LeafletMap extends React.Component {
   }
 
   componentDidUpdate = (prevProps, prevState) => {
+    // Dispatch a resize event so that Leaflet fits
+    // it's container properly. Copied from
+    // https://stackoverflow.com/a/61205108
+    const evt = document.createEvent('UIEvents')
+    evt.initUIEvent('resize', true, false, window, 0)
+    window.dispatchEvent(evt)
+
     this.props.facetedSearchMode === 'clientFS'
-      ? this.clientFScomponentDidUpdate(prevProps) : this.serverFScomponentDidUpdate(prevProps, prevState)
+      ? this.clientFScomponentDidUpdate(prevProps)
+      : this.serverFScomponentDidUpdate(prevProps, prevState)
   }
 
   componentWillUnmount = () => {
@@ -165,6 +131,7 @@ class LeafletMap extends React.Component {
     // check if filters have changed
     if (has(prevProps, 'facetUpdateID') && prevProps.facetUpdateID !== this.props.facetUpdateID) {
       this.props.fetchResults({
+        perspectiveID: this.props.perspectiveConfig.id,
         resultClass: this.props.resultClass,
         facetClass: this.props.facetClass,
         sortBy: null,
@@ -173,13 +140,14 @@ class LeafletMap extends React.Component {
     }
 
     // check if results data have changed
-    if (prevProps.results !== this.props.results) {
+    if (this.props.results !== null && (prevProps.results !== this.props.results)) {
       this.drawPointData()
     }
 
     // check if map mode has changed
     if (prevState.mapMode !== this.state.mapMode) {
       this.props.fetchResults({
+        perspectiveID: this.props.perspectiveConfig.id,
         resultClass: this.props.resultClass,
         facetClass: this.props.facetClass,
         sortBy: null
@@ -279,7 +247,7 @@ class LeafletMap extends React.Component {
     }
 
     if (prevState.showBuffer !== this.state.showBuffer) {
-      this.state.activeLayers.map(layerID => {
+      this.state.activeLayers.forEach(layerID => {
         const leafletOverlayToRemove = this.overlayLayers[intl.get(`leafletMap.externalLayers.${layerID}`)]
         leafletOverlayToRemove.clearLayers()
       })
@@ -292,8 +260,11 @@ class LeafletMap extends React.Component {
   }
 
   initMap = () => {
+    const { mapboxConfig } = this.props.portalConfig
+    const { mapboxAccessToken, mapboxStyle } = mapboxConfig
+
     // Base layer(s)
-    const mapboxBaseLayer = L.tileLayer(`https://api.mapbox.com/styles/v1/mapbox/${this.props.mapBoxStyle}/tiles/{z}/{x}/{y}?access_token=${this.props.mapBoxAccessToken}`, {
+    const mapboxBaseLayer = L.tileLayer(`https://api.mapbox.com/styles/v1/mapbox/${mapboxStyle}/tiles/{z}/{x}/{y}?access_token=${mapboxAccessToken}`, {
       attribution: '&copy; <a href="https://www.mapbox.com/map-feedback/" target="_blank" rel="noopener">Mapbox</a> &copy; <a href="http://osm.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors',
       tileSize: 512,
       zoomOffset: -1
@@ -344,6 +315,7 @@ class LeafletMap extends React.Component {
       fullscreenControl: true
     }).whenReady(context => {
       this.updateEnlargedBounds({ mapInstance: context.target })
+      context.target.invalidateSize()
     })
 
     this.zoominfoControl = this.leafletMap.zoominfoControl
@@ -367,7 +339,7 @@ class LeafletMap extends React.Component {
     // initialize layers from external sources
     if (this.props.showExternalLayers) {
       const basemaps = {
-        [intl.get(`leafletMap.basemaps.mapbox.${this.props.mapBoxStyle}`)]: mapboxBaseLayer
+        [intl.get(`leafletMap.basemaps.mapbox.${mapboxStyle}`)]: mapboxBaseLayer
         // [intl.get('leafletMap.basemaps.backgroundMapNLS')]: nlsVectortilesBackgroundmap,
         // [intl.get('leafletMap.basemaps.topographicalMapNLS')]: topographicalMapNLS,
         // [intl.get('leafletMap.basemaps.airMapNLS')]: airMapNLS
@@ -383,7 +355,8 @@ class LeafletMap extends React.Component {
     L.control.scale().addTo(this.leafletMap)
 
     // create layer for bounding boxes
-    if (has(this.props, 'facet') && this.props.facet.filterType === 'spatialFilter') {
+    if (has(this.props, 'facet') && this.props.facet.filterType === 'spatialFilter'
+    ) {
       this.addDrawButtons()
     }
 
@@ -416,7 +389,7 @@ class LeafletMap extends React.Component {
   setCustomMapControlVisibility = () => {
     const { activeLayers } = this.state
     let hideCustomControl = true
-    activeLayers.map(layerID => {
+    activeLayers.forEach(layerID => {
       if (layerID === 'WFS_MV_KulttuuriymparistoSuojellut:Muinaisjaannokset_alue' ||
       layerID === 'WFS_MV_KulttuuriymparistoSuojellut:Muinaisjaannokset_piste' ||
       layerID === 'WFS_MV_Kulttuuriymparisto:Arkeologiset_kohteet_alue' ||
@@ -583,7 +556,7 @@ class LeafletMap extends React.Component {
     this.overlayLayers = {}
     const opacityLayers = {}
     let showOpacityController = false
-    this.props.layerConfigs.map(config => {
+    this.props.layerConfigs.forEach(config => {
       switch (config.type) {
         case 'GeoJSON':
           this.overlayLayers[intl.get(`leafletMap.externalLayers.${config.id}`)] =
@@ -615,7 +588,7 @@ class LeafletMap extends React.Component {
     })
 
     // Add default active overlays directly to the map
-    this.state.activeLayers.map(overlay => {
+    this.state.activeLayers.forEach(overlay => {
       this.leafletMap.addLayer(this.overlayLayers[intl.get(`leafletMap.externalLayers.${overlay}`)])
     })
 
@@ -806,7 +779,7 @@ class LeafletMap extends React.Component {
       }
     })
 
-    if (this.props.facet.spatialFilter !== null) {
+    if (has(this.props.facet, 'spatialFilter') && this.props.facet.spatialFilter !== null) {
       this.drawnItems.addLayer(this.props.facet.spatialFilter)
       this.leafletMap.addControl(this.drawControlEditOnly)
     } else {
@@ -970,7 +943,8 @@ class LeafletMap extends React.Component {
       if (pageType === 'instancePage' || pageType === 'clientFSResults') {
         marker.bindPopup(this.props.createPopUpContent({
           data: result,
-          resultClass: this.props.resultClass
+          resultClass: this.props.resultClass,
+          perspectiveID: this.props.perspectiveConfig.id
         }))
       }
       return marker
@@ -1007,24 +981,50 @@ class LeafletMap extends React.Component {
   }
 
   render = () => {
+    const { layoutConfig, pageType } = this.props
     return (
       <>
-        <div className={this.props.classes[`leafletContainer${this.props.pageType}`]}>
-          <div id={this.props.container ? this.props.container : 'map'} className={this.props.classes.mapElement}>
+        <Box
+          sx={theme => ({
+            [theme.breakpoints.up(layoutConfig.hundredPercentHeightBreakPoint)]: {
+              height: pageType === 'facetResults' || pageType === 'clientFSResults'
+                ? `calc(100% - ${layoutConfig.tabHeight}px)`
+                : '100%'
+            },
+            position: 'relative',
+            ...(pageType !== 'mobileMapPage' && { height: 400 })
+          })}
+        >
+          <Box
+            id={this.props.container ? this.props.container : 'map'}
+            sx={{
+              width: '100%',
+              height: '100%'
+            }}
+          >
             {(this.props.fetching ||
             (this.props.showExternalLayers && this.props.leafletMapState.fetching)) &&
-              <div className={this.props.classes.spinnerContainer}>
-                <CircularProgress style={{ color: purple[500] }} thickness={5} />
-              </div>}
-          </div>
-        </div>
+              <Box
+                sx={{
+                  height: 40,
+                  width: 40,
+                  position: 'absolute',
+                  left: '50%',
+                  top: '50%',
+                  transform: 'translate(-50%,-50%)',
+                  zIndex: 500
+                }}
+              >
+                <CircularProgress />
+              </Box>}
+          </Box>
+        </Box>
       </>
     )
   }
 }
 
 LeafletMap.propTypes = {
-  classes: PropTypes.object.isRequired,
   pageType: PropTypes.string.isRequired,
   results: PropTypes.array,
   leafletMapState: PropTypes.object,
@@ -1046,11 +1046,7 @@ LeafletMap.propTypes = {
   facetedSearchMode: PropTypes.string,
   container: PropTypes.string,
   showError: PropTypes.func,
-  uri: PropTypes.string,
-  mapBoxStyle: PropTypes.string,
-  mapBoxAccessToken: PropTypes.string
+  uri: PropTypes.string
 }
 
-export const LeafletMapComponent = LeafletMap
-
-export default withStyles(styles)(LeafletMap)
+export default LeafletMap

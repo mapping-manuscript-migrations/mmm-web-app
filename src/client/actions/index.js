@@ -48,6 +48,7 @@ export const LOAD_LOCALES = 'LOAD_LOCALES'
 export const LOAD_LOCALES_FAILED = 'LOAD_LOCALES_FAILED'
 export const UPDATE_LOCALE = 'UPDATE_LOCALE'
 export const ANIMATE_MAP = 'ANIMATE_MAP'
+export const UPDATE_VIDEO_PLAYER_TIME = 'UPDATE_VIDEO_PLAYER_TIME'
 export const CLIENT_FS_UPDATE_QUERY = 'CLIENT_FS_UPDATE_QUERY'
 export const CLIENT_FS_TOGGLE_DATASET = 'CLIENT_FS_TOGGLE_DATASET'
 export const CLIENT_FS_FETCH_RESULTS = 'CLIENT_FS_FETCH_RESULTS'
@@ -73,20 +74,24 @@ export const fetchPaginatedResultsFailed = (resultClass, error, message) => ({
   message
 })
 export const fetchResults = ({
+  perspectiveID,
   resultClass,
   facetClass,
   uri = null,
   limit = null,
   optimize = null,
-  reason = null
+  reason = null,
+  order = null
 }) => ({
   type: FETCH_RESULTS,
+  perspectiveID,
   resultClass,
   facetClass,
   uri,
   limit,
   optimize,
-  reason
+  reason,
+  order
 })
 export const fetchInstanceAnalysis = ({
   resultClass,
@@ -147,13 +152,14 @@ export const updatePaginatedResults = ({ resultClass, page, pagesize, data, spar
   data,
   sparqlQuery
 })
-export const updateResults = ({ resultClass, data, sparqlQuery, query, jenaIndex }) => ({
+export const updateResults = ({ resultClass, data, sparqlQuery, query, jenaIndex, order = null }) => ({
   type: UPDATE_RESULTS,
   resultClass,
   data,
   sparqlQuery,
   query,
-  jenaIndex
+  jenaIndex,
+  order
 })
 export const sortResults = (resultClass, sortBy) => ({
   type: SORT_RESULTS,
@@ -174,8 +180,9 @@ export const updateRowsPerPage = (resultClass, rowsPerPage) => ({
   resultClass,
   rowsPerPage
 })
-export const fetchByURI = ({ resultClass, facetClass, uri }) => ({
+export const fetchByURI = ({ perspectiveID, resultClass, facetClass, uri }) => ({
   type: FETCH_BY_URI,
+  perspectiveID,
   resultClass,
   facetClass,
   uri
@@ -320,6 +327,10 @@ export const animateMap = value => ({
   type: ANIMATE_MAP,
   value
 })
+export const updateVideoPlayerTime = value => ({
+  type: UPDATE_VIDEO_PLAYER_TIME,
+  value
+})
 export const updateMapBounds = ({ resultClass, bounds }) => ({
   type: UPDATE_MAP_BOUNDS,
   resultClass,
@@ -356,8 +367,9 @@ export const clientFSToggleDataset = dataset => ({
   dataset
 })
 
-export const clientFSFetchResults = ({ jenaIndex, query }) => ({
+export const clientFSFetchResults = ({ perspectiveID, jenaIndex, query }) => ({
   type: CLIENT_FS_FETCH_RESULTS,
+  perspectiveID,
   jenaIndex,
   query
 })
@@ -383,8 +395,9 @@ export const clientFSSortResults = options => ({
   type: CLIENT_FS_SORT_RESULTS,
   options
 })
-export const fetchKnowledgeGraphMetadata = ({ resultClass }) => ({
+export const fetchKnowledgeGraphMetadata = ({ perspectiveID, resultClass }) => ({
   type: FETCH_KNOWLEDGE_GRAPH_METADATA,
+  perspectiveID,
   resultClass
 })
 export const fetchKnowledgeGraphMetadataFailded = (resultClass, error, message) => ({

@@ -1,11 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import intl from 'react-intl-universal'
-import Button from '@material-ui/core/Button'
-import MenuItem from '@material-ui/core/MenuItem'
-import Menu from '@material-ui/core/Menu'
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-import { withStyles } from '@material-ui/core/styles'
+import Button from '@mui/material/Button'
+import MenuItem from '@mui/material/MenuItem'
+import Menu from '@mui/material/Menu'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+import withStyles from '@mui/styles/withStyles'
 import { Link } from 'react-router-dom'
 
 const styles = theme => ({
@@ -33,8 +33,41 @@ class TopBarInfoButton extends React.Component {
     this.setState({ anchorEl: null })
   };
 
-  render () {
+  renderInfoItem = item => {
     const { classes } = this.props
+    let jsx
+    if (item.externalLink) {
+      jsx = (
+        <a
+          className={classes.link}
+          key={item.id}
+          href={intl.get(`topBar.info.${item.translatedUrl}`)}
+          target='_blank'
+          rel='noopener noreferrer'
+        >
+          <MenuItem onClick={this.handleInfoMenuClose}>
+            {intl.get(`topBar.info.${item.translatedText}`)}
+          </MenuItem>
+        </a>
+      )
+    } else {
+      jsx = (
+        <MenuItem
+          key={item.id}
+          component={this.AdapterLink}
+          to={`${this.props.rootUrl}${item.internalLink}`}
+          onClick={this.handleInfoMenuClose}
+        >
+          {intl.get(`topBar.info.${item.translatedText}`)}
+        </MenuItem>
+      )
+    }
+    return jsx
+  }
+
+  render () {
+    const { classes, layoutConfig } = this.props
+    const { infoDropdown } = layoutConfig.topBar
     return (
       <>
         <Button
@@ -47,7 +80,6 @@ class TopBarInfoButton extends React.Component {
         </Button>
         <Menu
           anchorEl={this.state.anchorEl}
-          getContentAnchorEl={null}
           anchorOrigin={{
             vertical: 'bottom',
             horizontal: 'center'
@@ -60,36 +92,7 @@ class TopBarInfoButton extends React.Component {
           open={Boolean(this.state.anchorEl)}
           onClose={this.handleInfoMenuClose}
         >
-          <MenuItem
-            key={0}
-            component={this.AdapterLink}
-            to={`${this.props.rootUrl}/about`}
-            onClick={this.handleInfoMenuClose}
-          >
-            {intl.get('topBar.info.aboutThePortal')}
-          </MenuItem>
-          <a
-            className={classes.link}
-            key={1}
-            href={intl.get('topBar.info.blogUrl')}
-            target='_blank'
-            rel='noopener noreferrer'
-          >
-            <MenuItem onClick={this.handleInfoMenuClose}>
-              {intl.get('topBar.info.blog')}
-            </MenuItem>
-          </a>
-          <a
-            className={classes.link}
-            key={2}
-            href={intl.get('topBar.info.technicalDocumentationUrl')}
-            target='_blank'
-            rel='noopener noreferrer'
-          >
-            <MenuItem onClick={this.handleInfoMenuClose}>
-              {intl.get('topBar.info.technicalDocumentation')}
-            </MenuItem>
-          </a>
+          {infoDropdown.map(item => this.renderInfoItem(item))}
         </Menu>
       </>
     )

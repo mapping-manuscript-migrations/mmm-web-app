@@ -1,12 +1,9 @@
 import React from 'react'
-import { withStyles } from '@material-ui/core/styles'
+import withStyles from '@mui/styles/withStyles'
 import PropTypes from 'prop-types'
-import Slider from '@material-ui/core/Slider'
-import { SLIDER_DURATION } from '../../configs/sampo/GeneralConfig'
+import Slider from '@mui/material/Slider'
 import { BaseControl } from 'react-map-gl'
 import moment from 'moment'
-// import iconImg from './icon.png';
-// import BarChart from './TemporalMapBarChart';
 
 const blue = 'rgb(0, 126, 230)'
 const iOSBoxShadow =
@@ -29,22 +26,14 @@ const styles = () => ({
     width: 28,
     backgroundColor: '#fff',
     boxShadow: iOSBoxShadow,
-    marginTop: -12,
-    marginLeft: -14,
+    // marginTop: -12,
+    // marginLeft: -14,
     '&:focus,&:hover,&$active': {
       boxShadow: '0 3px 1px rgba(0,0,0,0.1),0 4px 8px rgba(0,0,0,0.3),0 0 0 1px rgba(0,0,0,0.02)',
       // Reset on touch devices, it doesn't add specificity
       '@media (hover: none)': {
         boxShadow: iOSBoxShadow
       }
-    }
-  },
-  sliderValueLabel: {
-    left: 'calc(-50% + 12px)',
-    top: -22,
-    '& *': {
-      background: 'transparent',
-      color: '#fff'
     }
   }
 })
@@ -56,7 +45,7 @@ class TemporalMapTimeSlider extends BaseControl {
     currentDay: null,
     hideContainer: '',
     value: 0,
-    sliderDuration: SLIDER_DURATION.normalSpeed,
+    sliderDuration: this.props.sliderDuration.normalSpeed,
     intervalSetter: null,
     isPlaying: false,
     playOrPause: 'play',
@@ -143,7 +132,7 @@ class TemporalMapTimeSlider extends BaseControl {
     if (type === 'half') {
       this.setState(
         {
-          sliderDuration: SLIDER_DURATION.halfSpeed,
+          sliderDuration: this.props.sliderDuration.halfSpeed,
           halfSpeedEnabled: true,
           regularSpeedEnabled: false,
           doubleSpeedEnabled: false
@@ -156,7 +145,7 @@ class TemporalMapTimeSlider extends BaseControl {
     } else if (type === 'regular') {
       this.setState(
         {
-          sliderDuration: SLIDER_DURATION.normalSpeed,
+          sliderDuration: this.props.sliderDuration.normalSpeed,
           halfSpeedEnabled: false,
           regularSpeedEnabled: true,
           doubleSpeedEnabled: false
@@ -169,7 +158,7 @@ class TemporalMapTimeSlider extends BaseControl {
     } else if (type === 'double') {
       this.setState(
         {
-          sliderDuration: SLIDER_DURATION.doubleSpeed,
+          sliderDuration: this.props.sliderDuration.doubleSpeed,
           halfSpeedEnabled: false,
           regularSpeedEnabled: false,
           doubleSpeedEnabled: true
@@ -261,7 +250,6 @@ class TemporalMapTimeSlider extends BaseControl {
                   classes={{
                     root: classes.sliderRoot,
                     thumb: classes.sliderThumb,
-                    valueLabel: classes.sliderValueLabel,
                     track: classes.sliderTrack,
                     rail: classes.sliderRail
                   }}
@@ -273,6 +261,15 @@ class TemporalMapTimeSlider extends BaseControl {
                   step={1}
                   valueLabelDisplay='on'
                   valueLabelFormat={this._sliderValueText}
+                  sx={{
+                    '&.MuiSlider-valueLabel': {
+                      left: '-50%',
+                      '& *': {
+                        background: 'transparent',
+                        color: '#fff'
+                      }
+                    }
+                  }}
                 />
                 {/*
                 <div className="slider-labels-container">

@@ -1,27 +1,24 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { withStyles } from '@material-ui/core/styles'
-import Collapse from '@material-ui/core/Collapse'
+import withStyles from '@mui/styles/withStyles';
+import Collapse from '@mui/material/Collapse'
 import { ISOStringToDate } from './Dates'
 import { orderBy, has } from 'lodash'
 import ObjectListItem from './ObjectListItem'
 import ObjectListItemSources from './ObjectListItemSources'
 import ObjectListItemEvent from './ObjectListItemEvent'
+import classNames from 'classnames'
 
 const styles = () => ({
-  valueList: {
-    paddingLeft: 20,
-    maxHeight: 200,
+  resultTableList: props => ({
+    maxHeight: props.tableData && props.tableData.paginatedResultsRowContentMaxHeight
+      ? props.tableData.paginatedResultsRowContentMaxHeight
+      : 200,
     overflow: 'auto'
-  },
-  valueListNoBullets: {
-    listStyle: 'none',
-    paddingLeft: 0
-  },
-  numberedList: {
-    maxHeight: 200,
-    overflow: 'auto'
-  },
+  }),
+  valueList: props => ({
+    paddingLeft: 20
+  }),
   dateContainer: {
     width: 180,
     display: 'inline-block'
@@ -103,12 +100,12 @@ const ObjectListCollapsible = props => {
     </>
 
   const renderBulletedList = data =>
-    <ul className={props.classes.valueList}>
+    <ul className={classNames(classes.resultTableList, classes.valueList)}>
       {renderListItems(data)}
     </ul>
 
   const renderNumberedList = data =>
-    <ol className={props.classes.numberedList}>
+    <ol className={classes.resultTableList}>
       {renderListItems(data)}
     </ol>
 

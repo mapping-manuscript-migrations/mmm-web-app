@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { withStyles } from '@material-ui/core/styles'
+import withStyles from '@mui/styles/withStyles'
 import DeckGL from '@deck.gl/react'
 import { ArcLayer, PolygonLayer } from '@deck.gl/layers'
 import { HeatmapLayer, HexagonLayer } from '@deck.gl/aggregation-layers'
@@ -8,8 +8,7 @@ import ReactMapGL, { NavigationControl, FullscreenControl, HTMLOverlay } from 'r
 import DeckArcLayerLegend from './DeckArcLayerLegend'
 import DeckArcLayerDialog from './DeckArcLayerDialog'
 import DeckArcLayerTooltip from './DeckArcLayerTooltip'
-import CircularProgress from '@material-ui/core/CircularProgress'
-import { purple } from '@material-ui/core/colors'
+import CircularProgress from '@mui/material/CircularProgress'
 
 /* Documentation links:
   https://deck.gl/#/documentation/getting-started/using-with-react?section=adding-a-base-map
@@ -139,7 +138,7 @@ class Deck extends React.Component {
     if (this.props.fetching || this.props.fetchingInstanceAnalysisData) {
       return (
         <div className={this.props.classes.spinner}>
-          <CircularProgress style={{ color: purple[500] }} thickness={5} />
+          <CircularProgress />
         </div>
       )
     }
@@ -205,7 +204,8 @@ class Deck extends React.Component {
       })
 
     render () {
-      const { classes, mapBoxAccessToken, mapBoxStyle, layerType, fetching, results, showTooltips } = this.props
+      const { classes, layerType, fetching, results, showTooltips, portalConfig } = this.props
+      const { mapboxAccessToken, mapboxStyle } = portalConfig.mapboxConfig
       const { hoverInfo } = this.state
       const showTooltip = showTooltips && hoverInfo && hoverInfo.object
       const hasData = !fetching && results && results.length > 0 &&
@@ -246,9 +246,9 @@ class Deck extends React.Component {
             width='100%'
             height='100%'
             reuseMaps
-            mapStyle={`mapbox://styles/mapbox/${mapBoxStyle}`}
+            mapStyle={`mapbox://styles/mapbox/${mapboxStyle}`}
             preventStyleDiffing
-            mapboxApiAccessToken={mapBoxAccessToken}
+            mapboxApiAccessToken={mapboxAccessToken}
             onViewportChange={this.handleOnViewportChange}
           >
             <div className={classes.navigationContainer}>
@@ -321,8 +321,6 @@ Deck.propTypes = {
   results: PropTypes.array,
   layerType: PropTypes.oneOf(['arcLayer', 'heatmapLayer', 'hexagonLayer', 'polygonLayer']),
   tooltips: PropTypes.bool,
-  mapBoxAccessToken: PropTypes.string.isRequired,
-  mapBoxStyle: PropTypes.string.isRequired,
   facetUpdateID: PropTypes.number,
   fetchResults: PropTypes.func,
   resultClass: PropTypes.string,

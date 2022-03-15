@@ -15,8 +15,15 @@ export const fetchResults = (state, action, initialState) => {
     ...state,
     instance: null,
     instanceTableExternalData: null,
-    fetching: true,
-    ...(resetMapBounds && { maps: initialState.maps })
+    ...(resetMapBounds && { maps: initialState.maps }),
+    ...(action.order == null && {
+      fetching: true,
+      resultUpdateID: 0
+    }),
+    ...(action.order && {
+      [`${action.order}Fetching`]: true,
+      [`${action.order}ResultUpdateID`]: 0
+    })
   }
 }
 
@@ -214,13 +221,26 @@ export const updateResultCount = (state, action) => {
 }
 
 export const updateResults = (state, action, initialState) => {
-  return {
-    ...state,
-    results: action.data,
-    resultClass: action.resultClass,
-    resultsSparqlQuery: action.sparqlQuery,
-    fetching: false,
-    resultUpdateID: ++state.resultUpdateID
+  if (action.order) {
+    const { order } = action
+    return {
+      ...state,
+      results: null,
+      resultsSparqlQuery: action.sparqlQuery,
+      [order]: action.data,
+      [`${action.order}ResultClass`]: action.resultClass,
+      [`${action.order}Fetching`]: false,
+      [`${action.order}ResultUpdateID`]: ++state[`${action.order}ResultUpdateID`]
+    }
+  } else {
+    return {
+      ...state,
+      results: action.data,
+      resultClass: action.resultClass,
+      resultsSparqlQuery: action.sparqlQuery,
+      fetching: false,
+      resultUpdateID: ++state.resultUpdateID
+    }
   }
 }
 
@@ -277,8 +297,8 @@ export const fetchFacetFailed = (state, action) => {
 }
 
 export const updateFacetValues = (state, action) => {
-  if (state.facets[action.id].type === 'timespan' ||
-    state.facets[action.id].type === 'integer') {
+  if (state.facets[action.id].facetType === 'timespan' ||
+    state.facets[action.id].facetType === 'integer') {
     return {
       ...state,
       // with normal facets the 'facetUpdateID' is handled with the 'updateFacetFilter' function
@@ -303,7 +323,8 @@ export const updateFacetValues = (state, action) => {
         [action.id]: {
           ...state.facets[action.id],
           distinctValueCount: state.facets[action.id].type === 'hierarchical'
-            ? action.flatData.length : action.data.length,
+            ? action.flatData.length
+            : action.data.length,
           values: action.data || [],
           flatValues: action.flatData || [],
           isFetching: false
