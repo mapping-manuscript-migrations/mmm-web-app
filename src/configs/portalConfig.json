@@ -1,22 +1,14 @@
 {
-    "portalID": "sampo",
+    "portalID": "mmm",
     "rootUrl": "",
     "perspectives": {
         "searchPerspectives": [
-            "perspective1",
-            "perspective2",
-            "perspective3",
-            "perspective4",
+            "manuscripts",
             "fullTextSearch"
         ],
         "onlyInstancePages": [
-            "manuscripts",
             "collections",
-            "works",
-            "expressions",
-            "events",
-            "actors",
-            "places"
+            "expressions"
         ]
     },
     "localeConfig": {
@@ -26,12 +18,8 @@
             {
                 "id": "en",
                 "label": "English",
-                "filename": "localeEN.json"
-            },
-            {
-                "id": "fi",
-                "label": "English",
-                "filename": "localeFI.json"
+                "filename": "localeEN",
+                "format": "js"
             }
         ]
     },
@@ -62,10 +50,13 @@
         "paginationToolbarHeight": 37,
         "tableFontSize": "0.8rem",
         "topBar": {
-            "logoImage": "logos/logo.png",
+            "logoImage": "logos/mmm-logo-52x50.png",
+            "logoImageReducedHeight": 35,
+            "logoImageHeight": 46,
             "logoTextTransform": "none",
+            "hideLogoText": true,
             "hideLogoTextOnMobile": true,
-            "showLanguageButton": true,
+            "showLanguageButton": false,
             "feedbackLink": "https://link.webropolsurveys.com/...",
             "externalInstructions": false,
             "externalAboutPage": false,
@@ -83,6 +74,12 @@
                     "externalLink": true,
                     "translatedUrl": "blogUrl",
                     "translatedText": "blog"
+                },
+                {
+                    "id": "technicalDocumentation",
+                    "externalLink": true,
+                    "translatedUrl": "technicalDocumentationUrl",
+                    "translatedText": "technicalDocumentation"
                 }
             ]
         },

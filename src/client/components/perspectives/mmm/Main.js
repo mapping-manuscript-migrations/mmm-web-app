@@ -1,113 +1,23 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import intl from 'react-intl-universal'
-import Grid from '@material-ui/core/Grid'
-import Typography from '@material-ui/core/Typography'
-import { makeStyles } from '@material-ui/core/styles'
+import Box from '@mui/material/Box'
+import Grid from '@mui/material/Grid'
+import Typography from '@mui/material/Typography'
+import has from 'lodash'
 import MainCard from './MainCard'
-import MainGridLg from './MainGridLg'
-import mmmLogo from '../../../img/logos/mmm-logo-94x90.png'
+import { getSpacing } from '../../../helpers/helpers'
+// import mmmLogo from '../../../img/logos/mmm-logo-94x90.png'
 
-const useStyles = makeStyles(theme => ({
-  root: props => ({
-    [theme.breakpoints.up(props.layoutConfig.hundredPercentHeightBreakPoint)]: {
-      overflow: 'auto',
-      height: `calc(100% - ${props.layoutConfig.topBar.reducedHeight + props.layoutConfig.footer.reducedHeight + theme.spacing(1)}px)`
-    },
-    [theme.breakpoints.up(props.layoutConfig.reducedHeightBreakpoint)]: {
-      overflow: 'auto',
-      height: `calc(100% - ${props.layoutConfig.topBar.defaultHeight + props.layoutConfig.footer.defaultHeight + theme.spacing(1)}px)`
-    },
-    marginBottom: theme.spacing(1)
-  }),
-  banner: props => ({
-    background: props.layoutConfig.mainPage.bannerBackround,
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    height: props.layoutConfig.mainPage.bannerMobileHeight,
-    [theme.breakpoints.up('md')]: {
-      height: props.layoutConfig.mainPage.bannerReducedHeight
-    },
-    [theme.breakpoints.up('xl')]: {
-      height: props.layoutConfig.mainPage.bannerDefaultHeight
-    },
-    boxShadow: '0 -15px 15px 0px #bdbdbd inset',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center'
-  }),
-  bannerContent: {
-    display: 'inline-block',
-    color: '#fff'
-  },
-  firstLetter: {
-    [theme.breakpoints.down('xs')]: {
-      height: 20
-    },
-    [theme.breakpoints.between('xs', 'md')]: {
-      height: 40
-    },
-    [theme.breakpoints.between('md', 'xl')]: {
-      height: 50,
-      marginRight: 2
-    },
-    [theme.breakpoints.up('xl')]: {
-      height: 88,
-      marginRight: 4
-    }
-  },
-  bannerSubheading: {
-    marginTop: theme.spacing(1.5),
-    display: 'flex',
-    '& div': {
-      flexGrow: 1,
-      width: 0
-    },
-    [theme.breakpoints.down('sm')]: {
-      display: 'none'
-    }
-  },
-  layout: {
-    width: 'auto',
-    marginLeft: theme.spacing(3),
-    marginRight: theme.spacing(3),
-    [theme.breakpoints.up(1100 + theme.spacing(6))]: {
-      width: 1100,
-      marginLeft: 'auto',
-      marginRight: 'auto'
-    }
-  },
-  heroContent: {
-    paddingTop: theme.spacing(3),
-    paddingBottom: theme.spacing(1)
-  },
-  licenceText: {
-    marginTop: theme.spacing(0.5),
-    fontSize: '0.7em'
-  },
-  lowerRow: {
-    marginTop: theme.spacing(1)
-  },
-  licenceTextContainer: {
-    marginTop: theme.spacing(1),
-    display: 'flex',
-    justifyContent: 'center'
-  },
-  bannerHeading: {
-    [theme.breakpoints.down('sm')]: {
-      display: 'none'
-    }
-  }
-}))
-
+/**
+ * A component for generating a front page for a semantic portal.
+ */
 const Main = props => {
-  const { perspectives, screenSize, rootUrl } = props
-  const classes = useStyles(props)
+  const { perspectives, screenSize, layoutConfig } = props
+  const { mainPage } = layoutConfig
   let headingVariant = 'h5'
   let subheadingVariant = 'body1'
   let descriptionVariant = 'body1'
-  let largeGrid = false
   switch (screenSize) {
     case 'xs':
       headingVariant = 'h5'
@@ -133,63 +43,151 @@ const Main = props => {
       headingVariant = 'h1'
       subheadingVariant = 'h4'
       descriptionVariant = 'h6'
-      largeGrid = true
       break
   }
 
   return (
-    <div className={classes.root}>
-      <div className={classes.banner}>
-        <div className={classes.bannerContent}>
-          <div className={classes.bannerHeading}>
-            <img className={classes.firstLetter} src={mmmLogo} />
-            <Typography component='span' variant={headingVariant} align='center'>
-              {intl.get('appTitle.long')}
+    <Box
+      sx={theme => {
+        const defaultHeightReduction = layoutConfig.topBar.defaultHeight +
+          layoutConfig.footer.defaultHeight + getSpacing(theme, 2)
+        const reducedHeightReduction = layoutConfig.topBar.reducedHeight +
+          layoutConfig.footer.reducedHeight + getSpacing(theme, 2)
+        return {
+          paddingBottom: theme.spacing(2),
+          height: {
+            hundredPercentHeight: `calc(100% - ${reducedHeightReduction}px)`,
+            reducedHeight: `calc(100% - ${defaultHeightReduction}px)`
+          },
+          overflow: {
+            hundredPercentHeight: 'auto'
+          }
+        }
+      }}
+    >
+      <Box
+        sx={theme => ({
+          background: mainPage.bannerBackround,
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          height: mainPage.bannerMobileHeight,
+          [theme.breakpoints.up('md')]: {
+            height: mainPage.bannerReducedHeight
+          },
+          [theme.breakpoints.up('xl')]: {
+            height: mainPage.bannerDefaultHeight
+          },
+          boxShadow: '0 -15px 15px 0px #bdbdbd inset',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
+        })}
+      >
+        <Box
+          sx={{
+            color: '#fff'
+          }}
+        >
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'center'
+            }}
+          >
+            <Typography component='h1' variant={headingVariant} align='center'>
+              {intl.getHTML('appTitle.long')}
             </Typography>
-          </div>
-          <div className={classes.bannerSubheading}>
-            <div>
-              <Typography component='h2' variant={subheadingVariant} align='center'>
-                {intl.get('appTitle.subheading')}
+          </Box>
+          <Box
+            sx={theme => ({
+              marginTop: theme.spacing(1.5),
+              ...(mainPage.wrapSubheading) && {
+                [theme.breakpoints.up('md')]: {
+                  display: 'flex',
+                  '& div': {
+                    flexGrow: 1,
+                    width: 0
+                  }
+                }
+              }
+            })}
+          >
+            <Box>
+              <Typography component='p' variant={subheadingVariant} align='center'>
+                {intl.getHTML('appTitle.subheading')}
               </Typography>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-      <div className={classes.layout}>
-        <div className={classes.heroContent}>
+            </Box>
+          </Box>
+        </Box>
+      </Box>
+      <Box
+        sx={theme => ({
+          marginLeft: theme.spacing(1),
+          marginRight: theme.spacing(1),
+          [theme.breakpoints.up(1100 + getSpacing(theme, 6))]: {
+            width: 1100,
+            marginLeft: 'auto',
+            marginRight: 'auto'
+          }
+        })}
+      >
+        <Box
+          sx={theme => ({
+            paddingBottom: theme.spacing(1)
+          })}
+        >
           <Typography variant={descriptionVariant} color='textPrimary' paragraph>
             {intl.getHTML('appDescription')}
           </Typography>
           <Typography variant={descriptionVariant} align='center' color='textPrimary' paragraph>
             {intl.get('selectPerspective')}
           </Typography>
-        </div>
-        {largeGrid && <MainGridLg perspectives={perspectives} rootUrl={rootUrl} />}
-        {!largeGrid &&
-          <Grid
-            container spacing={screenSize === 'sm' ? 2 : 1}
-            justify={screenSize === 'xs' || screenSize === 'sm' ? 'center' : 'flex-start'}
+        </Box>
+        <Grid
+          container spacing={screenSize === 'sm' ? 2 : 1}
+          justifyContent={screenSize === 'xs' || screenSize === 'sm' ? 'center' : 'flex-start'}
+        >
+          {perspectives.map(perspective => {
+            const hideCard = (has(perspective.hideCardOnFrontPage) && perspective.hideCardOnFrontPage)
+            if (!hideCard) {
+              return (
+                <MainCard
+                  key={perspective.id}
+                  perspective={perspective}
+                  cardHeadingVariant='h5'
+                  rootUrl={props.rootUrl}
+                />
+              )
+            }
+            return null
+          })}
+        </Grid>
+        <Box
+          sx={theme => ({
+            marginTop: theme.spacing(1),
+            display: 'flex',
+            justifyContent: 'center'
+          })}
+        >
+          <Typography
+            sx={theme => ({
+              marginTop: theme.spacing(0.5),
+              fontSize: '0.7em'
+            })}
           >
-            {perspectives.map(perspective =>
-              <MainCard
-                key={perspective.id}
-                perspective={perspective}
-                cardHeadingVariant='h5'
-                rootUrl={rootUrl}
-              />)}
-          </Grid>}
-        <div className={classes.licenceTextContainer}>
-          <Typography className={classes.licenceText}>{intl.getHTML('mainPageImageLicence')}</Typography>
-        </div>
-      </div>
-    </div>
+            {intl.getHTML('mainPageImageLicence')}
+          </Typography>
+        </Box>
+      </Box>
+    </Box>
   )
 }
 
 Main.propTypes = {
+  /**
+   * An array of objects used for configuration. Each object represents a single perspective.
+   */
   perspectives: PropTypes.array.isRequired,
   screenSize: PropTypes.string.isRequired,
   rootUrl: PropTypes.string.isRequired

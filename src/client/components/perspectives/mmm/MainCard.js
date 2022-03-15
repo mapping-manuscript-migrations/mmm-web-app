@@ -1,22 +1,39 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Typography from '@material-ui/core/Typography'
-import Paper from '@material-ui/core/Paper'
-import Grid from '@material-ui/core/Grid'
+import Typography from '@mui/material/Typography'
+import Paper from '@mui/material/Paper'
+import Grid from '@mui/material/Grid'
 import intl from 'react-intl-universal'
-import { makeStyles } from '@material-ui/core/styles'
-import useMediaQuery from '@material-ui/core/useMediaQuery'
+import Card from '@mui/material/Card'
+import CardActionArea from '@mui/material/CardActionArea'
+import CardContent from '@mui/material/CardContent'
+import CardMedia from '@mui/material/CardMedia'
+import makeStyles from '@mui/styles/makeStyles'
+import useMediaQuery from '@mui/material/useMediaQuery'
 import { Link } from 'react-router-dom'
+import { has } from 'lodash'
+import defaultImage from '../../../img/main_page/thumb.png'
 
 const useStyles = makeStyles(theme => ({
-  gridItem: {
+  gridItem: props => ({
     textDecoration: 'none',
-    [theme.breakpoints.down('xs')]: {
+    [theme.breakpoints.down('sm')]: {
       justifyContent: 'center'
+    },
+    height: 228,
+    [theme.breakpoints.down('md')]: {
+      height: 170,
+      maxWidth: 300
+    },
+    [props.perspective.frontPageElement === 'card']: {
+      height: 'inherit',
+      maxWidth: 269,
+      minWidth: 269
     }
-  },
-  perspectiveCard: props => ({
+  }),
+  perspectiveCardPaper: props => ({
     padding: theme.spacing(1.5),
+    boxSizing: 'border-box',
     color: '#fff',
     background: `linear-gradient( rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4) ), url(${props.perspective.frontPageImage})`,
     backgroundRepeat: 'no-repeat',
@@ -28,47 +45,80 @@ const useStyles = makeStyles(theme => ({
       backgroundSize: 'cover',
       backgroundPosition: 'center'
     },
-    [theme.breakpoints.down('xs')]: {
-      width: 351 - theme.spacing(3),
-      height: 180
-    },
-    [theme.breakpoints.between(600, 780)]: {
-      height: 180
-    },
-    [theme.breakpoints.between(780, 960)]: {
-      height: 238
-    },
-    [theme.breakpoints.between('md', 'lg')]: {
-      height: 100
-    },
-    [theme.breakpoints.up('xl')]: {
-      height: 180
-    }
-  })
+    height: '100%',
+    width: '100%'
+  }),
+  cardMedia: {
+    height: 100
+  },
+  cardContent: {
+    height: 90
+  },
+  card: {
+    width: '100%'
+  }
 }))
 
+/**
+ * A component for generating a Material-UI Card for a perspective on the portal's landing page.
+ */
 const MainCard = props => {
   const classes = useStyles(props)
-  const { perspective, cardHeadingVariant, rootUrl } = props
-  const xsScreen = useMediaQuery(theme => theme.breakpoints.down('xs'))
+  const { perspective, cardHeadingVariant } = props
+  const xsScreen = useMediaQuery(theme => theme.breakpoints.down('sm'))
   // const smScreen = useMediaQuery(theme => theme.breakpoints.between('sm', 'md'))
+  const externalPerspective = has(perspective, 'externalUrl')
+  const card = has(perspective, 'frontPageElement') && perspective.frontPageElement === 'card'
+  const searchMode = has(perspective, 'searchMode') ? perspective.searchMode : 'faceted-search'
+
   return (
     <Grid
       className={classes.gridItem}
       key={perspective.id}
       item xs={12} sm={6} md lg xl={4}
-      component={Link}
-      to={`${rootUrl}/${perspective.id}/faceted-search`}
+      component={externalPerspective ? 'a' : Link}
+      to={externalPerspective ? null : `${props.rootUrl}/${perspective.id}/${searchMode}`}
       container={xsScreen}
+      href={externalPerspective ? perspective.externalUrl : null}
+      target={externalPerspective ? '_blank' : null}
     >
-      <Paper className={classes.perspectiveCard}>
-        <Typography gutterBottom variant={cardHeadingVariant} component='h2'>
-          {intl.get(`perspectives.${perspective.id}.label`)}
-        </Typography>
-        <Typography component='p'>
-          {intl.get(`perspectives.${perspective.id}.shortDescription`)}
-        </Typography>
-      </Paper>
+      {!card &&
+        <Paper className={classes.perspectiveCardPaper}>
+          <Typography
+            gutterBottom
+            variant={cardHeadingVariant}
+            component='h2'
+            sx={{ color: '#fff' }}
+          >
+            {intl.get(`perspectives.${perspective.id}.label`)}
+          </Typography>
+          <Typography
+            component='p'
+            sx={{ color: '#fff' }}
+          >
+            {intl.get(`perspectives.${perspective.id}.shortDescription`)}
+          </Typography>
+        </Paper>}
+      {card &&
+        <Card className={classes.card}>
+          <CardActionArea>
+            <CardMedia
+              className={classes.cardMedia}
+              image={has(perspective, 'frontPageImage')
+                ? perspective.frontPageImage
+                : defaultImage}
+              title={intl.get(`perspectives.${perspective.id}.label`)}
+            />
+            <CardContent className={classes.cardContent}>
+              <Typography gutterBottom variant='h5' component='h2'>
+                {intl.get(`perspectives.${perspective.id}.label`)}
+              </Typography>
+              <Typography component='p'>
+                {intl.get(`perspectives.${perspective.id}.shortDescription`)}
+              </Typography>
+            </CardContent>
+          </CardActionArea>
+        </Card>}
     </Grid>
   )
 }

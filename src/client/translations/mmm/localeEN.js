@@ -6,7 +6,7 @@ export default {
   },
   appTitle: {
     short: 'mmm',
-    long: 'apping Manuscript Migrations',
+    long: 'Mapping Manuscript Migrations',
     subheading: `Navigating the network of connections between people, institutions, and
         places within European medieval and Renaissance manuscripts`
   },
@@ -33,7 +33,7 @@ export default {
       technicalDocumentation: 'Technical documentation',
       technicalDocumentationUrl: 'https://mapping-manuscript-migrations.github.io'
     },
-    searchBarPlaceHolder: 'Search all MMM content',
+    searchBarPlaceHolder: 'Search all content',
     searchBarPlaceHolderShort: 'Search',
     instructions: 'instructions'
   },
@@ -132,7 +132,7 @@ export default {
   deckGlMap: {
     arcColouring: 'Arc colouring:',
     showMoreInformation: 'Click to show more information.',
-    manuscriptMigrations: {
+    placesMsMigrations: {
       legendTitle: 'Arc colouring',
       legendFrom: 'Manuscript production place',
       legendTo: 'Last known location',

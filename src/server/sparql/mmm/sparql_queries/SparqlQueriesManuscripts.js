@@ -538,3 +538,27 @@ export const knowledgeGraphMetadataQuery = `
                       dct:modified ?databaseDump__modified .
   }
 `
+
+export const placePropertiesInfoWindow = `
+    ?id skos:prefLabel ?prefLabel__id .
+    BIND(?prefLabel__id AS ?prefLabel__prefLabel)
+    BIND(CONCAT("/places/page/", REPLACE(STR(?id), "^.*\\\\/(.+)", "$1")) AS ?prefLabel__dataProviderUrl)
+`
+
+export const manuscriptsProducedAt = `
+    OPTIONAL {
+      <FILTER>
+      ?related__id ^crm:P108_has_produced/crm:P7_took_place_at ?id .
+      ?related__id skos:prefLabel ?related__prefLabel .
+      BIND(CONCAT("/manuscripts/page/", REPLACE(STR(?related__id), "^.*\\\\/(.+)", "$1")) AS ?related__dataProviderUrl)
+    }
+`
+
+export const lastKnownLocationsAt = `
+    OPTIONAL {
+      <FILTER>
+      ?related__id mmm-schema:last_known_location ?id .
+      ?related__id skos:prefLabel ?related__prefLabel .
+      BIND(CONCAT("/manuscripts/page/", REPLACE(STR(?related__id), "^.*\\\\/(.+)", "$1")) AS ?related__dataProviderUrl)
+    }
+`
