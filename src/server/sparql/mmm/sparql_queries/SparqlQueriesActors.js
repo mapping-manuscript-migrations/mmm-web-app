@@ -222,3 +222,20 @@ export const actorPlacesQuery = `
   }
   GROUP BY ?id ?lat ?long
 `
+export const placePropertiesInfoWindow = `
+    ?id skos:prefLabel ?prefLabel__id .
+    BIND(?prefLabel__id AS ?prefLabel__prefLabel)
+    BIND(CONCAT("/places/page/", REPLACE(STR(?id), "^.*\\\\/(.+)", "$1")) AS ?prefLabel__dataProviderUrl)
+`
+
+export const actorsAt = `
+    OPTIONAL {
+      { ?related__id crm:P98i_was_born/crm:P7_took_place_at ?id }
+      UNION
+      { ?related__id crm:P100i_died_in/crm:P7_took_place_at ?id }
+      UNION
+      { ?related__id ^crm:P11_had_participant/crm:P7_took_place_at ?id }
+      ?related__id skos:prefLabel ?related__prefLabel .
+      BIND(CONCAT("/actors/page/", REPLACE(STR(?related__id), "^.*\\\\/(.+)", "$1")) AS ?related__dataProviderUrl)
+    }
+`

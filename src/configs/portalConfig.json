@@ -4,6 +4,10 @@
     "perspectives": {
         "searchPerspectives": [
             "manuscripts",
+            "works",
+            "events",
+            "actors",
+            "places",
             "fullTextSearch"
         ],
         "onlyInstancePages": [

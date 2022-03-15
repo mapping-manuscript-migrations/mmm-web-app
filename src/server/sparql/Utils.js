@@ -3,8 +3,8 @@ import { has } from 'lodash'
 
 // import { backendSearchConfig as oldBackendSearchConfig } from './lettersampo/BackendSearchConfig'
 
-// import { placesConfig as oldPerspectiveConfig } from './lettersampo/perspective_configs/PlacesConfig'
-// import { INITIAL_STATE } from '../../client/reducers/lettersampo/placesFacets'
+// import { placesPerspectiveConfig as oldPerspectiveConfig } from './mmm/perspective_configs/PlacesPerspectiveConfig'
+// import { INITIAL_STATE } from '../../client/reducers/mmm/placesFacets'
 
 export const createBackendSearchConfig = async () => {
   const portalConfigJSON = await readFile('src/configs/portalConfig.json')

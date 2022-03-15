@@ -1,11 +1,11 @@
 {
-    "id": "perspective1",
+    "id": "works",
     "endpoint": {
         "url": "https://ldf.fi/mmm/sparql",
         "useAuth": false,
         "prefixesFile": "SparqlQueriesPrefixes.js"
     },
-    "sparqlQueriesFile": "SparqlQueriesPerspective1.js",
+    "sparqlQueriesFile": "SparqlQueriesWorks.js",
     "baseURI": "http://ldf.fi/mmm",
     "URITemplate": "<BASE_URI>/work/<LOCAL_ID>",
     "facetClass": "frbroo:F1_Work",
@@ -17,7 +17,7 @@
     "defaultTab": "table",
     "defaultInstancePageTab": "table",
     "resultClasses": {
-        "perspective1": {
+        "works": {
             "paginatedResultsConfig": {
                 "tabID": 0,
                 "component": "ResultTable",
