@@ -54,10 +54,6 @@
             "tabIcon": "CloudDownload",
             "resultClass": "perspective1",
             "facetClass": "perspective1"
-        },
-        "knowledgeGraphMetadata": {
-            "sparqlQuery": "knowledgeGraphMetadataQuery",
-            "resultMapper": "makeObjectList"
         }
     },
     "properties": [

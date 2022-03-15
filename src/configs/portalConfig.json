@@ -36,8 +36,8 @@
         "sitemapInstancePageQuery": "sitemapInstancePageQuery"
     },
     "knowledgeGraphMetadataConfig": {
-        "showTable": false,
-        "perspective": "perspective1" 
+        "showTable": true,
+        "perspective": "manuscripts" 
     },
     "layoutConfig": {
         "colorPalette": {

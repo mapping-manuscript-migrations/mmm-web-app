@@ -183,6 +183,10 @@
             "resultClass": "manuscripts",
             "facetClass": "manuscripts"
         },
+        "knowledgeGraphMetadata": {
+            "sparqlQuery": "knowledgeGraphMetadataQuery",
+            "resultMapper": "makeObjectList"
+        },
         "jenaText": {
             "propertiesQueryBlock": "fullTextSearchProperties"
         }
