@@ -52,6 +52,7 @@
         "placesAll": {
             "tabID": 1,
             "component": "LeafletMap",
+            "showInstanceCountInClusters": false,
             "tabPath": "map",
             "tabIcon": "AddLocation",
             "sparqlQuery": "allPlacesQuery",
@@ -61,6 +62,14 @@
             "instanceConfig": {
                 "propertiesQueryBlock": "placePropertiesInfoWindow"
             }
+        },
+        "export": {
+            "tabID": 2,
+            "component": "Export",
+            "tabPath": "export",
+            "tabIcon": "CloudDownload",
+            "resultClass": "places",
+            "facetClass": "places"
         }
     },
     "maps": {

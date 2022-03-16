@@ -59,6 +59,14 @@
             "instanceConfig": {
                 "propertiesQueryBlock": "placePropertiesInfoWindow"
             }
+        },
+        "export": {
+            "tabID": 2,
+            "component": "Export",
+            "tabPath": "export",
+            "tabIcon": "CloudDownload",
+            "resultClass": "events",
+            "facetClass": "events"
         }
     },
     "maps": {
