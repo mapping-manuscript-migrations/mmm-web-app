@@ -443,6 +443,34 @@ export const networkNodesQuery = `
         skos:prefLabel ?prefLabel .
   }
 `
+  export const manuscriptInstancePageNetworkLinksQuery = `
+  SELECT DISTINCT (?id as ?source) ?target (1 as ?weight)
+  WHERE {
+    VALUES ?id { <ID> }
+    ?id crm:P51_has_former_or_current_owner ?owner .
+    ?target crm:P51_has_former_or_current_owner ?owner .
+  }
+  LIMIT 10
+`
+
+export const manuscriptFacetResultsNetworkLinksQuery = `
+  SELECT DISTINCT (?manuscript as ?source) ?target ("Author" as ?prefLabel)
+  WHERE {
+    <FILTER>
+    ?manuscript mmm-schema:manuscript_author/^mmm-schema:manuscript_author ?target .
+  }
+`
+
+export const manuscriptNetworkNodesQuery = `
+  SELECT DISTINCT ?id ?prefLabel ?class ?href
+  WHERE {
+    VALUES ?class { frbroo:F4_Manifestation_Singleton }
+    VALUES ?id { <ID_SET> }
+    ?id a ?class ;
+      skos:prefLabel ?prefLabel .
+    BIND(CONCAT("/perspective1/page/", REPLACE(STR(?id), "^.*\\\\/(.+)", "$1")) AS ?href)
+  }
+`
 
 export const productionPlacesQuery = `
   SELECT ?id ?lat ?long
